@@ -32,6 +32,10 @@ export interface PageRef extends NavPage {
   section: NavSection;
 }
 
+/** Página genérica de componente (contenido en content/componentes). */
+const componentDoc = () =>
+  import('../pages/componentes/component-doc').then((m) => m.ComponentDocPage);
+
 export const FIGMA_URL = 'https://www.figma.com/design/IntROaQkiRlnkFUci5PbDu';
 export const REPO_URL = 'https://github.com/joshunhappy/inap-angular-reference';
 
@@ -61,16 +65,16 @@ export const SECTIONS: NavSection[] = [
     groups: [
       {
         pages: [
-          { slug: 'color', title: 'Color', status: 'decidido', description: 'Colores de marca, tokens semánticos y contraste en los dos temas.', keywords: ['primary', 'secondary', 'accent', 'contraste'] },
-          { slug: 'tipografia', title: 'Tipografía', status: 'decidido', description: 'Montserrat, escala de tamaños y estilos de texto.', keywords: ['fuente', 'montserrat', 'dancing script'] },
-          { slug: 'espaciado', title: 'Espaciado', status: 'decidido', description: 'Escala de espacios y márgenes de página.', keywords: ['spacing', 'gap', 'padding'] },
-          { slug: 'tamano-de-controles', title: 'Tamaño de controles', status: 'decidido', description: 'Tamaños xs a xl de botones y campos, y áreas táctiles.', keywords: ['size', 'btn-lg', 'touch'] },
-          { slug: 'radios', title: 'Radios', status: 'decidido', description: 'Redondeo de cajas, campos y selectores.', keywords: ['radius', 'rounded'] },
-          { slug: 'sombras', title: 'Sombras', status: 'decidido', description: 'Elevación de tarjetas, menús y diálogos.', keywords: ['shadow', 'elevación'] },
-          { slug: 'iconos', title: 'Íconos', status: 'decidido', description: 'Lucide 0.469.0: tamaños, color y accesibilidad.', keywords: ['lucide', 'svg', 'icon'] },
-          { slug: 'logo', title: 'Logo y marca', status: 'decidido', description: 'Versiones del logo, tamaño mínimo y colores de marca fijos.', keywords: ['marca', 'brand'] },
-          { slug: 'movimiento', title: 'Movimiento', status: 'propuesta', description: 'Transiciones y respeto a «reducir movimiento».', keywords: ['animación', 'motion', 'prefers-reduced-motion'] },
-          { slug: 'accesibilidad', title: 'Accesibilidad', status: 'decidido', description: 'WCAG 2.1 AA: contraste, foco, teclado y lectores de pantalla.', keywords: ['wcag', 'a11y', 'foco', 'aria'] },
+          { slug: 'color', load: () => import('../pages/fundamentos/color').then((m) => m.ColorPage), title: 'Color', status: 'decidido', description: 'Colores de marca, tokens semánticos y contraste en los dos temas.', keywords: ['primary', 'secondary', 'accent', 'contraste'] },
+          { slug: 'tipografia', load: () => import('../pages/fundamentos/tipografia').then((m) => m.TipografiaPage), title: 'Tipografía', status: 'decidido', description: 'Montserrat, escala de tamaños y estilos de texto.', keywords: ['fuente', 'montserrat', 'dancing script'] },
+          { slug: 'espaciado', load: () => import('../pages/fundamentos/espaciado').then((m) => m.EspaciadoPage), title: 'Espaciado', status: 'decidido', description: 'Escala de espacios y márgenes de página.', keywords: ['spacing', 'gap', 'padding'] },
+          { slug: 'tamano-de-controles', load: () => import('../pages/fundamentos/tamano-de-controles').then((m) => m.TamanoPage), title: 'Tamaño de controles', status: 'decidido', description: 'Tamaños xs a xl de botones y campos, y áreas táctiles.', keywords: ['size', 'btn-lg', 'touch'] },
+          { slug: 'radios', load: () => import('../pages/fundamentos/radios').then((m) => m.RadiosPage), title: 'Radios', status: 'decidido', description: 'Redondeo de cajas, campos y selectores.', keywords: ['radius', 'rounded'] },
+          { slug: 'sombras', load: () => import('../pages/fundamentos/sombras').then((m) => m.SombrasPage), title: 'Sombras', status: 'decidido', description: 'Elevación de tarjetas, menús y diálogos.', keywords: ['shadow', 'elevación'] },
+          { slug: 'iconos', load: () => import('../pages/fundamentos/iconos').then((m) => m.IconosPage), title: 'Íconos', status: 'decidido', description: 'Lucide 0.469.0: tamaños, color y accesibilidad.', keywords: ['lucide', 'svg', 'icon'] },
+          { slug: 'logo', load: () => import('../pages/fundamentos/logo').then((m) => m.LogoPage), title: 'Logo y marca', status: 'decidido', description: 'Versiones del logo, tamaño mínimo y colores de marca fijos.', keywords: ['marca', 'brand'] },
+          { slug: 'movimiento', load: () => import('../pages/fundamentos/movimiento').then((m) => m.MovimientoPage), title: 'Movimiento', status: 'propuesta', description: 'Transiciones y respeto a «reducir movimiento».', keywords: ['animación', 'motion', 'prefers-reduced-motion'] },
+          { slug: 'accesibilidad', load: () => import('../pages/fundamentos/accesibilidad').then((m) => m.AccesibilidadPage), title: 'Accesibilidad', status: 'decidido', description: 'WCAG 2.1 AA: contraste, foco, teclado y lectores de pantalla.', keywords: ['wcag', 'a11y', 'foco', 'aria'] },
         ],
       },
     ],
@@ -83,8 +87,8 @@ export const SECTIONS: NavSection[] = [
     groups: [
       {
         pages: [
-          { slug: 'todos', title: 'Todos los tokens', status: 'decidido', description: 'Tabla con nombre, clase, valor claro y oscuro, contraste y uso.', keywords: ['variables', 'css'] },
-          { slug: 'uso', title: 'Cómo usar los tokens', status: 'decidido', description: 'Qué token elegir para texto, bordes y fondos, y qué evitar.', keywords: ['-text', 'contraste'] },
+          { slug: 'todos', load: () => import('../pages/tokens/all-tokens').then((m) => m.AllTokensPage), title: 'Todos los tokens', status: 'decidido', description: 'Tabla con nombre, clase, valor claro y oscuro, contraste y uso.', keywords: ['variables', 'css'] },
+          { slug: 'uso', load: () => import('../pages/tokens/token-usage').then((m) => m.TokenUsagePage), title: 'Cómo usar los tokens', status: 'decidido', description: 'Qué token elegir para texto, bordes y fondos, y qué evitar.', keywords: ['-text', 'contraste'] },
         ],
       },
     ],
@@ -98,18 +102,18 @@ export const SECTIONS: NavSection[] = [
       {
         label: 'Base (daisyUI)',
         pages: [
-          { slug: 'boton', title: 'Botón', status: 'decidido', description: 'Sólido, contorno, suave y fantasma, en todos los colores.', keywords: ['button', 'btn', 'btn-outline', 'btn-soft', 'btn-ghost'] },
-          { slug: 'campos', title: 'Campos de texto', status: 'decidido', description: 'Input, Select y Textarea con estados de foco y error.', keywords: ['input', 'select', 'textarea', 'formulario'] },
-          { slug: 'seleccion', title: 'Casilla, radio e interruptor', status: 'decidido', description: 'Checkbox, Radio y Toggle.', keywords: ['checkbox', 'radio', 'toggle'] },
-          { slug: 'badge', title: 'Badge', status: 'decidido', description: 'Sólido, suave y contorno. No interactivo.', keywords: ['badge-soft', 'etiqueta'] },
-          { slug: 'alerta', title: 'Alerta', status: 'decidido', description: 'Mensajes de estado con role="status" o role="alert".', keywords: ['alert', 'aviso'] },
-          { slug: 'tabs', title: 'Tabs', status: 'decidido', description: 'Pestañas y tabs como enlaces de ancla.', keywords: ['tabs-border', 'pestañas'] },
-          { slug: 'migas-de-pan', title: 'Migas de pan', status: 'decidido', description: 'Ubicación de la página dentro del sitio.', keywords: ['breadcrumbs', 'breadcrumb'] },
-          { slug: 'paginacion', title: 'Paginación', status: 'decidido', description: 'Navegación entre páginas de resultados.', keywords: ['pagination', 'join'] },
-          { slug: 'acordeon', title: 'Acordeón', status: 'decidido', description: 'Contenido que se expande con details y summary.', keywords: ['collapse', 'faq'] },
-          { slug: 'avatar', title: 'Avatar', status: 'decidido', description: 'Foto o iniciales del usuario.', keywords: ['avatar-placeholder'] },
-          { slug: 'dialogo', title: 'Diálogo', status: 'decidido', description: 'Ventana modal con el elemento dialog.', keywords: ['modal', 'dialog'] },
-          { slug: 'menu-desplegable', title: 'Menú desplegable', status: 'decidido', description: 'Dropdown y menu.', keywords: ['dropdown', 'menu'] },
+          { slug: 'boton', load: componentDoc, title: 'Botón', status: 'decidido', description: 'Sólido, contorno, suave y fantasma, en todos los colores.', keywords: ['button', 'btn', 'btn-outline', 'btn-soft', 'btn-ghost'] },
+          { slug: 'campos', load: componentDoc, title: 'Campos de texto', status: 'decidido', description: 'Input, Select y Textarea con estados de foco y error.', keywords: ['input', 'select', 'textarea', 'formulario'] },
+          { slug: 'seleccion', load: componentDoc, title: 'Casilla, radio e interruptor', status: 'decidido', description: 'Checkbox, Radio y Toggle.', keywords: ['checkbox', 'radio', 'toggle'] },
+          { slug: 'badge', load: componentDoc, title: 'Badge', status: 'decidido', description: 'Sólido, suave y contorno. No interactivo.', keywords: ['badge-soft', 'etiqueta'] },
+          { slug: 'alerta', load: componentDoc, title: 'Alerta', status: 'decidido', description: 'Mensajes de estado con role="status" o role="alert".', keywords: ['alert', 'aviso'] },
+          { slug: 'tabs', load: componentDoc, title: 'Tabs', status: 'decidido', description: 'Pestañas y tabs como enlaces de ancla.', keywords: ['tabs-border', 'pestañas'] },
+          { slug: 'migas-de-pan', load: componentDoc, title: 'Migas de pan', status: 'decidido', description: 'Ubicación de la página dentro del sitio.', keywords: ['breadcrumbs', 'breadcrumb'] },
+          { slug: 'paginacion', load: componentDoc, title: 'Paginación', status: 'decidido', description: 'Navegación entre páginas de resultados.', keywords: ['pagination', 'join'] },
+          { slug: 'acordeon', load: componentDoc, title: 'Acordeón', status: 'decidido', description: 'Contenido que se expande con details y summary.', keywords: ['collapse', 'faq'] },
+          { slug: 'avatar', load: componentDoc, title: 'Avatar', status: 'decidido', description: 'Foto o iniciales del usuario.', keywords: ['avatar-placeholder'] },
+          { slug: 'dialogo', load: componentDoc, title: 'Diálogo', status: 'decidido', description: 'Ventana modal con el elemento dialog.', keywords: ['modal', 'dialog'] },
+          { slug: 'menu-desplegable', load: componentDoc, title: 'Menú desplegable', status: 'decidido', description: 'Dropdown y menu.', keywords: ['dropdown', 'menu'] },
         ],
       },
       {

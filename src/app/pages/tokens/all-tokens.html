@@ -1,0 +1,77 @@
+<inap-doc-page section="tokens" slug="todos">
+  <p>
+    Esta tabla se genera al compilar, a partir de <code>src/styles/theme/inap-theme.css</code>: siempre
+    coincide con el archivo. Los nombres de Figma (code syntax) son las mismas variables CSS.
+  </p>
+
+  <form role="search" class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-end" (submit)="$event.preventDefault()">
+    <label class="flex grow flex-col gap-1">
+      <span class="text-sm font-semibold">Buscar token</span>
+      <input class="input" type="search" placeholder="Nombre, clase o valor (#215aa8)" [value]="query()"
+             (input)="query.set($any($event.target).value)" />
+    </label>
+    <label class="flex flex-col gap-1 sm:w-56">
+      <span class="text-sm font-semibold">Grupo</span>
+      <select class="select" (change)="group.set($any($event.target).value)">
+        <option value="">Todos</option>
+        @for (g of groups; track g[0]) {
+          <option [value]="g[0]" [selected]="group() === g[0]">{{ g[1] }}</option>
+        }
+      </select>
+    </label>
+  </form>
+  <p class="text-sm text-neutral-text" aria-live="polite">{{ filtered().length }} tokens</p>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead>
+        <tr>
+          <th scope="col">Token y clase</th>
+          <th scope="col">Claro</th>
+          <th scope="col">Oscuro</th>
+          <th scope="col">Contraste claro / oscuro</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (t of filtered(); track t.name) {
+          <tr>
+            <td>
+              <code>--{{ t.name }}</code>
+              @if (t.utility) {
+                <span class="mt-1 block"><code>{{ t.utility }}</code></span>
+              }
+              <span class="mt-1 block text-xs text-neutral-text">{{ label(t.group) }}</span>
+            </td>
+            <td>
+              <span class="flex items-center gap-2">
+                @if (isColor(t)) {
+                  <span class="size-5 shrink-0 rounded-sm border border-base-300" [style.background]="t.light" aria-hidden="true"></span>
+                }
+                <code>{{ t.light }}</code>
+              </span>
+            </td>
+            <td>
+              <span class="flex items-center gap-2">
+                @if (isColor(t)) {
+                  <span class="size-5 shrink-0 rounded-sm border border-base-300" [style.background]="t.dark" aria-hidden="true"></span>
+                }
+                <code>{{ t.dark }}</code>
+              </span>
+            </td>
+            <td>
+              @if (t.against) {
+                <inap-contrast [ratio]="t.contrastLight" [min]="minimum(t)" /> /
+                <inap-contrast [ratio]="t.contrastDark" [min]="minimum(t)" />
+                <span class="block text-xs text-neutral-text">contra <code>{{ t.against.slice(6) }}</code></span>
+              } @else {
+                <span class="text-neutral-text">—</span>
+              }
+            </td>
+          </tr>
+        } @empty {
+          <tr><td colspan="4" class="py-8 text-center text-neutral-text">Ningún token coincide con la búsqueda.</td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</inap-doc-page>

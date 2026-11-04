@@ -16,7 +16,7 @@ import { PageHeader } from '../../ui/page-header/page-header';
         <inap-icon name="info" />
         <span>
           Esta página está en preparación. Mientras tanto, la
-          <a [href]="guideUrl" target="_blank" rel="noopener" class="link font-semibold">guía de implementación<span class="sr-only"> (abre en otra pestaña)</span></a>
+          <a [href]="guideUrl" target="_blank" rel="noopener" class="link font-semibold">guía de implementación<span class="sr-only"> (se abre en una pestaña nueva)</span></a>
           tiene las reglas de este tema.
         </span>
       </div>

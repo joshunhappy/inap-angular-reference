@@ -1,0 +1,50 @@
+<inap-doc-page section="componentes" [slug]="page()" [figma]="figma()">
+  @if (doc(); as d) {
+    <div class="mb-8 max-w-prose" [innerHTML]="trust(d.intro)"></div>
+
+    <inap-doc-tabs label="Documentación del componente">
+      <ng-template inapTab="Ejemplos">
+        <div class="flex flex-col gap-10">
+          @for (e of d.examples; track e.title) {
+            <inap-example [title]="e.title" [description]="e.description" [html]="e.html"
+                          [previewClass]="e.previewClass ?? 'flex flex-wrap items-center gap-3 p-6'" />
+          }
+        </div>
+      </ng-template>
+
+      <ng-template inapTab="Uso">
+        <div [innerHTML]="trust(d.usage.html)"></div>
+        @for (dd of d.usage.doDont ?? []; track dd.doText) {
+          <inap-do-dont class="mb-6" [doText]="dd.doText" [dontText]="dd.dontText">
+            <div do class="contents" [innerHTML]="trust(dd.doHtml)"></div>
+            <div dont class="contents" [innerHTML]="trust(dd.dontHtml)"></div>
+          </inap-do-dont>
+        }
+      </ng-template>
+
+      <ng-template inapTab="Accesibilidad">
+        <div [innerHTML]="trust(d.a11y)"></div>
+      </ng-template>
+
+      <ng-template inapTab="Código">
+        <div class="doc-table-wrap">
+          <table class="doc-table">
+            <thead><tr><th scope="col">Clase</th><th scope="col">Qué hace</th></tr></thead>
+            <tbody>
+              @for (c of d.classes; track c[0]) {
+                <tr><td><code>{{ c[0] }}</code></td><td [innerHTML]="trust(c[1])"></td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        @if (d.codeNotes) {
+          <div [innerHTML]="trust(d.codeNotes)"></div>
+        }
+        @for (s of d.snippets ?? []; track s.title) {
+          <h3>{{ s.title }}</h3>
+          <inap-code-block [language]="s.language" [code]="s.code" />
+        }
+      </ng-template>
+    </inap-doc-tabs>
+  }
+</inap-doc-page>

@@ -145,6 +145,7 @@ Estado de cada punto:
 - Cualquier cambio de token se hace en Figma y en `inap-theme.css`, y se aplica en las dos plataformas.
 - Íconos: Lucide (`lucide-static` v0.469.0) en ambas.
 - Ajustes de accesibilidad de componentes daisyUI: `src/styles/theme/inap-components.css`, importado al final de `tailwind.css`.
+- Lista de clases que siempre se generan (colores y tamaños de daisyUI): `src/styles/theme/inap-safelist.css`. Necesaria en WordPress, donde las plantillas no las escriben todas.
 - Cómo aplicar el diseño en Angular (instalación, tokens, componentes y patrones): `docs/guia-implementacion-angular.md`.
 
 ## 9. Contenido editable
@@ -199,3 +200,10 @@ Estado de cada punto:
   - **Paginación:** `<nav aria-label="Paginación">`, página actual con `aria-current="page"`, áreas táctiles de 44 px. 9 cursos por página en escritorio.
   - **Sin resultados:** mensaje con «Limpiar filtros».
   - **Pendiente:** confirmar con el equipo de desarrollo qué datos existen para filtrar (nivel de certificación, modalidad, estado de inscripción) y si la plataforma ya da los conteos por opción. Consulta enviada a Pablo: «Rediseño: datos para los filtros del catálogo de cursos» (correo del 3 nov. 2026).
+- Resultados de búsqueda (Figma: pantallas «Búsqueda • …» en Desktop y Mobile, Light y Dark; usan `Catalog / Desktop` y `Catalog / Mobile`). **Propuesta**:
+  - **Misma página y mismos componentes que el catálogo.** Cambian el título («Resultados para «{búsqueda}»»), la descripción, las migas («Inicio › Resultados de búsqueda») y el orden por defecto: **«Más relevantes»**.
+  - **La búsqueda va en la URL** junto con los filtros (por ejemplo `?q=gestion&tipo=certificacion`). En escritorio, el buscador de la barra muestra el texto buscado para que se pueda corregir.
+  - **Qué se busca:** nombre del curso y área de formación. Sin distinguir mayúsculas ni tildes («gestion» encuentra «gestión»).
+  - **Filtros con conteos de los resultados**, no de todo el catálogo. Las opciones con 0 resultados se ocultan; con pocas áreas no se muestra «Ver las N áreas».
+  - **Sin resultados:** se ocultan filtros, orden y paginación. Mensaje «No encontramos cursos para «{búsqueda}»», sugerencia de revisar la ortografía o usar palabras más generales, y botón «Ver todo el catálogo». El mensaje se anuncia con `aria-live="polite"`.
+  - **Pendiente:** confirmar con el equipo de desarrollo si el buscador ignora tildes y si puede ordenar por relevancia.

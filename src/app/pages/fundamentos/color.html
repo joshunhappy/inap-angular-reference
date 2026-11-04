@@ -1,0 +1,134 @@
+<inap-doc-page section="fundamentos" slug="color">
+  <p>
+    Los tres colores de marca son exactos y no se ajustan. Cuando un color no alcanza el contraste en un
+    uso concreto, se usa su token <code>-text</code>, que es el tono más cercano que sí cumple
+    WCAG 2.1 AA: 4.5:1 para texto y 3:1 para bordes, íconos y foco.
+  </p>
+
+  <h2 id="marca">Colores de marca</h2>
+  <p>Del manual de marca del INAP. Son iguales en los dos temas cuando se usan con su token fijo <code>inap-brand-*</code>.</p>
+  <ul class="grid list-none gap-4 ps-0 sm:grid-cols-3">
+    @for (b of brand; track b.hex) {
+      <li class="mb-0 overflow-hidden rounded-box border border-base-300">
+        <div class="h-28" [style.background]="b.hex"></div>
+        <div class="p-4">
+          <p class="mb-1 font-semibold">{{ b.name }}</p>
+          <p class="mb-0 text-sm text-neutral-text"><code>{{ b.hex }}</code> · <code>{{ b.token }}</code> · rol <code>{{ b.role }}</code></p>
+        </div>
+      </li>
+    }
+  </ul>
+
+  <h2 id="semanticos">Colores semánticos</h2>
+  <p>
+    Cada color tiene tres tokens. El de base es el fondo de los elementos sólidos; <code>-content</code>,
+    el texto sobre ese fondo; <code>-text</code>, el color para texto, íconos y bordes sobre la página.
+    El contraste de <code>-content</code> se mide contra su color y el de <code>-text</code>, contra
+    <code>base-100</code>.
+  </p>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead>
+        <tr>
+          <th scope="col">Color</th>
+          <th scope="col">Muestra</th>
+          <th scope="col">Base · claro / oscuro</th>
+          <th scope="col"><code>-content</code></th>
+          <th scope="col"><code>-text</code></th>
+          <th scope="col">Uso</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (s of states; track s.key) {
+          <tr>
+            <th scope="row" class="font-semibold">{{ s.label }}</th>
+            <td>
+              <span class="flex gap-1">
+                <span class="inline-flex h-8 w-12 items-center justify-center rounded-field text-xs font-semibold"
+                      [style.background]="'var(--' + s.base.name + ')'" [style.color]="'var(--' + s.content.name + ')'"
+                      aria-hidden="true">Aa</span>
+                <span class="inline-flex h-8 w-12 items-center justify-center rounded-field border border-base-300 text-xs font-semibold"
+                      [style.color]="'var(--' + s.text.name + ')'" aria-hidden="true">Aa</span>
+              </span>
+            </td>
+            <td><code>{{ s.base.light }}</code> / <code>{{ s.base.dark }}</code></td>
+            <td>
+              <inap-contrast [ratio]="s.content.contrastLight" /> /
+              <inap-contrast [ratio]="s.content.contrastDark" />
+            </td>
+            <td>
+              <code>{{ s.text.light }}</code> / <code>{{ s.text.dark }}</code><br />
+              <inap-contrast [ratio]="s.text.contrastLight" /> /
+              <inap-contrast [ratio]="s.text.contrastDark" />
+            </td>
+            <td class="min-w-48">{{ s.use }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="que-token-usar">Qué token usar</h2>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th scope="col">Necesito…</th><th scope="col">Uso</th><th scope="col">No uso</th></tr></thead>
+      <tbody>
+        <tr><td>Fondo de botón o elemento sólido</td><td><code>bg-primary text-primary-content</code></td><td>—</td></tr>
+        <tr><td>Texto, ícono o borde de color</td><td><code>text-primary-text</code>, <code>border-accent-text</code></td><td><code>text-primary</code>, <code>text-accent</code>: accent da 2.44:1 sobre blanco</td></tr>
+        <tr><td>Anillo de foco</td><td><code>outline-{{ '{' }}color{{ '}' }}-text</code></td><td><code>outline-{{ '{' }}color{{ '}' }}</code></td></tr>
+        <tr><td>Texto principal</td><td><code>text-base-content</code></td><td>negro o gris fijo</td></tr>
+        <tr><td>Texto secundario</td><td><code>text-neutral-text</code></td><td><code>text-base-content/60</code> sobre <code>surface-subtle</code></td></tr>
+        <tr><td>Placeholder y ayuda de campos</td><td><code>text-base-content/60</code></td><td><code>/50</code> (3.43:1)</td></tr>
+        <tr><td>Borde de campos y controles</td><td><code>border-base-border</code></td><td><code>border-base-200</code>, <code>border-base-300</code></td></tr>
+        <tr><td>Divisor decorativo</td><td><code>border-base-200</code></td><td>—</td></tr>
+        <tr><td>Superficie navy</td><td><code>bg-brand-surface text-brand-surface-content</code></td><td><code>bg-secondary</code>: en dark es <code>#a4bad9</code></td></tr>
+        <tr><td>Color que no cambia con el tema</td><td><code>inap-brand-navy</code>, <code>inap-brand-blue</code>, <code>inap-brand-cyan</code>, <code>inap-blue-100</code>, <code>inap-neutral-100</code></td><td><code>secondary</code>, <code>primary-100</code> (se invierten en dark)</td></tr>
+        <tr><td>Estados (inscripción abierta, cupo lleno…)</td><td><code>badge-soft badge-success</code>, <code>-info</code>, <code>-warning</code>, <code>-error</code></td><td>colores de categoría</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Todos los tokens con sus valores están en <a routerLink="/tokens/todos">Todos los tokens</a>.</p>
+
+  <h2 id="superficies">Superficies</h2>
+  <ul class="grid list-none gap-4 ps-0 sm:grid-cols-2 lg:grid-cols-3">
+    @for (s of surfaces; track s.name) {
+      <li class="mb-0 overflow-hidden rounded-box border border-base-300">
+        <div class="h-20 border-b border-base-300" [style.background]="'var(--' + s.name + ')'"></div>
+        <div class="p-4 text-sm">
+          <p class="mb-1 font-semibold"><code>bg-{{ s.name.slice(6) }}</code></p>
+          <p class="mb-1 text-neutral-text">{{ s.use }}</p>
+          <p class="mb-0 text-neutral-text"><code>{{ s.t.light }}</code> / <code>{{ s.t.dark }}</code></p>
+        </div>
+      </li>
+    }
+  </ul>
+
+  <h2 id="categorias">Colores de categoría</h2>
+  <p>Distinguen categorías de cursos. Solo se usan como <code>badge-soft</code>; nunca como fondo sólido ni contorno.</p>
+  <div class="mb-6 flex flex-wrap gap-2">
+    @for (c of categories; track c.name) {
+      <span class="badge badge-soft" [class]="'badge-' + c.name.slice(6)">{{ c.name.slice(6) }}</span>
+    }
+  </div>
+
+  <h2 id="rampas">Rampas</h2>
+  <p>
+    Las rampas <code>50</code>–<code>900</code> invierten su orden en dark. Sirven para matices dentro de
+    un componente, no para superficies que deben adaptarse al tema: para eso están los tokens semánticos.
+    Cambia el tema del sitio para ver cómo se invierten.
+  </p>
+  <div class="flex flex-col gap-3">
+    @for (r of ramps; track r.name) {
+      <div>
+        <p class="mb-1 text-sm font-semibold">{{ r.name }}</p>
+        <ul class="grid list-none grid-cols-10 overflow-hidden rounded-field ps-0" [attr.aria-label]="'Rampa ' + r.name">
+          @for (t of r.steps; track t!.name) {
+            <li class="mb-0 h-10" [style.background]="'var(--' + t!.name + ')'" [title]="t!.name + ' ' + t!.light">
+              <span class="sr-only">{{ t!.name }}: {{ t!.light }} en claro, {{ t!.dark }} en oscuro</span>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+</inap-doc-page>

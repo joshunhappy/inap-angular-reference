@@ -1,0 +1,56 @@
+<inap-doc-page section="fundamentos" slug="iconos">
+  <p>
+    Lucide, paquete <code>lucide-static</code> <strong>v0.469.0</strong>. En Figma, los componentes se llaman
+    <code>Icon/{{ '{' }}nombre{{ '}' }}</code> con el nombre exacto de lucide.dev; ese es el nombre que se usa en código.
+  </p>
+
+  <h2 id="instalacion">Instalación</h2>
+  <inap-code-block language="Terminal" [code]="install" />
+  <p class="mt-4">Copiar el sprite a los assets de la aplicación:</p>
+  <inap-code-block language="JSON" [code]="assets" />
+  <p class="mt-4">Componente:</p>
+  <inap-code-block language="TypeScript" [code]="component" />
+  <p class="mt-4">
+    <code>viewBox="0 0 24 24"</code> es obligatorio: los símbolos del sprite no lo traen, y sin él los íconos de
+    16 y 20 px se ven recortados.
+  </p>
+
+  <h2 id="tamanos">Tamaños y color</h2>
+  <ul>
+    <li>16 px en filas de datos (Fact Row), 20 px por defecto, 24 px en navegación.</li>
+    <li>El ícono toma el color del texto (<code>currentColor</code>). Para cambiarlo, la clase de color va en el elemento padre: <code>text-primary-text</code>.</li>
+    <li>Lucide no tiene versión rellena. Los íconos rellenos del diseño (pausa y reproducción del carrusel) se exportan desde Figma como SVG.</li>
+  </ul>
+  <inap-example title="Tamaños" [html]="sizes" previewClass="flex flex-wrap items-center gap-8 p-6" />
+
+  <h2 id="accesibilidad">Accesibilidad</h2>
+  <ul>
+    <li>Los íconos son decorativos: <code>aria-hidden="true"</code>.</li>
+    <li>Un botón que <strong>solo</strong> tiene ícono necesita <code>aria-label</code>.</li>
+    <li>Contraste mínimo de 3:1 contra el fondo. Con los tokens <code>-text</code> se cumple.</li>
+  </ul>
+  <inap-code-block [code]="usage" />
+
+  <h2 id="buscar">Buscar íconos</h2>
+  <label class="mb-2 flex max-w-md flex-col gap-1">
+    <span class="text-sm font-semibold">Nombre del ícono</span>
+    <input class="input" type="search" placeholder="calendar, arrow, user…" [value]="query()"
+           (input)="query.set($any($event.target).value)" />
+  </label>
+  <p class="text-sm text-neutral-text" aria-live="polite">
+    {{ matches().length }} de {{ total }} íconos
+    @if (matches().length > limit) { · se muestran los primeros {{ limit }}, escriban para filtrar }
+  </p>
+  <ul class="grid list-none grid-cols-2 gap-2 ps-0 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
+    @for (n of shown(); track n) {
+      <li class="mb-0">
+        <button type="button" class="flex h-24 w-full flex-col items-center justify-center gap-2 rounded-box border border-base-300 p-2 text-xs text-neutral-text transition-colors hover:border-base-border hover:text-base-content"
+                (click)="copy(n)" [attr.aria-label]="'Copiar nombre: ' + n">
+          <inap-icon [name]="n" [size]="24" class="text-base-content" />
+          <span class="w-full truncate text-center">{{ copied() === n ? 'Copiado' : n }}</span>
+        </button>
+      </li>
+    }
+  </ul>
+  <span class="sr-only" aria-live="polite">{{ copied() ? 'Nombre copiado: ' + copied() : '' }}</span>
+</inap-doc-page>

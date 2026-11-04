@@ -1,7 +1,7 @@
 /*
   INAP Design System: ajustes de accesibilidad de componentes (WCAG 2.1 AA).
-  Creado 2026-11-03 a partir de comms/dev-team/20261014-1243-ajustes-accesibilidad-componentes.md
-  (secciones 1 a 6). Si cambia uno, actualizar el otro.
+  Creado 2026-11-03 a partir de las secciones 1 a 6 del mensaje «Ajustes de accesibilidad en botones, formularios, controles de selección, badges y alertas (WCAG 2.1 AA) + archivo de tema».
+  Si cambia uno, actualizar el otro.
 
   Cómo se usa: importar AL FINAL de tailwind.css, después de todos los estilos de
   componentes del equipo de desarrollo, para que estas reglas ganen por orden:
@@ -102,7 +102,16 @@
 .toggle-error:checked     { --input-color: var(--color-error-text); }
 
 /* ── 5. Badges ───────────────────────────────────────────────────────────── */
-.badge-soft.badge-warning { @apply text-warning-text; }
+/* Soft: el texto usa {color}-text. Con el color base, en dark no llega a 4.5:1
+   (por ejemplo, success #1e7c28 sobre el fondo soft oscuro). */
+.badge-soft.badge-primary   { @apply text-primary-text; }
+.badge-soft.badge-secondary { @apply text-secondary-text; }
+.badge-soft.badge-accent    { @apply text-accent-text; }
+.badge-soft.badge-neutral   { @apply text-neutral-text; }
+.badge-soft.badge-info      { @apply text-info-text; }
+.badge-soft.badge-success   { @apply text-success-text; }
+.badge-soft.badge-warning   { @apply text-warning-text; }
+.badge-soft.badge-error     { @apply text-error-text; }
 
 /* Fondo soft opaco (8 % del color mezclado con base-100), nunca translúcido. */
 .badge-soft.badge-garbo  { @apply text-garbo  bg-[color-mix(in_oklab,var(--color-garbo)_8%,var(--color-base-100))]; }
@@ -129,3 +138,31 @@
 .alert-outline.alert-success, .alert-dash.alert-success { --alert-color: var(--color-success-text); --alert-border-color: var(--color-success-text); }
 .alert-outline.alert-warning, .alert-dash.alert-warning { --alert-color: var(--color-warning-text); --alert-border-color: var(--color-warning-text); }
 .alert-outline.alert-error,   .alert-dash.alert-error   { --alert-color: var(--color-error-text);   --alert-border-color: var(--color-error-text); }
+
+/* ── 7. Botones contorno y suave; tabs inactivas ─────────────────────────── */
+/* daisyUI pinta el texto con el color base: accent 2.44 y warning 1.91 en claro,
+   primary 2.46 y error 3.03 en dark. En reposo, texto y borde usan {color}-text.
+   Al pasar el cursor el botón se rellena con {color} y {color}-content (ya cumple). */
+.btn-primary   { --inap-btn-text: var(--color-primary-text); }
+.btn-secondary { --inap-btn-text: var(--color-secondary-text); }
+.btn-accent    { --inap-btn-text: var(--color-accent-text); }
+.btn-neutral   { --inap-btn-text: var(--color-neutral-text); }
+.btn-info      { --inap-btn-text: var(--color-info-text); }
+.btn-success   { --inap-btn-text: var(--color-success-text); }
+.btn-warning   { --inap-btn-text: var(--color-warning-text); }
+.btn-error     { --inap-btn-text: var(--color-error-text); }
+
+.btn-outline:not(.btn-active, :hover, :active:focus, :focus-visible, :disabled, [disabled], .btn-disabled),
+.btn-dash:not(.btn-active, :hover, :active:focus, :focus-visible, :disabled, [disabled], .btn-disabled) {
+  --btn-fg: var(--inap-btn-text, var(--btn-color));
+  --btn-border: var(--inap-btn-text, var(--btn-color));
+}
+
+.btn-soft:not(.btn-active, :hover, :active:focus, :focus-visible, :disabled, [disabled], .btn-disabled) {
+  --btn-fg: var(--inap-btn-text, var(--btn-color, var(--color-base-content)));
+}
+
+/* Tab inactiva: daisyUI usa base-content al 50 % (3.45). */
+.tab:not(.tab-active, [aria-selected='true'], [aria-current='true'], [aria-current='page'], [aria-current='location']) {
+  color: var(--color-neutral-text);
+}

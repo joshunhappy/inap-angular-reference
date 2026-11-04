@@ -51,14 +51,17 @@ El archivo desactiva los temas integrados de daisyUI (`themes: false`). Solo exi
 
 ### 2.2 Ajustes de componentes
 
-Copiar `inap-components.css` junto a `tailwind.css` e importarlo **al final**, después de todos los estilos de componentes:
+Copiar `inap-components.css` e `inap-safelist.css` junto a `tailwind.css` e importarlos **al final**, después de todos los estilos de componentes:
 
 ```css
-/* última línea de tailwind.css */
+/* últimas líneas de tailwind.css */
 @import './inap-components.css';
+@import './inap-safelist.css';
 ```
 
-Va al final para que sus reglas ganen por orden a las de `tailwind.css` con la misma especificidad. Cubre botones, campos, `ng-select`, checkbox, radio, toggle, badges y alertas. El detalle de cada contraste está en la sección 9.
+`inap-components.css` va al final para que sus reglas ganen por orden a las de `tailwind.css` con la misma especificidad. Cubre botones (incluidos contorno y suave), campos, `ng-select`, checkbox, radio, toggle, badges, alertas y tabs. El detalle de cada contraste está en la sección 9.
+
+`inap-safelist.css` obliga a Tailwind a generar todos los colores y tamaños de los componentes de daisyUI. Tailwind solo genera las clases que encuentra escritas tal cual en el código: si una plantilla arma la clase (`'btn-' + color`), sin esta lista esa clase no existe y el componente sale sin color.
 
 ### 2.3 Fuente
 
@@ -332,14 +335,14 @@ export class IconComponent {
 | Componente en Figma | Clases | Notas |
 |---|---|---|
 | **Button** (Color × State) | `btn btn-{color}` | Foco: `outline-{color}-text`, ya en el archivo |
-| **Button Outline** | `btn btn-outline btn-{color}` | |
-| **Button Soft** | `btn btn-soft btn-{color}` | `btn-primary-light` y `btn-secondary-light` siguen existiendo; el hover pasa a `bg-primary` / `bg-secondary` (4.25 → 6.79) |
+| **Button Outline** | `btn btn-outline btn-{color}` | En reposo, texto y borde en `{color}-text` (con el color base, accent da 2.44 en claro y primary 2.46 en dark). Ya en el archivo |
+| **Button Soft** | `btn btn-soft btn-{color}` | Texto en `{color}-text`, ya en el archivo. `btn-primary-light` y `btn-secondary-light` siguen existiendo; el hover pasa a `bg-primary` / `bg-secondary` (4.25 → 6.79) |
 | **Button Ghost** | `btn btn-ghost` | Foco en `base-content` |
 | Button `Color=White` | `btn border-white bg-white text-inap-brand-navy hover:bg-inap-neutral-100` | Solo sobre fotos. Igual en los dos temas |
 | **Input / Select / Textarea** | `input`, `select`, `textarea` (+ `floating-label-*` existentes) | Borde `base-border`, foco `primary-text` + halo, error `-error`. Mensaje de ayuda: `text-base-content/60`; error: `text-error-text` |
 | Campo `Style=Ghost` | `input-ghost` | Solo donde el campo ya se identifica (buscador con ícono). En formularios, la variante normal |
 | **Checkbox / Radio / Toggle** | `checkbox`, `radio`, `toggle` + `-{color}` | Sin marcar: borde `base-border`. Radio y toggle marcados usan `-text`. Checkbox cuadrado (`--radius-field`) |
-| **Badge** / **Badge Soft** / **Badge Outline** | `badge badge-{color}`, `badge-soft`, `badge-outline` | Los badges no son interactivos. Si quitan un filtro, son botones (Filter Tag) |
+| **Badge** / **Badge Soft** / **Badge Outline** | `badge badge-{color}`, `badge-soft`, `badge-outline` | Los badges no son interactivos. Si quitan un filtro, son botones (Filter Tag). Soft y outline: texto en `{color}-text`, ya en el archivo |
 | **Alert** / **Alert Soft** / **Alert Outline** | `alert alert-{color}`, `alert-soft`, `alert-outline`, `alert-dash` | Layout Vertical: `alert-vertical sm:alert-horizontal` |
 
 Accesibilidad de alertas: `role="status"` para confirmaciones y avisos; `role="alert"` solo para errores urgentes. Ícono con `aria-hidden="true"`. Botón de cerrar con `aria-label="Cerrar aviso"`. Una alerta con acciones no se oculta sola.
@@ -371,7 +374,7 @@ Tamaño: ver 7.1. Estado deshabilitado: atributo `disabled` (daisyUI lo pinta); 
 | Stat, Testimonial Card | `stat`, `card` | Contenido provisional |
 | FAQ Item | `collapse collapse-arrow` con `<details>`/`<summary>` | Teclado nativo, sin JS |
 | Breadcrumb | `breadcrumbs` en `<nav aria-label="Migas de pan">` | Último elemento con `aria-current="page"`. Solo escritorio |
-| Tabs del curso | `tabs tabs-border` como **enlaces** | No son pestañas ARIA. Ver 10.4 |
+| Tabs del curso | `tabs tabs-border` como **enlaces** | No son pestañas ARIA. Ver 10.4. Tab inactiva en `neutral-text` (daisyUI usa `base-content/50`, 3.45), ya en `inap-components.css` |
 | Enrollment Card / Enrollment Bar | `card` / barra `fixed bottom-0` | Un componente por estado (Próximamente, Abierta, Último día, Cerrada, Cupo lleno, Inscrito, Saldo pendiente, Aprobado). La barra aparece cuando la tarjeta sale de vista (10.3) |
 | Fact Row, Checklist Item, Module Row | `<dl>` / `<ul>` | Ícono de 16 px, `aria-hidden` |
 | Instructor | `avatar` 88 px + texto | |

@@ -5,6 +5,7 @@
 @import '@fontsource-variable/montserrat';
 @import './theme/inap-theme.css';
 @import './theme/inap-components.css';
+@import './theme/inap-safelist.css';
 
 /* Solo del sitio de referencia: no forman parte del CSS para WordPress. */
 @layer base {
@@ -30,4 +31,29 @@
   .top-link.top-link-active {
     @apply border-primary-text text-primary-text;
   }
+}
+
+/* Texto de las páginas de documentación. */
+@layer components {
+  .doc-prose {
+    @apply max-w-none text-base leading-7;
+
+    & h2 { @apply mt-14 mb-4 scroll-mt-28 text-2xl font-bold text-base-content first:mt-0; }
+    & h3 { @apply mt-10 mb-3 scroll-mt-28 text-xl font-semibold text-base-content; }
+    & h4 { @apply mt-6 mb-2 text-base font-semibold text-base-content; }
+    & p:not([class]) { @apply mb-4 max-w-prose; }
+    & ul:not([class]), & ol:not([class]) { @apply mb-4 max-w-prose ps-6; }
+    & ul:not([class]) { @apply list-disc; }
+    & ol:not([class]) { @apply list-decimal; }
+    & ul:not([class]) > li, & ol:not([class]) > li { @apply mb-1.5; }
+    & a:not(.btn) { @apply font-semibold text-primary-text underline underline-offset-2 hover:no-underline; }
+    & :not(pre) > code { @apply rounded-sm bg-surface-subtle px-1.5 py-0.5 font-mono text-[0.875em] whitespace-nowrap text-base-content; }
+    & strong { @apply font-semibold; }
+  }
+
+  /* Tablas de referencia (clases, tokens). */
+  .doc-table-wrap { @apply mb-6 overflow-x-auto rounded-box border border-base-300; }
+  .doc-table { @apply table text-sm; }
+  .doc-table thead th { @apply bg-surface-subtle text-sm font-semibold text-base-content; }
+  .doc-table td code, .doc-table th code { @apply rounded-sm bg-surface-subtle px-1.5 py-0.5 font-mono text-[0.8125rem] whitespace-nowrap; }
 }

@@ -7,7 +7,11 @@
     "build": "ng build && npm run build:css",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:css": "tailwindcss -i src/styles/wordpress.css -o dist/wordpress/inap.css --minify"
+    "build:css": "tailwindcss -i src/styles/wordpress.css -o dist/wordpress/inap.css --minify",
+    "tokens": "node scripts/generate-tokens.mjs",
+    "prestart": "npm run tokens",
+    "prebuild": "npm run tokens",
+    "pretest": "npm run tokens"
   },
   "private": true,
   "packageManager": "npm@11.19.1",

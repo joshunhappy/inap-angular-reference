@@ -10,8 +10,8 @@ import { FIGMA_URL, REPO_URL } from '../core/navigation';
         <p>INAP · Instituto Nacional de Administración Pública, Guatemala</p>
         <p>Angular 22 · Tailwind CSS 4.1.4 · daisyUI 5.5.19 · Lucide 0.469.0</p>
         <ul class="flex gap-4">
-          <li><a [href]="figmaUrl" target="_blank" rel="noopener" class="link">Figma<span class="sr-only"> (abre en otra pestaña)</span></a></li>
-          <li><a [href]="repoUrl" target="_blank" rel="noopener" class="link">Repositorio<span class="sr-only"> (abre en otra pestaña)</span></a></li>
+          <li><a [href]="figmaUrl" target="_blank" rel="noopener" class="link">Figma<span class="sr-only"> (se abre en una pestaña nueva)</span></a></li>
+          <li><a [href]="repoUrl" target="_blank" rel="noopener" class="link">Repositorio<span class="sr-only"> (se abre en una pestaña nueva)</span></a></li>
         </ul>
       </div>
     </footer>
