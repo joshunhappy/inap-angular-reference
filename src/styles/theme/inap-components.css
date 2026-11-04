@@ -1,0 +1,131 @@
+/*
+  INAP Design System: ajustes de accesibilidad de componentes (WCAG 2.1 AA).
+  Creado 2026-11-03 a partir de comms/dev-team/20261014-1243-ajustes-accesibilidad-componentes.md
+  (secciones 1 a 6). Si cambia uno, actualizar el otro.
+
+  Cómo se usa: importar AL FINAL de tailwind.css, después de todos los estilos de
+  componentes del equipo de desarrollo, para que estas reglas ganen por orden:
+
+    @import './inap-components.css';
+
+  Requiere los tokens de inap-theme.css (-text, base-border, base-3).
+  Guía completa: docs/guia-implementacion-angular.md
+*/
+
+/* ── 1. Botones: hover de los estilos "light" ─────────────────────────────── */
+/* Blanco sobre el tono 500 no llega a 4.5:1 (4.25 / 4.47). */
+.btn-primary-light,
+.btn-primary-light-border {
+  @apply hover:bg-primary hover:text-primary-content hover:border-primary;
+}
+
+.btn-secondary-light {
+  @apply hover:bg-secondary hover:text-secondary-content hover:border-secondary;
+}
+
+/* ── 2. Botones: anillo de foco ───────────────────────────────────────────── */
+/* El outline debe llegar a 3:1. btn-accent (#00B3E6) da 2.44 sobre blanco. */
+.btn-primary   { @apply focus-visible:outline-primary-text; }
+.btn-secondary { @apply focus-visible:outline-secondary-text; }
+.btn-accent    { @apply focus-visible:outline-accent-text; }
+.btn-neutral   { @apply focus-visible:outline-neutral-text; }
+.btn-info      { @apply focus-visible:outline-info-text; }
+.btn-success   { @apply focus-visible:outline-success-text; }
+.btn-warning   { @apply focus-visible:outline-warning-text; }
+.btn-error     { @apply focus-visible:outline-error-text; }
+.btn-ghost,
+.btn-ghost-border,
+.btn-base      { @apply focus-visible:outline-base-content; }
+
+/* ── 3. Campos de formulario ─────────────────────────────────────────────── */
+/* Borde 1.54 → 4.81, placeholder 3.43 → 4.73, foco 1.97 → 6.79, error 2.68 → 5.53. */
+.input,
+.floating-label-input,
+.select,
+.textarea,
+.floating-label-textarea {
+  @apply border-base-border dark:bg-base-3 dark:border-base-border w-full
+    placeholder:text-base-content/60
+    focus-within:border-primary-text focus-within:outline-hidden focus-within:outline-0
+    focus-within:ring-0
+    focus-within:shadow-[0_0_0_1px_var(--color-primary-text),0_0_0_4px_color-mix(in_oklab,var(--color-primary-400)_20%,transparent)]
+    transition-all duration-100;
+}
+
+.floating-label,
+.floating-label-icon {
+  @apply text-base-content/60;
+}
+
+.input-error,
+.select-error,
+.textarea-error,
+.floating-label-input.input-error {
+  @apply border-error-text;
+}
+
+/* ng-select (.custom): misma regla que los campos. */
+.ng-select.custom .ng-select-container {
+  @apply border-base-border dark:border-base-border;
+}
+
+.ng-select.custom.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+  @apply border-primary-text ring-0
+    shadow-[0_0_0_1px_var(--color-primary-text),0_0_0_4px_color-mix(in_oklab,var(--color-primary-400)_20%,transparent)];
+}
+
+/* ── 4. Checkbox, radio y toggle ─────────────────────────────────────────── */
+.checkbox:not(:checked),
+.radio:not(:checked) {
+  @apply border-base-border dark:bg-base-3 dark:border-base-border;
+}
+
+/* Checkbox cuadrado: con --radius-selector (16 px) se confunde con un radio. */
+.checkbox { border-radius: var(--radius-field); }
+
+.radio-primary   { --input-color: var(--color-primary-text); }
+.radio-secondary { --input-color: var(--color-secondary-text); }
+.radio-accent    { --input-color: var(--color-accent-text); }
+.radio-neutral   { --input-color: var(--color-neutral-text); }
+.radio-info      { --input-color: var(--color-info-text); }
+.radio-success   { --input-color: var(--color-success-text); }
+.radio-warning   { --input-color: var(--color-warning-text); }
+.radio-error     { --input-color: var(--color-error-text); }
+
+.toggle-primary:checked   { --input-color: var(--color-primary-text); }
+.toggle-secondary:checked { --input-color: var(--color-secondary-text); }
+.toggle-accent:checked    { --input-color: var(--color-accent-text); }
+.toggle-neutral:checked   { --input-color: var(--color-neutral-text); }
+.toggle-info:checked      { --input-color: var(--color-info-text); }
+.toggle-success:checked   { --input-color: var(--color-success-text); }
+.toggle-warning:checked   { --input-color: var(--color-warning-text); }
+.toggle-error:checked     { --input-color: var(--color-error-text); }
+
+/* ── 5. Badges ───────────────────────────────────────────────────────────── */
+.badge-soft.badge-warning { @apply text-warning-text; }
+
+/* Fondo soft opaco (8 % del color mezclado con base-100), nunca translúcido. */
+.badge-soft.badge-garbo  { @apply text-garbo  bg-[color-mix(in_oklab,var(--color-garbo)_8%,var(--color-base-100))]; }
+.badge-soft.badge-royal  { @apply text-royal  bg-[color-mix(in_oklab,var(--color-royal)_8%,var(--color-base-100))]; }
+.badge-soft.badge-deep   { @apply text-deep   bg-[color-mix(in_oklab,var(--color-deep)_8%,var(--color-base-100))]; }
+.badge-soft.badge-danger { @apply text-danger bg-[color-mix(in_oklab,var(--color-danger)_8%,var(--color-base-100))]; }
+
+.badge-outline.badge-primary   { --badge-color: var(--color-primary-text); }
+.badge-outline.badge-secondary { --badge-color: var(--color-secondary-text); }
+.badge-outline.badge-accent    { --badge-color: var(--color-accent-text); }
+.badge-outline.badge-neutral   { --badge-color: var(--color-neutral-text); }
+.badge-outline.badge-info      { --badge-color: var(--color-info-text); }
+.badge-outline.badge-success   { --badge-color: var(--color-success-text); }
+.badge-outline.badge-warning   { --badge-color: var(--color-warning-text); }
+.badge-outline.badge-error     { --badge-color: var(--color-error-text); }
+
+/* ── 6. Alertas ──────────────────────────────────────────────────────────── */
+.alert-soft.alert-info    { color: var(--color-info-text); }
+.alert-soft.alert-success { color: var(--color-success-text); }
+.alert-soft.alert-warning { color: var(--color-warning-text); }
+.alert-soft.alert-error   { color: var(--color-error-text); }
+
+.alert-outline.alert-info,    .alert-dash.alert-info    { --alert-color: var(--color-info-text);    --alert-border-color: var(--color-info-text); }
+.alert-outline.alert-success, .alert-dash.alert-success { --alert-color: var(--color-success-text); --alert-border-color: var(--color-success-text); }
+.alert-outline.alert-warning, .alert-dash.alert-warning { --alert-color: var(--color-warning-text); --alert-border-color: var(--color-warning-text); }
+.alert-outline.alert-error,   .alert-dash.alert-error   { --alert-color: var(--color-error-text);   --alert-border-color: var(--color-error-text); }

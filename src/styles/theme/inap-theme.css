@@ -1,0 +1,664 @@
+/*
+  INAP Design System: tokens de color de los temas `inap` y `dark`.
+  Generado desde las variables de Figma ("INAP Design System"), 2026-10-14.
+  Actualizado 2026-10-26: colores de marca fijos (--color-inap-brand-*) en @theme,
+  superficies de marca, surface-subtle, surface-muted (breadcrumb), glows y logo.
+
+  Reemplaza el inicio de tailwind.css, desde `@import 'tailwindcss';` hasta el
+  cierre de `@layer base { ... }` (justo antes de `.text-md`). El resto del
+  archivo (estilos de componentes) no cambia.
+
+  Colores de marca (manual): primary #215AA8, secondary #002350, accent #00B3E6.
+  Todos los pares texto/fondo cumplen WCAG 2.1 AA (4.5:1 texto, 3:1 bordes).
+  base-2 / base-3 en dark confirmados por el equipo de desarrollo: #2b3440 / #222833.
+*/
+@import 'tailwindcss';
+
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, cupcake, lemonade, nord, sunset, caramellatte, retro, synthwave, coffee, dracula, winter, forest, valentine, night, wireframe, luxury, silk, pastel, emerald, corporate;
+}
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@custom-variant inap (&:where([data-theme=inap], [data-theme=inap] *));
+
+@plugin "daisyui/theme" {
+  name: "inap";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-primary: #215aa8;
+  --color-primary-content: #ffffff;
+  --color-primary-text: #215aa8;
+
+  --color-secondary: #002350;
+  --color-secondary-content: #ffffff;
+  --color-secondary-text: #002350;
+
+  --color-tertiary: #c53369;
+  --color-tertiary-content: #ffffff;
+
+  --color-accent: #00b3e6;
+  --color-accent-content: #002350;
+  --color-accent-text: #056280;
+
+  --color-info: #1b7763;
+  --color-info-content: #ffffff;
+  --color-info-text: #1b7763;
+
+  --color-success: #1e7c28;
+  --color-success-content: #ffffff;
+  --color-success-text: #1e7c28;
+
+  --color-warning: #dbb84b;
+  --color-warning-content: #002350;
+  --color-warning-text: #62410c;
+
+  --color-error: #bd3934;
+  --color-error-content: #ffffff;
+  --color-error-text: #bd3934;
+
+  --color-neutral: #3d4452;
+  --color-neutral-content: #f7f8f8;
+  --color-neutral-text: #3d4452;
+
+  --color-base-100: #ffffff;
+  --color-base-200: #00000017;
+  --color-gray-200: #00000017;
+  --color-base-300: #00000025;
+  --color-base-content: #161616;
+  --color-base-2: #ffffff;
+  --color-base-3: #ffffff;
+  --color-base-border: #5e7587;
+  /* Superficies y elementos de marca (sección "Para tu institución", CTA, logo). */
+  --color-brand-surface: #002350;
+  --color-brand-surface-content: #ffffff;
+  --color-brand-surface-muted: #ffffffc7;
+  --color-brand-surface-line: #ffffff29;
+  --color-surface-subtle: #f4f6f9;
+  --color-surface-muted: #f7f8f8;
+  --color-glow-primary: #215aa838;
+  --color-glow-accent: #00b3e633;
+  --color-logo-primary: #215aa8;
+  --color-logo-accent: #00b3e6;
+
+  /* optional: border radius, sizes, etc */
+  --radius-box: 0.75rem;
+  --radius-field: 0.25rem;
+  --radius-selector: 1rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+
+  --color-danger: #a75415;
+  --color-royal: #605cc8;
+  --color-deep: #3564cc;
+  --color-garbo: #87624f;
+
+  --color-success-50: #f2f6f2;
+  --color-success-100: #def0e4;
+  --color-success-200: #b3e6c1;
+  --color-success-300: #78cb8f;
+  --color-success-400: #33ac5e;
+  --color-success-500: #239238;
+  --color-success-600: #1e7c28;
+  --color-success-700: #1c5f22;
+  --color-success-800: #15411c;
+  --color-success-900: #0f2816;
+
+  --color-info-50: #eff6f5;
+  --color-info-100: #d2f0f4;
+  --color-info-200: #9ee5e6;
+  --color-info-300: #65cac7;
+  --color-info-400: #2baba1;
+  --color-info-500: #1e8f7c;
+  --color-info-600: #1b7763;
+  --color-info-700: #195b4e;
+  --color-info-800: #133e3a;
+  --color-info-900: #0d272a;
+
+  --color-primary-50: #f3f6fb;
+  --color-primary-100: #e0edfe;
+  --color-primary-200: #c2dbff;
+  --color-primary-300: #8ebbfd;
+  --color-primary-400: #5e98eb;
+  --color-primary-500: #427bcc;
+  --color-primary-600: #3164ac;
+  --color-primary-700: #244c85;
+  --color-primary-800: #15345f;
+  --color-primary-900: #0a2141;
+
+  --color-secondary-50: #f7f8fa;
+  --color-secondary-100: #e8eff8;
+  --color-secondary-200: #cddbee;
+  --color-secondary-300: #a4bad9;
+  --color-secondary-400: #7897c1;
+  --color-secondary-500: #5479ab;
+  --color-secondary-600: #3d6294;
+  --color-secondary-700: #294b79;
+  --color-secondary-800: #1b3457;
+  --color-secondary-900: #0f2037;
+
+  --color-tertiary-50: #fcfbfb;
+  --color-tertiary-100: #faeff1;
+  --color-tertiary-200: #f6cde4;
+  --color-tertiary-300: #eba0c7;
+  --color-tertiary-400: #e871a6;
+  --color-tertiary-500: #db4d89;
+  --color-tertiary-600: #c53369;
+  --color-tertiary-700: #9e274d;
+  --color-tertiary-800: #721b32;
+  --color-tertiary-900: #46121b;
+
+  --color-neutral-50: #f7f8f8;
+  --color-neutral-100: #eaeff3;
+  --color-neutral-200: #d2dce6;
+  --color-neutral-300: #a8bbc9;
+  --color-neutral-400: #7995a7;
+  --color-neutral-500: #5e7587;
+  --color-neutral-600: #4d5a6b;
+  --color-neutral-700: #3d4452;
+  --color-neutral-800: #2a2f3a;
+  --color-neutral-900: #1a1e26;
+
+  --color-error-50: #fdfcfa;
+  --color-error-100: #fbf0e6;
+  --color-error-200: #f7d2ca;
+  --color-error-300: #eca79e;
+  --color-error-400: #e67771;
+  --color-error-500: #d6534d;
+  --color-error-600: #bd3934;
+  --color-error-700: #952b27;
+  --color-error-800: #6a1e1b;
+  --color-error-900: #411310;
+
+  --color-warning-50: #fbfaf3;
+  --color-warning-100: #f9efb9;
+  --color-warning-200: #f1dd7c;
+  --color-warning-300: #dbb84b;
+  --color-warning-400: #bc8f28;
+  --color-warning-500: #9c7014;
+  --color-warning-600: #7f560d;
+  --color-warning-700: #62410c;
+  --color-warning-800: #432c0a;
+  --color-warning-900: #2d1b08;
+
+  --color-accent-50: #f9fafb;
+  --color-accent-100: #eaf3f7;
+  --color-accent-200: #c2e1f0;
+  --color-accent-300: #86c2dd;
+  --color-accent-400: #37a0c7;
+  --color-accent-500: #107fa3;
+  --color-accent-600: #056280;
+  --color-accent-700: #024a61;
+  --color-accent-800: #033243;
+  --color-accent-900: #001e29;
+}
+
+@plugin "daisyui/theme" {
+  name: dark;
+  color-scheme: dark;
+
+  --color-primary: #215aa8;
+  --color-primary-content: #ffffff;
+  --color-primary-text: #8ebbfd;
+
+  --color-secondary: #a4bad9;
+  --color-secondary-content: #002350;
+  --color-secondary-text: #a4bad9;
+
+  --color-tertiary: #c53369;
+  --color-tertiary-content: #ffffff;
+
+  --color-accent: #00b3e6;
+  --color-accent-content: #002350;
+  --color-accent-text: #00b3e6;
+
+  --color-info: #1b7763;
+  --color-info-content: #ffffff;
+  --color-info-text: #65cac7;
+
+  --color-success: #1e7c28;
+  --color-success-content: #ffffff;
+  --color-success-text: #78cb8f;
+
+  --color-warning: #dbb84b;
+  --color-warning-content: #002350;
+  --color-warning-text: #dbb84b;
+
+  --color-error: #bd3934;
+  --color-error-content: #ffffff;
+  --color-error-text: #eca79e;
+
+  --color-neutral: #556178;
+  --color-neutral-content: #ffffff;
+  --color-neutral-text: #a8bbc9;
+
+  --color-base-100: #191e26;
+  --color-gray-200: #ffffff17;
+  --color-base-200: #ffffff17;
+  --color-base-300: #ffffff17;
+  --color-base-content: #ffffff;
+  --color-base-2: #2b3440;
+  --color-base-3: #222833;
+  --color-base-border: #7995a7;
+  /* Superficies y elementos de marca (sección "Para tu institución", CTA, logo). */
+  --color-brand-surface: #10233f;
+  --color-brand-surface-content: #ffffff;
+  --color-brand-surface-muted: #ffffffc7;
+  --color-brand-surface-line: #ffffff1f;
+  --color-surface-subtle: #1f252f;
+  --color-surface-muted: #222833;
+  --color-glow-primary: #215aa88c;
+  --color-glow-accent: #00b3e647;
+  --color-logo-primary: #ffffff;
+  --color-logo-accent: #ffffff;
+
+  /* optional: border radius, sizes, etc */
+  --radius-box: 0.75rem;
+  --radius-field: 0.25rem;
+  --radius-selector: 1rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+
+  --color-danger: #d37c44;
+  --color-royal: #8384f4;
+  --color-deep: #5b8efb;
+  --color-garbo: #b18a76;
+
+  --color-success-50: #f2f6f2;
+  --color-success-900: #def0e4;
+  --color-success-800: #b3e6c1;
+  --color-success-700: #78cb8f;
+  --color-success-600: #33ac5e;
+  --color-success-500: #239238;
+  --color-success-400: #1e7c28;
+  --color-success-300: #1c5f22;
+  --color-success-200: #15411c;
+  --color-success-100: #0f2816;
+
+  --color-info-50: #eff6f5;
+  --color-info-900: #d2f0f4;
+  --color-info-800: #9ee5e6;
+  --color-info-700: #65cac7;
+  --color-info-600: #2baba1;
+  --color-info-500: #1e8f7c;
+  --color-info-400: #1b7763;
+  --color-info-300: #195b4e;
+  --color-info-200: #133e3a;
+  --color-info-100: #0d272a;
+
+  --color-primary-50: #f3f6fb;
+  --color-primary-900: #e0edfe;
+  --color-primary-800: #c2dbff;
+  --color-primary-700: #8ebbfd;
+  --color-primary-600: #5e98eb;
+  --color-primary-500: #427bcc;
+  --color-primary-400: #3164ac;
+  --color-primary-300: #244c85;
+  --color-primary-200: #15345f;
+  --color-primary-100: #0a2141;
+
+  --color-secondary-50: #f7f8fa;
+  --color-secondary-900: #e8eff8;
+  --color-secondary-800: #cddbee;
+  --color-secondary-700: #a4bad9;
+  --color-secondary-600: #7897c1;
+  --color-secondary-500: #5479ab;
+  --color-secondary-400: #3d6294;
+  --color-secondary-300: #294b79;
+  --color-secondary-200: #1b3457;
+  --color-secondary-100: #0f2037;
+
+  --color-tertiary-50: #fcfbfb;
+  --color-tertiary-900: #faeff1;
+  --color-tertiary-800: #f6cde4;
+  --color-tertiary-700: #eba0c7;
+  --color-tertiary-600: #e871a6;
+  --color-tertiary-500: #db4d89;
+  --color-tertiary-400: #c53369;
+  --color-tertiary-300: #9e274d;
+  --color-tertiary-200: #721b32;
+  --color-tertiary-100: #46121b;
+
+  --color-neutral-50: #f7f8f8;
+  --color-neutral-900: #eaeff3;
+  --color-neutral-800: #d2dce6;
+  --color-neutral-700: #a8bbc9;
+  --color-neutral-600: #7995a7;
+  --color-neutral-500: #5e7587;
+  --color-neutral-400: #4d5a6b;
+  --color-neutral-300: #3d4452;
+  --color-neutral-200: #2a2f3a;
+  --color-neutral-100: #1a1e26;
+
+  --color-error-50: #fdfcfa;
+  --color-error-900: #fbf0e6;
+  --color-error-800: #f7d2ca;
+  --color-error-700: #eca79e;
+  --color-error-600: #e67771;
+  --color-error-500: #d6534d;
+  --color-error-400: #bd3934;
+  --color-error-300: #952b27;
+  --color-error-200: #6a1e1b;
+  --color-error-100: #411310;
+
+  --color-warning-50: #fbfaf3;
+  --color-warning-900: #f9efb9;
+  --color-warning-800: #f1dd7c;
+  --color-warning-700: #dbb84b;
+  --color-warning-600: #bc8f28;
+  --color-warning-500: #9c7014;
+  --color-warning-400: #7f560d;
+  --color-warning-300: #62410c;
+  --color-warning-200: #432c0a;
+  --color-warning-100: #2d1b08;
+
+  --color-accent-50: #f9fafb;
+  --color-accent-900: #eaf3f7;
+  --color-accent-800: #c2e1f0;
+  --color-accent-700: #86c2dd;
+  --color-accent-600: #37a0c7;
+  --color-accent-500: #107fa3;
+  --color-accent-400: #056280;
+  --color-accent-300: #024a61;
+  --color-accent-200: #033243;
+  --color-accent-100: #001e29;
+}
+
+@theme {
+
+  --animate-shine: shine 4s ease-in-out infinite;
+
+  /* Colores de marca fijos: no cambian entre `inap` y `dark` (a diferencia de
+     primary/secondary/accent). Úsalos donde el color debe ser idéntico en ambos
+     temas: degradado de las diapositivas del carrusel, ondas, logo, botón blanco.
+     Figma: Primitives › brand/navy, brand/blue, brand/cyan, blue/100, neutral/100. */
+  --color-inap-brand-navy: #002350;
+  --color-inap-brand-blue: #215aa8;
+  --color-inap-brand-cyan: #00b3e6;
+  --color-inap-blue-100: #e0edfe;    /* trazos de las ondas de fondo */
+  --color-inap-neutral-100: #eaeff3; /* hover del botón blanco y de las flechas del carrusel */
+
+  /* Tipografía del manual de marca. Montserrat debe cargarse (Google Fonts o @fontsource/montserrat, pesos 300-700). */
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-script: "Dancing Script", cursive;
+
+  --color-danger: #a75415;
+  --color-royal: #605cc8;
+  --color-deep: #3564cc;
+  --color-garbo: #87624f;
+  --color-tertiary: #c53369;
+
+  --color-base-2: #ffffff;
+  --color-base-3: #ffffff;
+  --color-base-border: #5e7587;
+  /* Superficies y elementos de marca (sección "Para tu institución", CTA, logo). */
+  --color-brand-surface: #002350;
+  --color-brand-surface-content: #ffffff;
+  --color-brand-surface-muted: #ffffffc7;
+  --color-brand-surface-line: #ffffff29;
+  --color-surface-subtle: #f4f6f9;
+  --color-surface-muted: #f7f8f8;
+  --color-glow-primary: #215aa838;
+  --color-glow-accent: #00b3e633;
+  --color-logo-primary: #215aa8;
+  --color-logo-accent: #00b3e6;
+
+  --color-success-50: #f2f6f2;
+  --color-success-100: #def0e4;
+  --color-success-200: #b3e6c1;
+  --color-success-300: #78cb8f;
+  --color-success-400: #33ac5e;
+  --color-success-500: #239238;
+  --color-success-600: #1e7c28;
+  --color-success-700: #1c5f22;
+  --color-success-800: #15411c;
+  --color-success-900: #0f2816;
+  --color-success-text: #1e7c28;
+
+  --color-info-50: #eff6f5;
+  --color-info-100: #d2f0f4;
+  --color-info-200: #9ee5e6;
+  --color-info-300: #65cac7;
+  --color-info-400: #2baba1;
+  --color-info-500: #1e8f7c;
+  --color-info-600: #1b7763;
+  --color-info-700: #195b4e;
+  --color-info-800: #133e3a;
+  --color-info-900: #0d272a;
+  --color-info-text: #1b7763;
+
+  --color-primary-50: #f3f6fb;
+  --color-primary-100: #e0edfe;
+  --color-primary-200: #c2dbff;
+  --color-primary-300: #8ebbfd;
+  --color-primary-400: #5e98eb;
+  --color-primary-500: #427bcc;
+  --color-primary-600: #3164ac;
+  --color-primary-700: #244c85;
+  --color-primary-800: #15345f;
+  --color-primary-900: #0a2141;
+  --color-primary-text: #215aa8;
+
+  --color-secondary-50: #f7f8fa;
+  --color-secondary-100: #e8eff8;
+  --color-secondary-200: #cddbee;
+  --color-secondary-300: #a4bad9;
+  --color-secondary-400: #7897c1;
+  --color-secondary-500: #5479ab;
+  --color-secondary-600: #3d6294;
+  --color-secondary-700: #294b79;
+  --color-secondary-800: #1b3457;
+  --color-secondary-900: #0f2037;
+  --color-secondary-text: #002350;
+
+  --color-tertiary-50: #fcfbfb;
+  --color-tertiary-100: #faeff1;
+  --color-tertiary-200: #f6cde4;
+  --color-tertiary-300: #eba0c7;
+  --color-tertiary-400: #e871a6;
+  --color-tertiary-500: #db4d89;
+  --color-tertiary-600: #c53369;
+  --color-tertiary-700: #9e274d;
+  --color-tertiary-800: #721b32;
+  --color-tertiary-900: #46121b;
+
+  --color-neutral-50: #f7f8f8;
+  --color-neutral-100: #eaeff3;
+  --color-neutral-200: #d2dce6;
+  --color-neutral-300: #a8bbc9;
+  --color-neutral-400: #7995a7;
+  --color-neutral-500: #5e7587;
+  --color-neutral-600: #4d5a6b;
+  --color-neutral-700: #3d4452;
+  --color-neutral-800: #2a2f3a;
+  --color-neutral-900: #1a1e26;
+  --color-neutral-text: #3d4452;
+
+  --color-error-50: #fdfcfa;
+  --color-error-100: #fbf0e6;
+  --color-error-200: #f7d2ca;
+  --color-error-300: #eca79e;
+  --color-error-400: #e67771;
+  --color-error-500: #d6534d;
+  --color-error-600: #bd3934;
+  --color-error-700: #952b27;
+  --color-error-800: #6a1e1b;
+  --color-error-900: #411310;
+  --color-error-text: #bd3934;
+
+  --color-warning-50: #fbfaf3;
+  --color-warning-100: #f9efb9;
+  --color-warning-200: #f1dd7c;
+  --color-warning-300: #dbb84b;
+  --color-warning-400: #bc8f28;
+  --color-warning-500: #9c7014;
+  --color-warning-600: #7f560d;
+  --color-warning-700: #62410c;
+  --color-warning-800: #432c0a;
+  --color-warning-900: #2d1b08;
+  --color-warning-text: #62410c;
+
+  --color-accent-50: #f9fafb;
+  --color-accent-100: #eaf3f7;
+  --color-accent-200: #c2e1f0;
+  --color-accent-300: #86c2dd;
+  --color-accent-400: #37a0c7;
+  --color-accent-500: #107fa3;
+  --color-accent-600: #056280;
+  --color-accent-700: #024a61;
+  --color-accent-800: #033243;
+  --color-accent-900: #001e29;
+  --color-accent-text: #056280;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  [data-theme='dark'] {
+    --color-danger: #d37c44;
+    --color-royal: #8384f4;
+    --color-deep: #5b8efb;
+    --color-garbo: #b18a76;
+    --color-tertiary: #c53369;
+
+    --color-base-2: #2b3440;
+    --color-base-3: #222833;
+    --color-base-border: #7995a7;
+    /* Superficies y elementos de marca (sección "Para tu institución", CTA, logo). */
+    --color-brand-surface: #10233f;
+    --color-brand-surface-content: #ffffff;
+    --color-brand-surface-muted: #ffffffc7;
+    --color-brand-surface-line: #ffffff1f;
+    --color-surface-subtle: #1f252f;
+    --color-surface-muted: #222833;
+    --color-glow-primary: #215aa88c;
+    --color-glow-accent: #00b3e647;
+    --color-logo-primary: #ffffff;
+    --color-logo-accent: #ffffff;
+
+    --color-success-50: #f2f6f2;
+    --color-success-900: #def0e4;
+    --color-success-800: #b3e6c1;
+    --color-success-700: #78cb8f;
+    --color-success-600: #33ac5e;
+    --color-success-500: #239238;
+    --color-success-400: #1e7c28;
+    --color-success-300: #1c5f22;
+    --color-success-200: #15411c;
+    --color-success-100: #0f2816;
+    --color-success-text: #78cb8f;
+
+    --color-info-50: #eff6f5;
+    --color-info-900: #d2f0f4;
+    --color-info-800: #9ee5e6;
+    --color-info-700: #65cac7;
+    --color-info-600: #2baba1;
+    --color-info-500: #1e8f7c;
+    --color-info-400: #1b7763;
+    --color-info-300: #195b4e;
+    --color-info-200: #133e3a;
+    --color-info-100: #0d272a;
+    --color-info-text: #65cac7;
+
+    --color-primary-50: #f3f6fb;
+    --color-primary-900: #e0edfe;
+    --color-primary-800: #c2dbff;
+    --color-primary-700: #8ebbfd;
+    --color-primary-600: #5e98eb;
+    --color-primary-500: #427bcc;
+    --color-primary-400: #3164ac;
+    --color-primary-300: #244c85;
+    --color-primary-200: #15345f;
+    --color-primary-100: #0a2141;
+    --color-primary-text: #8ebbfd;
+
+    --color-secondary-50: #f7f8fa;
+    --color-secondary-900: #e8eff8;
+    --color-secondary-800: #cddbee;
+    --color-secondary-700: #a4bad9;
+    --color-secondary-600: #7897c1;
+    --color-secondary-500: #5479ab;
+    --color-secondary-400: #3d6294;
+    --color-secondary-300: #294b79;
+    --color-secondary-200: #1b3457;
+    --color-secondary-100: #0f2037;
+    --color-secondary-text: #a4bad9;
+
+    --color-tertiary-50: #fcfbfb;
+    --color-tertiary-900: #faeff1;
+    --color-tertiary-800: #f6cde4;
+    --color-tertiary-700: #eba0c7;
+    --color-tertiary-600: #e871a6;
+    --color-tertiary-500: #db4d89;
+    --color-tertiary-400: #c53369;
+    --color-tertiary-300: #9e274d;
+    --color-tertiary-200: #721b32;
+    --color-tertiary-100: #46121b;
+
+    --color-neutral-50: #f7f8f8;
+    --color-neutral-900: #eaeff3;
+    --color-neutral-800: #d2dce6;
+    --color-neutral-700: #a8bbc9;
+    --color-neutral-600: #7995a7;
+    --color-neutral-500: #5e7587;
+    --color-neutral-400: #4d5a6b;
+    --color-neutral-300: #3d4452;
+    --color-neutral-200: #2a2f3a;
+    --color-neutral-100: #1a1e26;
+    --color-neutral-text: #a8bbc9;
+
+    --color-error-50: #fdfcfa;
+    --color-error-900: #fbf0e6;
+    --color-error-800: #f7d2ca;
+    --color-error-700: #eca79e;
+    --color-error-600: #e67771;
+    --color-error-500: #d6534d;
+    --color-error-400: #bd3934;
+    --color-error-300: #952b27;
+    --color-error-200: #6a1e1b;
+    --color-error-100: #411310;
+    --color-error-text: #eca79e;
+
+    --color-warning-50: #fbfaf3;
+    --color-warning-900: #f9efb9;
+    --color-warning-800: #f1dd7c;
+    --color-warning-700: #dbb84b;
+    --color-warning-600: #bc8f28;
+    --color-warning-500: #9c7014;
+    --color-warning-400: #7f560d;
+    --color-warning-300: #62410c;
+    --color-warning-200: #432c0a;
+    --color-warning-100: #2d1b08;
+    --color-warning-text: #dbb84b;
+
+    --color-accent-50: #f9fafb;
+    --color-accent-900: #eaf3f7;
+    --color-accent-800: #c2e1f0;
+    --color-accent-700: #86c2dd;
+    --color-accent-600: #37a0c7;
+    --color-accent-500: #107fa3;
+    --color-accent-400: #056280;
+    --color-accent-300: #024a61;
+    --color-accent-200: #033243;
+    --color-accent-100: #001e29;
+    --color-accent-text: #00b3e6;
+  }
+}

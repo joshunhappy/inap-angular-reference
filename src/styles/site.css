@@ -1,0 +1,7 @@
+/*
+  Estilos del sitio de referencia (Angular).
+  Fuente + tokens INAP + ajustes de accesibilidad de componentes daisyUI.
+*/
+@import '@fontsource-variable/montserrat';
+@import './theme/inap-theme.css';
+@import './theme/inap-components.css';

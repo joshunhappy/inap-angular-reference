@@ -1,0 +1,15 @@
+/*
+  CSS compilado para el sitio institucional (WordPress).
+  Salida: dist/wordpress/inap.css  →  npm run build:css
+
+  Mismos tokens y ajustes que el sitio Angular. Tailwind solo genera las clases
+  que encuentra en los archivos escaneados: hoy, los ejemplos del sitio de
+  referencia (src/app). Cuando exista el tema de WordPress, agregar su ruta con
+  @source para incluir también sus plantillas.
+
+  La fuente Montserrat no va en este archivo: WordPress la carga por su cuenta.
+*/
+@import './theme/inap-theme.css';
+@import './theme/inap-components.css';
+
+@source '../app';
