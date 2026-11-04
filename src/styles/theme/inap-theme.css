@@ -3,6 +3,7 @@
   Generado desde las variables de Figma ("INAP Design System"), 2026-10-14.
   Actualizado 2026-10-26: colores de marca fijos (--color-inap-brand-*) en @theme,
   superficies de marca, surface-subtle, surface-muted (breadcrumb), glows y logo.
+  Actualizado 2026-11-03: se quitan los 21 temas integrados de daisyUI (no se usan).
 
   Reemplaza el inicio de tailwind.css, desde `@import 'tailwindcss';` hasta el
   cierre de `@layer base { ... }` (justo antes de `.text-md`). El resto del
@@ -14,8 +15,9 @@
 */
 @import 'tailwindcss';
 
+/* Sin temas integrados de daisyUI: solo se usan los temas propios `inap` y `dark` de abajo. */
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark, cupcake, lemonade, nord, sunset, caramellatte, retro, synthwave, coffee, dracula, winter, forest, valentine, night, wireframe, luxury, silk, pastel, emerald, corporate;
+  themes: false;
 }
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
@@ -197,6 +199,7 @@
 
 @plugin "daisyui/theme" {
   name: dark;
+  prefersdark: true;
   color-scheme: dark;
 
   --color-primary: #215aa8;
@@ -381,8 +384,9 @@
   --color-inap-blue-100: #e0edfe;    /* trazos de las ondas de fondo */
   --color-inap-neutral-100: #eaeff3; /* hover del botón blanco y de las flechas del carrusel */
 
-  /* Tipografía del manual de marca. Montserrat debe cargarse (Google Fonts o @fontsource/montserrat, pesos 300-700). */
-  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  /* Tipografía del manual de marca. Montserrat debe cargarse (@fontsource-variable/montserrat, @fontsource/montserrat o Google Fonts).
+     "Montserrat Variable" es el nombre que registra @fontsource-variable; "Montserrat", el de las otras dos. */
+  --font-sans: "Montserrat Variable", "Montserrat", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-script: "Dancing Script", cursive;
 
   --color-danger: #a75415;

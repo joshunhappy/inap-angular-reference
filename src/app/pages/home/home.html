@@ -1,0 +1,48 @@
+<div class="flex flex-col gap-16">
+  <section class="rounded-box bg-brand-surface px-6 py-12 text-brand-surface-content sm:px-12 sm:py-16" aria-labelledby="home-title">
+    <h1 id="home-title" class="max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">INAP Design System</h1>
+    <p class="mt-4 max-w-2xl text-lg text-brand-surface-muted">
+      Fundamentos, tokens, componentes y patrones para la plataforma de cursos (Angular) y el sitio
+      institucional (WordPress) del INAP, con código listo para copiar.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a routerLink="/primeros-pasos/instalacion" class="btn btn-lg border-white bg-white text-inap-brand-navy hover:bg-inap-neutral-100">
+        Primeros pasos
+        <inap-icon name="arrow-right" />
+      </a>
+      <a routerLink="/componentes" class="btn btn-lg btn-outline border-white text-white hover:bg-white/10">Ver componentes</a>
+    </div>
+  </section>
+
+  <section aria-labelledby="secciones">
+    <h2 id="secciones" class="text-2xl font-bold">Secciones</h2>
+    <ul class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      @for (s of sections; track s.slug) {
+        <li class="relative flex flex-col gap-3 rounded-box border border-base-300 bg-base-2 p-6 transition-colors hover:border-base-border">
+          <span class="flex size-10 items-center justify-center rounded-field bg-surface-subtle text-primary-text">
+            <inap-icon [name]="s.icon" />
+          </span>
+          <h3 class="text-base font-semibold">
+            <a [routerLink]="'/' + s.slug" class="after:absolute after:inset-0 after:rounded-box">{{ s.title }}</a>
+          </h3>
+          <p class="text-sm text-neutral-text">{{ s.description }}</p>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section aria-labelledby="principios">
+    <h2 id="principios" class="text-2xl font-bold">Principios</h2>
+    <ul class="mt-6 grid gap-8 sm:grid-cols-2">
+      @for (p of principles; track p.title) {
+        <li class="flex gap-4">
+          <inap-icon [name]="p.icon" [size]="24" class="mt-0.5 text-primary-text" />
+          <div>
+            <h3 class="font-semibold">{{ p.title }}</h3>
+            <p class="mt-1 text-neutral-text">{{ p.text }}</p>
+          </div>
+        </li>
+      }
+    </ul>
+  </section>
+</div>

@@ -1,0 +1,21 @@
+<div class="flex flex-col gap-6">
+  @for (s of sections(); track s.slug) {
+    <div>
+      <a [routerLink]="'/' + s.slug" routerLinkActive="nav-active" [routerLinkActiveOptions]="{ exact: true }"
+         ariaCurrentWhenActive="page" class="nav-link font-bold text-base-content">{{ s.title }}</a>
+      @for (g of s.groups; track $index) {
+        @if (g.label) {
+          <h2 class="mt-4 mb-1 px-3 text-xs font-semibold tracking-wide text-neutral-text uppercase">{{ g.label }}</h2>
+        }
+        <ul class="mt-1 flex flex-col gap-0.5">
+          @for (p of g.pages; track p.slug) {
+            <li>
+              <a [routerLink]="'/' + s.slug + '/' + p.slug" routerLinkActive="nav-active"
+                 ariaCurrentWhenActive="page" class="nav-link">{{ p.title }}</a>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  }
+</div>

@@ -23,6 +23,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "sprite.svg",
+                "input": "node_modules/lucide-static",
+                "output": "assets/lucide"
               }
             ],
             "styles": [

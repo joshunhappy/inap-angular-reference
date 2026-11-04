@@ -1,0 +1,39 @@
+<dialog #dlg class="modal modal-top sm:modal-middle" aria-labelledby="search-title">
+  <div class="modal-box flex max-h-[80dvh] w-full max-w-xl flex-col p-0">
+    <h2 id="search-title" class="sr-only">Buscar en el sistema de diseño</h2>
+    <div class="border-b border-base-300 p-3">
+      <label class="input input-lg w-full input-ghost">
+        <inap-icon name="search" class="text-neutral-text" />
+        <input #q type="search" role="combobox" autofocus aria-label="Buscar páginas" aria-autocomplete="list"
+               aria-controls="search-results" [attr.aria-expanded]="results().length > 0"
+               [attr.aria-activedescendant]="activeId()" placeholder="Componentes, tokens, patrones…"
+               autocomplete="off" spellcheck="false"
+               [value]="query()" (input)="onInput(q.value)" (keydown)="onKeydown($event)" />
+        <kbd class="kbd kbd-sm" aria-hidden="true">Esc</kbd>
+      </label>
+    </div>
+
+    @if (results().length) {
+      <ul id="search-results" role="listbox" aria-label="Resultados" tabindex="-1" class="outline-none grow overflow-y-auto p-2">
+        @for (r of results(); track r.path; let i = $index) {
+          <li role="option" [id]="'search-opt-' + i" [attr.aria-selected]="i === active()"
+              class="flex cursor-pointer flex-col gap-0.5 rounded-field px-3 py-2"
+              [class.bg-surface-subtle]="i === active()"
+              (click)="go(r)" (mousemove)="active.set(i)">
+            <span class="font-semibold" [class.text-primary-text]="i === active()">{{ r.title }}</span>
+            <span class="text-sm text-neutral-text">{{ r.section.title }} · {{ r.description }}</span>
+          </li>
+        }
+      </ul>
+    } @else {
+      <p id="search-results" class="px-4 py-10 text-center text-neutral-text">Sin resultados para «{{ query() }}».</p>
+    }
+
+    <p class="sr-only" aria-live="polite">{{ results().length }} resultados</p>
+    <p class="hidden border-t border-base-300 px-4 py-2 text-xs text-neutral-text sm:block" aria-hidden="true">
+      <kbd class="kbd kbd-xs">↑</kbd> <kbd class="kbd kbd-xs">↓</kbd> para moverse ·
+      <kbd class="kbd kbd-xs">Enter</kbd> para abrir
+    </p>
+  </div>
+  <form method="dialog" class="modal-backdrop"><button>Cerrar</button></form>
+</dialog>

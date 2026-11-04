@@ -5,9 +5,22 @@
   <title>INAP Design System</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sistema de diseño del INAP: fundamentos, tokens, componentes y patrones para Angular y WordPress.">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    // Tema antes de que arranque Angular, para evitar un parpadeo al cargar.
+    try {
+      var t = localStorage.getItem('inap-tema');
+      if (t !== 'inap' && t !== 'dark') {
+        t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'inap';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'inap');
+    }
+  </script>
 </head>
-<body class="bg-base-100 text-base-content">
+<body class="bg-base-100 text-base-content antialiased">
   <inap-root></inap-root>
 </body>
 </html>

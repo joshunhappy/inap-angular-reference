@@ -1,0 +1,43 @@
+<header class="sticky top-0 z-30 border-b border-base-300 bg-base-100">
+  <div class="mx-auto flex h-21 max-w-screen-2xl items-center gap-2 px-4 sm:px-6">
+    <button type="button" class="btn btn-ghost btn-square xl:hidden" aria-label="Abrir menú" (click)="openMenu.emit()">
+      <inap-icon name="menu" [size]="24" />
+    </button>
+
+    <a routerLink="/" class="flex shrink-0 items-center gap-4 rounded-field" aria-label="INAP Design System, inicio">
+      <inap-logo />
+      <span class="hidden border-s border-base-300 ps-4 text-base font-semibold text-base-content sm:block" aria-hidden="true">Design System</span>
+    </a>
+
+    <nav aria-label="Principal" class="ms-6 hidden h-full xl:block">
+      <ul class="flex h-full">
+        @for (s of sections; track s.slug) {
+          <li class="h-full">
+            <a [routerLink]="'/' + s.slug" routerLinkActive="top-link-active" [ariaCurrentWhenActive]="true"
+               class="top-link">{{ s.title }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div class="ms-auto flex items-center gap-1">
+      <button type="button" class="input hidden w-60 cursor-pointer items-center gap-2 text-start md:flex"
+              aria-keyshortcuts="Control+K Meta+K" (click)="openSearch.emit()">
+        <inap-icon name="search" [size]="16" class="text-neutral-text" />
+        <span class="grow text-neutral-text">Buscar</span>
+        <kbd class="kbd kbd-sm" aria-hidden="true">{{ shortcut() }}</kbd>
+      </button>
+      <button type="button" class="btn btn-ghost btn-square md:hidden" aria-label="Buscar" (click)="openSearch.emit()">
+        <inap-icon name="search" [size]="24" />
+      </button>
+      <button type="button" class="btn btn-ghost btn-square" aria-label="Modo oscuro"
+              [attr.aria-pressed]="theme.theme() === 'dark'" (click)="theme.toggle()">
+        <inap-icon [name]="theme.theme() === 'dark' ? 'sun' : 'moon'" [size]="24" />
+      </button>
+      <a [href]="figmaUrl" target="_blank" rel="noopener" class="btn btn-ghost btn-square hidden sm:inline-flex"
+         aria-label="Archivo de Figma (abre en otra pestaña)">
+        <inap-icon name="figma" [size]="24" />
+      </a>
+    </div>
+  </div>
+</header>

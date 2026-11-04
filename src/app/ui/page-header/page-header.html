@@ -1,0 +1,31 @@
+<header class="mb-10 flex flex-col gap-4 border-b border-base-300 pb-8">
+  @if (crumbs().length) {
+    <nav aria-label="Migas de pan" class="breadcrumbs py-0 text-sm">
+      <ul>
+        @for (c of crumbs(); track c.link) {
+          <li><a [routerLink]="c.link" class="text-neutral-text">{{ c.label }}</a></li>
+        }
+        <li><span aria-current="page">{{ title() }}</span></li>
+      </ul>
+    </nav>
+  }
+  <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+    <h1 class="text-3xl font-bold tracking-tight text-base-content sm:text-4xl">{{ title() }}</h1>
+    @if (status(); as s) {
+      <inap-status-badge [status]="s" />
+    }
+  </div>
+  @if (description(); as d) {
+    <p class="max-w-prose text-lg text-neutral-text">{{ d }}</p>
+  }
+  @if (figma(); as f) {
+    <p>
+      <a [href]="f" target="_blank" rel="noopener" class="link link-hover inline-flex items-center gap-2 text-sm font-semibold text-primary-text">
+        <inap-icon name="figma" [size]="16" />
+        Ver en Figma
+        <span class="sr-only">(abre en otra pestaña)</span>
+        <inap-icon name="external-link" [size]="16" />
+      </a>
+    </p>
+  }
+</header>

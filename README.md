@@ -6,6 +6,11 @@ Sitio de referencia del sistema de diseño del INAP (Instituto Nacional de Admin
 - **Diseño:** Figma «INAP Design System» — https://www.figma.com/design/IntROaQkiRlnkFUci5PbDu
 - **Accesibilidad:** WCAG 2.1 AA
 
+## Documentación para desarrollo
+
+- [Guía de implementación en Angular + daisyUI](docs/guia-implementacion-angular.md)
+- [Consideraciones de desarrollo (Angular y WordPress)](docs/consideraciones-desarrollo.md)
+
 ## Requisitos
 
 Node 24 (ver `.nvmrc`).

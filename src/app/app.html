@@ -1,13 +1,22 @@
-<main class="mx-auto max-w-3xl p-8 flex flex-col gap-6">
-  <h1 class="text-3xl font-bold">INAP Design System</h1>
-  <p class="text-neutral-text">Sitio de referencia en construcción.</p>
-  <div class="flex flex-wrap gap-3">
-    <button class="btn btn-primary">Primario</button>
-    <button class="btn btn-secondary">Secundario</button>
-    <button class="btn btn-outline btn-primary">Contorno</button>
-    <button class="btn btn-soft btn-primary">Suave</button>
-    <button class="btn btn-ghost">Fantasma</button>
-  </div>
-  <div role="status" class="alert alert-soft alert-info">El tema INAP está cargado.</div>
-</main>
-<router-outlet />
+<a href="#contenido" class="btn btn-primary sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50">
+  Saltar al contenido principal
+</a>
+
+<inap-site-header [shortcut]="shortcut()" (openMenu)="menu.open()" (openSearch)="searchDialog.open()" />
+
+<div class="mx-auto flex w-full max-w-screen-2xl grow">
+  @if (section(); as s) {
+    <aside class="sticky top-21 hidden h-[calc(100dvh-5.25rem)] w-72 shrink-0 overflow-y-auto border-e border-base-300 px-3 py-8 lg:block">
+      <nav [attr.aria-label]="s.title">
+        <inap-site-nav [sections]="[s]" />
+      </nav>
+    </aside>
+  }
+  <main id="contenido" tabindex="-1" class="min-w-0 flex-1 px-4 py-8 outline-none sm:px-8 lg:px-12 lg:py-10">
+    <router-outlet />
+  </main>
+</div>
+
+<inap-site-footer />
+<inap-menu-dialog #menu />
+<inap-search-dialog #searchDialog />
