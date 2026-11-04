@@ -6,7 +6,7 @@ import { boton } from './boton';
 import { campos } from './campos';
 import { dialogo } from './dialogo';
 import { menuDesplegable } from './menu-desplegable';
-import { migas } from './migas';
+import { breadcrumb } from './breadcrumb';
 import { paginacion } from './paginacion';
 import { seleccion } from './seleccion';
 import { tabs } from './tabs';
@@ -20,7 +20,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   badge,
   alerta,
   tabs,
-  'migas-de-pan': migas,
+  'breadcrumb': breadcrumb,
   paginacion,
   acordeon,
   avatar,

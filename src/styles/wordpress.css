@@ -12,5 +12,6 @@
 @import './theme/inap-theme.css';
 @import './theme/inap-components.css';
 @import './theme/inap-safelist.css';
+@import './theme/inap-navigation.css';
 
 @source '../app';

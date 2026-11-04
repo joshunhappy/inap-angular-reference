@@ -1,0 +1,16 @@
+/*
+  INAP Design System: navegación lateral.
+  Compartido por el sitio Angular y el CSS de WordPress (dist/wordpress/inap.css).
+
+  Uso: <a class="nav-link">…</a>. El enlace de la página actual se marca con
+  nav-active o con aria-current="page" (wp_nav_menu ya lo agrega al enlace).
+*/
+@layer components {
+  .nav-link {
+    @apply block rounded-field px-3 py-2 text-sm text-neutral-text transition-colors hover:bg-surface-subtle hover:text-base-content;
+  }
+  .nav-link.nav-active,
+  .nav-link[aria-current='page'] {
+    @apply bg-surface-subtle font-semibold text-primary-text;
+  }
+}

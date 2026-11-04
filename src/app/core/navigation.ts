@@ -108,7 +108,7 @@ export const SECTIONS: NavSection[] = [
           { slug: 'badge', load: componentDoc, title: 'Badge', status: 'decidido', description: 'Sólido, suave y contorno. No interactivo.', keywords: ['badge-soft', 'etiqueta'] },
           { slug: 'alerta', load: componentDoc, title: 'Alerta', status: 'decidido', description: 'Mensajes de estado con role="status" o role="alert".', keywords: ['alert', 'aviso'] },
           { slug: 'tabs', load: componentDoc, title: 'Tabs', status: 'decidido', description: 'Pestañas y tabs como enlaces de ancla.', keywords: ['tabs-border', 'pestañas'] },
-          { slug: 'migas-de-pan', load: componentDoc, title: 'Migas de pan', status: 'decidido', description: 'Ubicación de la página dentro del sitio.', keywords: ['breadcrumbs', 'breadcrumb'] },
+          { slug: 'breadcrumb', load: componentDoc, title: 'Breadcrumb', status: 'decidido', description: 'Ubicación de la página dentro del sitio.', keywords: ['breadcrumbs', 'ruta'] },
           { slug: 'paginacion', load: componentDoc, title: 'Paginación', status: 'decidido', description: 'Navegación entre páginas de resultados.', keywords: ['pagination', 'join'] },
           { slug: 'acordeon', load: componentDoc, title: 'Acordeón', status: 'decidido', description: 'Contenido que se expande con details y summary.', keywords: ['collapse', 'faq'] },
           { slug: 'avatar', load: componentDoc, title: 'Avatar', status: 'decidido', description: 'Foto o iniciales del usuario.', keywords: ['avatar-placeholder'] },

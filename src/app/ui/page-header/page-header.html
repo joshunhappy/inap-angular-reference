@@ -1,6 +1,6 @@
 <header class="mb-10 flex flex-col gap-4 border-b border-base-300 pb-8">
   @if (crumbs().length) {
-    <nav aria-label="Migas de pan" class="breadcrumbs py-0 text-sm">
+    <nav aria-label="Breadcrumb" class="breadcrumbs py-0 text-sm">
       <ul>
         @for (c of crumbs(); track c.link) {
           <li><a [routerLink]="c.link" class="text-neutral-text">{{ c.label }}</a></li>

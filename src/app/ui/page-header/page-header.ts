@@ -9,7 +9,7 @@ export interface Crumb {
   link: string;
 }
 
-/** Encabezado de página: migas de pan, título, estado, descripción y enlace a Figma. */
+/** Encabezado de página: breadcrumb, título, estado, descripción y enlace a Figma. */
 @Component({
   selector: 'inap-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,

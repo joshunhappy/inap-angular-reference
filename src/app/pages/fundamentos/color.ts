@@ -20,7 +20,7 @@ const SURFACES = [
   { name: 'color-base-2', use: 'Tarjetas' },
   { name: 'color-base-3', use: 'Campos en dark, tarjetas internas' },
   { name: 'color-surface-subtle', use: 'Sección alterna' },
-  { name: 'color-surface-muted', use: 'Barra de migas, «Regresar»' },
+  { name: 'color-surface-muted', use: 'Barra del breadcrumb, «Regresar»' },
   { name: 'color-brand-surface', use: 'Superficie navy' },
 ];
 

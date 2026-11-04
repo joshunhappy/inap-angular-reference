@@ -6,6 +6,7 @@
 @import './theme/inap-theme.css';
 @import './theme/inap-components.css';
 @import './theme/inap-safelist.css';
+@import './theme/inap-navigation.css';
 
 /* Solo del sitio de referencia: no forman parte del CSS para WordPress. */
 @layer base {
@@ -16,14 +17,6 @@
 }
 
 @layer components {
-  /* Enlace de la barra lateral y del menú de celular. */
-  .nav-link {
-    @apply block rounded-field px-3 py-2 text-sm text-neutral-text transition-colors hover:bg-surface-subtle hover:text-base-content;
-  }
-  .nav-link.nav-active {
-    @apply bg-surface-subtle font-semibold text-primary-text shadow-[inset_3px_0_0_var(--color-primary-text)];
-  }
-
   /* Enlaces de sección del encabezado. */
   .top-link {
     @apply flex h-full items-center border-b-2 border-transparent px-3 text-sm font-semibold text-neutral-text transition-colors hover:text-base-content;

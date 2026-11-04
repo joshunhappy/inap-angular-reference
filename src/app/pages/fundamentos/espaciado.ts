@@ -32,7 +32,7 @@ import { DocPage } from '../../ui/doc-page/doc-page';
       <h2 id="reglas">Reglas</h2>
       <ul>
         <li>Sin valores arbitrarios (<code>p-[13px]</code>). Si un valor no cae en la escala, pregúntenme: puede ser un error del diseño.</li>
-        <li>El contenedor de página (ancho máximo y márgenes laterales) es el mismo en la barra de navegación, las migas y el contenido, para que todo quede alineado.</li>
+        <li>El contenedor de página (ancho máximo y márgenes laterales) es el mismo en la barra de navegación, el breadcrumb y el contenido, para que todo quede alineado.</li>
         <li>Para separar elementos hermanos, <code>gap-*</code> en el contenedor flex o grid, en vez de márgenes en cada hijo.</li>
       </ul>
     </inap-doc-page>

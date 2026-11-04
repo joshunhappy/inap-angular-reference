@@ -16,7 +16,7 @@ Estado de cada punto:
 4. [Búsqueda](#4-búsqueda)
 5. [Tema claro y oscuro](#5-tema-claro-y-oscuro)
 6. [Enlaces entre sitios y Aula Virtual](#6-enlaces-entre-sitios-y-aula-virtual)
-7. [Migas de pan](#7-migas-de-pan)
+7. [Breadcrumb](#7-breadcrumb)
 8. [Tokens y estilos compartidos](#8-tokens-y-estilos-compartidos)
 9. [Contenido editable](#9-contenido-editable)
 10. [Accesibilidad común](#10-accesibilidad-común)
@@ -124,13 +124,13 @@ Estado de cada punto:
 - **Escritorio:** Aula Virtual va en la barra superior, en todas las páginas, con o sin sesión. En Angular también va en el menú de usuario.
 - **Celular:** en el menú principal va en el bloque azul oscuro con la apariencia de la barra superior de escritorio. En Angular también va en «Mi cuenta».
 
-## 7. Migas de pan
+## 7. Breadcrumb
 
 **Decidido**
 
-- Cada plataforma tiene sus propias migas de pan y nunca cruzan a la otra.
-- En Angular, la primera miga es «Inicio» y lleva al Home de Angular.
-- En celular no se muestran migas de pan, solo el enlace para regresar.
+- Cada plataforma tiene su propio breadcrumb y nunca cruza a la otra.
+- En Angular, el primer elemento del breadcrumb es «Inicio» y lleva al Home de Angular.
+- En celular no se muestra el breadcrumb, solo el enlace para regresar.
 
 **Pendiente**
 
@@ -146,6 +146,7 @@ Estado de cada punto:
 - Íconos: Lucide (`lucide-static` v0.469.0) en ambas.
 - Ajustes de accesibilidad de componentes daisyUI: `src/styles/theme/inap-components.css`, importado al final de `tailwind.css`.
 - Lista de clases que siempre se generan (colores y tamaños de daisyUI): `src/styles/theme/inap-safelist.css`. Necesaria en WordPress, donde las plantillas no las escriben todas.
+- Navegación lateral (`nav-link`, `nav-active`): `src/styles/theme/inap-navigation.css`. La misma en Angular y WordPress; el enlace activo se marca con fondo, color `primary-text` y peso semibold, sin barra lateral.
 - Cómo aplicar el diseño en Angular (instalación, tokens, componentes y patrones): `docs/guia-implementacion-angular.md`.
 
 ## 9. Contenido editable
@@ -191,7 +192,7 @@ Estado de cada punto:
   - **Tipos de curso, áreas de formación y pasos:** se apilan en una columna. Los tipos de curso quedan apilados por decisión de diseño.
 - Detalle de curso: correo «Detalle de curso: tabs fijas con scroll spy, tarjeta de inscripción y barra inferior» (correo del 27 oct. 2026)
 - Catálogo de cursos (Figma: `Catalog / Desktop`, `Catalog / Mobile`, `Catalog Filters / Mobile`; pantallas «Catálogo • …» en Desktop Light y Mobile Light). **Decidido** (aprobado 2026-11-03):
-  - **Una sola página de catálogo con filtros.** Hoy hay una página por tipo (`/categoria/...`) y otra por área (`/area-formacion/...`). Esos enlaces abren el catálogo con el filtro ya aplicado; el título y la descripción cambian al del tipo o área, y las migas muestran «Catálogo de cursos › {tipo o área}».
+  - **Una sola página de catálogo con filtros.** Hoy hay una página por tipo (`/categoria/...`) y otra por área (`/area-formacion/...`). Esos enlaces abren el catálogo con el filtro ya aplicado; el título y la descripción cambian al del tipo o área, y el breadcrumb muestra «Catálogo de cursos › {tipo o área}».
   - **Filtros en la URL** (por ejemplo `?tipo=certificacion&inscripcion=abierta`), para que se puedan compartir y el botón Atrás funcione.
   - **Grupos de filtros:** Tipo de formación, Nivel de certificación, Área de formación, Modalidad e Inscripción (Abierta / Próximamente). Las opciones y los conteos vienen de los datos, nunca fijos en el código. Área muestra 5 y «Ver las N áreas».
   - **Escritorio:** los filtros se aplican al marcarlos. Los filtros activos aparecen como etiquetas con «Quitar filtro: {nombre}» y un enlace «Limpiar filtros». El conteo de resultados se anuncia con `aria-live="polite"`.
@@ -199,11 +200,11 @@ Estado de cada punto:
   - **Orden:** «Próximos a iniciar» por defecto. En celular la etiqueta «Ordenar por» queda oculta visualmente (`sr-only`), pero el control la conserva.
   - **Paginación:** `<nav aria-label="Paginación">`, página actual con `aria-current="page"`, áreas táctiles de 44 px. 9 cursos por página en escritorio.
   - **Sin resultados:** mensaje con «Limpiar filtros».
-  - **Pendiente:** confirmar con el equipo de desarrollo qué datos existen para filtrar (nivel de certificación, modalidad, estado de inscripción) y si la plataforma ya da los conteos por opción. Consulta enviada a Pablo: «Rediseño: datos para los filtros del catálogo de cursos» (correo del 3 nov. 2026).
+  - **Pendiente:** confirmar con el equipo de desarrollo qué datos existen para filtrar (nivel de certificación, modalidad, estado de inscripción) y si la plataforma ya da los conteos por opción. Consulta por enviar a Pablo: «Rediseño: datos para los filtros del catálogo y la búsqueda de cursos».
 - Resultados de búsqueda (Figma: pantallas «Búsqueda • …» en Desktop y Mobile, Light y Dark; usan `Catalog / Desktop` y `Catalog / Mobile`). **Propuesta**:
-  - **Misma página y mismos componentes que el catálogo.** Cambian el título («Resultados para «{búsqueda}»»), la descripción, las migas («Inicio › Resultados de búsqueda») y el orden por defecto: **«Más relevantes»**.
+  - **Misma página y mismos componentes que el catálogo.** Cambian el título («Resultados para «{búsqueda}»»), la descripción, el breadcrumb («Inicio › Resultados de búsqueda») y el orden por defecto: **«Más relevantes»**.
   - **La búsqueda va en la URL** junto con los filtros (por ejemplo `?q=gestion&tipo=certificacion`). En escritorio, el buscador de la barra muestra el texto buscado para que se pueda corregir.
   - **Qué se busca:** nombre del curso y área de formación. Sin distinguir mayúsculas ni tildes («gestion» encuentra «gestión»).
   - **Filtros con conteos de los resultados**, no de todo el catálogo. Las opciones con 0 resultados se ocultan; con pocas áreas no se muestra «Ver las N áreas».
   - **Sin resultados:** se ocultan filtros, orden y paginación. Mensaje «No encontramos cursos para «{búsqueda}»», sugerencia de revisar la ortografía o usar palabras más generales, y botón «Ver todo el catálogo». El mensaje se anuncia con `aria-live="polite"`.
-  - **Pendiente:** confirmar con el equipo de desarrollo si el buscador ignora tildes y si puede ordenar por relevancia.
+  - **Pendiente:** confirmar con el equipo de desarrollo si el buscador ignora tildes y si puede ordenar por relevancia (incluido en la consulta «Rediseño: datos para los filtros del catálogo y la búsqueda de cursos»).

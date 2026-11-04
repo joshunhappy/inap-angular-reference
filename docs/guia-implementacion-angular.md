@@ -3,7 +3,7 @@
 Guía para el equipo de desarrollo de la plataforma de cursos (Angular + Tailwind 4.1.4 + daisyUI 5.5.19). Explica cómo instalar el tema, cómo leer los diseños de Figma y cómo pasar cada componente a código.
 
 - **Plataforma:** Angular. WordPress usa los mismos tokens (ver `consideraciones-desarrollo.md`, punto 8), pero esta guía no lo cubre.
-- **Reglas entre plataformas** (encabezado, búsqueda, sesión, migas, tema): `docs/consideraciones-desarrollo.md`. Esta guía no las repite.
+- **Reglas entre plataformas** (encabezado, búsqueda, sesión, breadcrumb, tema): `docs/consideraciones-desarrollo.md`. Esta guía no las repite.
 - **Requisito:** WCAG 2.1 AA. 4.5:1 para texto; 3:1 para bordes, íconos y foco.
 
 Estado de cada punto, igual que en `consideraciones-desarrollo.md`: **Decidido**, **Propuesta** o **Pendiente**.
@@ -208,7 +208,7 @@ Los colores de marca son exactos: primary `#215AA8`, secondary `#002350`, accent
 | Tarjetas | `bg-base-2` (dark: `#2b3440`) | — |
 | Campos en dark, tarjetas internas | `bg-base-3` | — |
 | Sección alterna (estadísticas, áreas, testimonios) | `bg-surface-subtle` | `bg-base-200` |
-| Barra de migas / enlace «Regresar» | `bg-surface-muted` | — |
+| Barra del breadcrumb / enlace «Regresar» | `bg-surface-muted` | — |
 | Superficie navy (barra superior, sección institucional, footer) | `bg-brand-surface text-brand-surface-content`; secundario `text-brand-surface-muted`; divisores `border-brand-surface-line` | `bg-secondary`: en dark `secondary` es `#a4bad9` |
 | Color que **no** cambia con el tema (degradado sobre foto, flechas del carrusel, ondas) | `inap-brand-navy`, `inap-brand-blue`, `inap-brand-cyan`; trazos de las ondas `inap-blue-100`; hover del botón blanco y de las flechas `inap-neutral-100` | `secondary`, `primary`, `primary-100`, `neutral-100` (estas rampas se invierten en dark) |
 | Logo | Variante Auto: `logo-primary` / `logo-accent` (marca en claro, blanco en oscuro) | — |
@@ -268,7 +268,7 @@ Igual para `select-*`, `checkbox-*`, `radio-*`, `toggle-*` y `badge-*`. En celul
 
 Figma usa la escala de Tailwind (`--spacing` = 4 px). `calc(var(--spacing) * N)` = `p-N`, `gap-N`, `m-N`. No usar valores arbitrarios (`p-[13px]`). Si un valor no cae en la escala, pregúntenme.
 
-Contenedor de página: ancho máximo y márgenes laterales según el frame (escritorio 1440 de ancho de diseño). Usar el mismo contenedor en navbar, migas y contenido para que todo quede alineado.
+Contenedor de página: ancho máximo y márgenes laterales según el frame (escritorio 1440 de ancho de diseño). Usar el mismo contenedor en navbar, breadcrumb y contenido para que todo quede alineado.
 
 ### 7.3 Radios
 
@@ -373,7 +373,7 @@ Tamaño: ver 7.1. Estado deshabilitado: atributo `disabled` (daisyUI lo pinta); 
 | Section Header | `<h2>` + texto `text-neutral-text` + enlace | Sin eyebrow |
 | Stat, Testimonial Card | `stat`, `card` | Contenido provisional |
 | FAQ Item | `collapse collapse-arrow` con `<details>`/`<summary>` | Teclado nativo, sin JS |
-| Breadcrumb | `breadcrumbs` en `<nav aria-label="Migas de pan">` | Último elemento con `aria-current="page"`. Solo escritorio |
+| Breadcrumb | `breadcrumbs` en `<nav aria-label="Breadcrumb">` | Último elemento con `aria-current="page"`. Solo escritorio |
 | Tabs del curso | `tabs tabs-border` como **enlaces** | No son pestañas ARIA. Ver 10.4. Tab inactiva en `neutral-text` (daisyUI usa `base-content/50`, 3.45), ya en `inap-components.css` |
 | Enrollment Card / Enrollment Bar | `card` / barra `fixed bottom-0` | Un componente por estado (Próximamente, Abierta, Último día, Cerrada, Cupo lleno, Inscrito, Saldo pendiente, Aprobado). La barra aparece cuando la tarjeta sale de vista (10.3) |
 | Fact Row, Checklist Item, Module Row | `<dl>` / `<ul>` | Ícono de 16 px, `aria-hidden` |
