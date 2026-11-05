@@ -107,7 +107,7 @@ Estado de cada punto:
 **Propuesta** (Figma: pantallas «Perfil • …» en Desktop y Mobile, Light y Dark; flujo de prototipo «Perfil • Completar»)
 
 - **Ya no bloquea después del registro.** Al registrarse, el usuario llega a su inicio (`/perfil`) con un aviso: «Completa tu perfil para inscribirte en cursos», con el botón «Completar perfil». Puede navegar y explorar cursos sin completarlo.
-- **Se pide al inscribirse.** Si el perfil está incompleto, «Inscribirme» abre el formulario con el nombre del curso arriba («Te estás inscribiendo en…»). Al guardar, regresa a ese curso con un aviso (`role="status"`): «Tu perfil está completo. Ahora confirma tu inscripción en este curso.» La dirección conserva el curso (por ejemplo `/perfil/completar?curso=…`).
+- **Se pide al inscribirse.** Si el perfil está incompleto, «Inscribirme» abre el formulario con la miniatura y el nombre del curso arriba («Te estás inscribiendo en…»), en los dos pasos, para que el usuario reconozca el curso. Si entra desde el aviso del inicio, ese recuadro no aparece. Al guardar, regresa a ese curso con un aviso (`role="status"`): «Tu perfil está completo. Ahora confirma tu inscripción en este curso.» La dirección conserva el curso (por ejemplo `/perfil/completar?curso=…`).
 - **Dos pasos en lugar de cinco:**
   - Paso 1, «Tus datos»: nombres, apellidos, fecha de nacimiento, celular y nacionalidad. Aparte, «Datos para estadísticas»: género, identidad cultural y comunidad lingüística, con una línea que explica para qué se usan.
   - Paso 2, «Estudios y trabajo»: grado académico, profesión u oficio, colegio profesional (opcional), sector, institución o empresa, departamento y municipio donde vive, y la casilla «Trabajo en el mismo departamento y municipio» marcada por defecto (si se desmarca, aparecen los campos del trabajo).
@@ -118,7 +118,7 @@ Estado de cada punto:
 - **Fecha de nacimiento** en formato DD/MM/AAAA, con ejemplo debajo; no se usa el selector de fecha en formato mm/dd/yyyy.
 - **Sin ventanas de confirmación.** Se quitan «¿Completar perfil?» y «Gracias por actualizar tu perfil».
 - **Revisión cada 6 meses:** en lugar de repetir el formulario, una página con el resumen de los datos y dos botones: «Sí, siguen iguales» (actualiza la fecha de revisión) y «Actualizar mis datos». No bloquea el inicio.
-- **Pendiente:** confirmar con el equipo de desarrollo y con la Licda. Eluvia Morales si la inscripción puede guardar el perfil y continuar, si la delegación se puede cambiar, qué datos son obligatorios por ley o por reportes, si se agregan opciones a género y «Prefiero no decir», y si la revisión de 6 meses es necesaria (consulta «Rediseño: completar el perfil al inscribirse», por enviar).
+- **Pendiente:** confirmar con el equipo de desarrollo y con la Licda. Eluvia Morales si la inscripción puede guardar el perfil y continuar, si la delegación se puede cambiar, qué datos son obligatorios por ley o por reportes, si se puede agregar «Prefiero no decir» y si la revisión de 6 meses es necesaria (consulta «Rediseño: completar el perfil al inscribirse», por enviar).
 
 ## 4. Búsqueda
 
