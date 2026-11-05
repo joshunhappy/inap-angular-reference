@@ -48,11 +48,11 @@ export const SECTIONS: NavSection[] = [
     groups: [
       {
         pages: [
-          { slug: 'instalacion', title: 'Instalación', status: 'decidido', description: 'Tokens, ajustes de componentes y fuente en un proyecto Angular con Tailwind y daisyUI.', keywords: ['tailwind', 'daisyui', 'montserrat', 'npm'] },
-          { slug: 'tema-claro-oscuro', title: 'Tema claro y oscuro', status: 'propuesta', description: 'Atributo data-theme, servicio de tema y botón «Modo oscuro».', keywords: ['dark', 'modo oscuro', 'data-theme'] },
-          { slug: 'leer-figma', title: 'Cómo leer Figma', status: 'decidido', description: 'Páginas, variables, sufijos en nombres de capa y contenido provisional.', keywords: ['variables', 'sr-only'] },
-          { slug: 'revision', title: 'Revisión antes de entregar', status: 'propuesta', description: 'Lista de comprobación de diseño y accesibilidad para cada pantalla.', keywords: ['checklist', 'qa'] },
-          { slug: 'cambios', title: 'Cuando cambia el diseño', status: 'decidido', description: 'Cómo llegan los cambios de tokens y componentes.' },
+          { slug: 'instalacion', load: () => import('../pages/primeros-pasos/instalacion').then((m) => m.InstalacionPage), title: 'Instalación', status: 'decidido', description: 'Tokens, ajustes de componentes y fuente en un proyecto Angular con Tailwind y daisyUI.', keywords: ['tailwind', 'daisyui', 'montserrat', 'npm'] },
+          { slug: 'tema-claro-oscuro', load: () => import('../pages/primeros-pasos/tema-claro-oscuro').then((m) => m.TemaPage), title: 'Tema claro y oscuro', status: 'propuesta', description: 'Atributo data-theme, servicio de tema y botón «Modo oscuro».', keywords: ['dark', 'modo oscuro', 'data-theme'] },
+          { slug: 'leer-figma', load: () => import('../pages/primeros-pasos/leer-figma').then((m) => m.LeerFigmaPage), title: 'Cómo leer Figma', status: 'decidido', description: 'Páginas, variables, sufijos en nombres de capa y contenido provisional.', keywords: ['variables', 'sr-only'] },
+          { slug: 'revision', load: () => import('../pages/primeros-pasos/revision').then((m) => m.RevisionPage), title: 'Revisión antes de entregar', status: 'propuesta', description: 'Lista de comprobación de diseño y accesibilidad para cada pantalla.', keywords: ['checklist', 'qa'] },
+          { slug: 'cambios', load: () => import('../pages/primeros-pasos/cambios').then((m) => m.CambiosPage), title: 'Cuando cambia el diseño', status: 'decidido', description: 'Cómo llegan los cambios de tokens y componentes.' },
         ],
       },
     ],

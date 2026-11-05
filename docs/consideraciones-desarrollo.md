@@ -100,7 +100,7 @@ Estado de cada punto:
 - **Correo ya registrado:** el mensaje ofrece iniciar sesión o recuperar la contraseña.
 - **Recuperar contraseña:** se pide el correo y se envía un enlace. La confirmación no dice si el correo existe («Si hay una cuenta con…»), para no revelar quién está registrado. Desde el enlace se crea la nueva contraseña con los mismos requisitos; al guardarla, regresa a iniciar sesión con un aviso de éxito (`role="status"`).
 - **«Recuperar usuario»** se presenta como «¿No recuerdas con qué correo te registraste? Recupéralo con tu DPI o pasaporte». Hoy muestra el correo completo; se propone mostrarlo parcialmente oculto (por ejemplo «a•••@correo.com»), porque el DPI no es un dato secreto.
-- **Pendiente:** confirmar con el equipo de desarrollo si el servicio de registro necesita el campo `confirm`, cuánto tiempo es válido el enlace de recuperación, si se puede ocultar parte del correo en «Recuperar usuario» y si la validación del correo puede aceptar mayúsculas y dominios de más de 4 letras (consulta «Rediseño: inicio de sesión y registro», por enviar).
+- **Pendiente:** confirmar con el equipo de desarrollo si el servicio de registro necesita el campo `confirm`, cuánto tiempo es válido el enlace de recuperación, si se puede ocultar parte del correo en «Recuperar usuario» y si la validación del correo puede aceptar mayúsculas y dominios de más de 4 letras (consulta enviada a Pablo: «Rediseño: inicio de sesión y registro», correo del 4 nov. 2026).
 
 ## 4. Búsqueda
 
