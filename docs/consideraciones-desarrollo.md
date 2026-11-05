@@ -84,6 +84,24 @@ Estado de cada punto:
 
 - El destino de esa redirección es el **Home** de Angular, igual que después de iniciar sesión. El sistema ya lo valida (confirmado por Pablo, 29 oct 2026).
 
+**Propuesta** (Figma: pantallas «Login • …», «Registro • …» y «Recuperar • …» en Desktop y Mobile, Light y Dark; usan `Auth / Desktop` y `Auth / Mobile`)
+
+- **Páginas:** `/login`, `/registro` y `/recuperar-contrasena`. Misma plantilla, sin encabezado ni pie de página: la página ocupa toda la pantalla. En escritorio, un panel con el logo de INAP, el mensaje y las ondas de fondo a la izquierda, y el formulario a la derecha (400 px); en celular, el logo arriba del formulario. El logo (160 px de ancho) es un enlace al inicio con `aria-label="INAP, ir al inicio"`. Sin breadcrumb.
+- **Etiquetas visibles arriba de cada campo** (componente Field). No se usan etiquetas flotantes ni solo placeholder: el placeholder desaparece al escribir y no pasa el contraste mínimo.
+- **Iniciar sesión:** correo y contraseña. «¿Olvidaste tu contraseña?» va junto a la etiqueta de la contraseña. Si los datos no coinciden, un solo mensaje arriba del formulario: «El correo o la contraseña no son correctos…». No se dice cuál de los dos falló. El correo se conserva y la contraseña se borra.
+- **Contraseña con botón para mostrarla** (ícono de ojo dentro del campo): `<button type="button" aria-label="Mostrar contraseña" aria-pressed="false">`. Cambia a «Ocultar contraseña» y al ícono `eye-off`.
+- **Registro:** DPI, correo y contraseña. Se quita «Confirmar contraseña»: el botón de mostrar cumple esa función y es un campo menos.
+  - DPI: solo números, se muestra agrupado «0000 00000 0000» mientras se escribe; se envía sin espacios. `inputmode="numeric"`, `autocomplete="off"`.
+  - «¿No tienes DPI? Regístrate con tu pasaporte» cambia el DPI por «Número de pasaporte»: letras y números, hasta 9 caracteres, sin país (igual que el registro actual).
+  - Requisitos de la contraseña visibles desde el inicio y marcados mientras se escribe (componente Password Rule). Son los que valida hoy la plataforma: al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo. Cada requisito anuncia su estado con texto `sr-only`, no solo con color.
+  - Atributos `autocomplete`: `email`/`username` en el correo, `current-password` al iniciar sesión, `new-password` al registrarse y al crear una nueva contraseña.
+- **Errores del formulario:** se validan al enviar. Arriba aparece un resumen («Revisa los 2 campos marcados…») con `role="alert"`, y cada campo muestra su mensaje con `aria-invalid="true"` y `aria-describedby`. El foco va al primer campo con error. Los mensajes dicen cómo corregir («El DPI debe tener 13 dígitos. Escribiste 9.»).
+- **Cuenta deshabilitada:** si el servicio responde 403 «Usuario deshabilitado.», el aviso dice «Tu cuenta está deshabilitada. Para reactivarla, escríbenos desde la página de contacto.» con el botón «Contactar a INAP».
+- **Correo ya registrado:** el mensaje ofrece iniciar sesión o recuperar la contraseña.
+- **Recuperar contraseña:** se pide el correo y se envía un enlace. La confirmación no dice si el correo existe («Si hay una cuenta con…»), para no revelar quién está registrado. Desde el enlace se crea la nueva contraseña con los mismos requisitos; al guardarla, regresa a iniciar sesión con un aviso de éxito (`role="status"`).
+- **«Recuperar usuario»** se presenta como «¿No recuerdas con qué correo te registraste? Recupéralo con tu DPI o pasaporte». Hoy muestra el correo completo; se propone mostrarlo parcialmente oculto (por ejemplo «a•••@correo.com»), porque el DPI no es un dato secreto.
+- **Pendiente:** confirmar con el equipo de desarrollo si el servicio de registro necesita el campo `confirm`, cuánto tiempo es válido el enlace de recuperación, si se puede ocultar parte del correo en «Recuperar usuario» y si la validación del correo puede aceptar mayúsculas y dominios de más de 4 letras (consulta «Rediseño: inicio de sesión y registro», por enviar).
+
 ## 4. Búsqueda
 
 **Decidido**
@@ -200,11 +218,11 @@ Estado de cada punto:
   - **Orden:** «Próximos a iniciar» por defecto. En celular la etiqueta «Ordenar por» queda oculta visualmente (`sr-only`), pero el control la conserva.
   - **Paginación:** `<nav aria-label="Paginación">`, página actual con `aria-current="page"`, áreas táctiles de 44 px. 9 cursos por página en escritorio.
   - **Sin resultados:** mensaje con «Limpiar filtros».
-  - **Pendiente:** confirmar con el equipo de desarrollo qué datos existen para filtrar (nivel de certificación, modalidad, estado de inscripción) y si la plataforma ya da los conteos por opción. Consulta por enviar a Pablo: «Rediseño: datos para los filtros del catálogo y la búsqueda de cursos».
+  - **Pendiente:** confirmar con el equipo de desarrollo qué datos existen para filtrar (nivel de certificación, modalidad, estado de inscripción) y si la plataforma ya da los conteos por opción. Consulta enviada a Pablo: «Rediseño: datos para los filtros del catálogo y la búsqueda de cursos» (correo del 4 nov. 2026).
 - Resultados de búsqueda (Figma: pantallas «Búsqueda • …» en Desktop y Mobile, Light y Dark; usan `Catalog / Desktop` y `Catalog / Mobile`). **Propuesta**:
   - **Misma página y mismos componentes que el catálogo.** Cambian el título («Resultados para «{búsqueda}»»), la descripción, el breadcrumb («Inicio › Resultados de búsqueda») y el orden por defecto: **«Más relevantes»**.
   - **La búsqueda va en la URL** junto con los filtros (por ejemplo `?q=gestion&tipo=certificacion`). En escritorio, el buscador de la barra muestra el texto buscado para que se pueda corregir.
   - **Qué se busca:** nombre del curso y área de formación. Sin distinguir mayúsculas ni tildes («gestion» encuentra «gestión»).
   - **Filtros con conteos de los resultados**, no de todo el catálogo. Las opciones con 0 resultados se ocultan; con pocas áreas no se muestra «Ver las N áreas».
   - **Sin resultados:** se ocultan filtros, orden y paginación. Mensaje «No encontramos cursos para «{búsqueda}»», sugerencia de revisar la ortografía o usar palabras más generales, y botón «Ver todo el catálogo». El mensaje se anuncia con `aria-live="polite"`.
-  - **Pendiente:** confirmar con el equipo de desarrollo si el buscador ignora tildes y si puede ordenar por relevancia (incluido en la consulta «Rediseño: datos para los filtros del catálogo y la búsqueda de cursos»).
+  - **Pendiente:** confirmar con el equipo de desarrollo si el buscador ignora tildes y si puede ordenar por relevancia (incluido en la consulta «Rediseño: datos para los filtros del catálogo y la búsqueda de cursos», correo del 4 nov. 2026).

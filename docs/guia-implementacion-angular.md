@@ -340,6 +340,8 @@ export class IconComponent {
 | **Button Ghost** | `btn btn-ghost` | Foco en `base-content` |
 | Button `Color=White` | `btn border-white bg-white text-inap-brand-navy hover:bg-inap-neutral-100` | Solo sobre fotos. Igual en los dos temas |
 | **Input / Select / Textarea** | `input`, `select`, `textarea` (+ `floating-label-*` existentes) | Borde `base-border`, foco `primary-text` + halo, error `-error`. Mensaje de ayuda: `text-base-content/60`; error: `text-error-text` |
+| **Field** (etiqueta + campo + ayuda + error) | `<label for>` + `input` + `<p>` de ayuda | Etiqueta siempre visible arriba (`Label/Base`). Ayuda `text-base-content/60`, enlazada con `aria-describedby`. `State=Error`: `input-error`, `aria-invalid="true"`, mensaje con ícono `circle-alert` en `text-error-text`. Enlace opcional a la derecha de la etiqueta |
+| Input con ícono (`Show icon`) | `label.input` con el ícono dentro | Para mostrar la contraseña, el ícono es un `<button type="button">` con `aria-label` y `aria-pressed` |
 | Campo `Style=Ghost` | `input-ghost` | Solo donde el campo ya se identifica (buscador con ícono). En formularios, la variante normal |
 | **Checkbox / Radio / Toggle** | `checkbox`, `radio`, `toggle` + `-{color}` | Sin marcar: borde `base-border`. Radio y toggle marcados usan `-text`. Checkbox cuadrado (`--radius-field`) |
 | **Badge** / **Badge Soft** / **Badge Outline** | `badge badge-{color}`, `badge-soft`, `badge-outline` | Los badges no son interactivos. Si quitan un filtro, son botones (Filter Tag). Soft y outline: texto en `{color}-text`, ya en el archivo |
@@ -384,6 +386,8 @@ Tamaño: ver 7.1. Estado deshabilitado: atributo `disabled` (daisyUI lo pinta); 
 | Filter Tag | `<button class="badge …">` | `aria-label="Quitar filtro: {nombre}"` |
 | Pagination | `join` de botones en `<nav aria-label="Paginación">` | Página actual con `aria-current="page"` |
 | Catalog Empty State | texto + `btn` «Limpiar filtros» | |
+| Password Rule (Pending / Met / Unmet) | `<ul>` enlazada al campo con `aria-describedby` | Ícono 16 px `aria-hidden`; el estado se dice con texto `sr-only` («cumple», «no cumple»). Met en `success-text`, Unmet en `error-text` |
+| Auth / Desktop, Auth / Mobile | plantilla de `/login`, `/registro`, `/recuperar-contrasena` | Ver `consideraciones-desarrollo.md` §3. En celular, campos y botones en tamaño `lg` |
 
 Para cualquier componente que no esté aquí, usen la base de daisyUI más cercana y respeten los tokens de la sección 5. Si no hay una base clara, pregúntenme antes de crear una clase nueva.
 
