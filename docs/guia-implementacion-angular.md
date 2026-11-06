@@ -370,8 +370,9 @@ Tamaño: ver 7.1. Estado deshabilitado: atributo `disabled` (daisyUI lo pinta); 
 | Carousel (Control, Indicator, Autoplay) | `p-carousel` de PrimeNG + botón de pausa propio | Ver el correo «Home — título oculto (H1), carrusel destacado y colores de marca fijos» (correo del 26 oct. 2026) |
 | Course Card, Course Type Card, Area Card | `card` (`bg-base-2 rounded-box`) | Toda la tarjeta es clicable con un solo enlace en el título y `after:absolute after:inset-0`; no anidar enlaces |
 | Course Thumbnail | `<img>` con `aspect-video object-cover` | `alt=""` si el título del curso está al lado |
-| Tag, Status Badge | `badge badge-soft badge-{color}` | |
-| Chip | `btn btn-sm rounded-full` o enlace | Si filtra, `aria-pressed` |
+| Tag | `badge badge-soft badge-{primary\|accent}` (Neutral: `badge badge-soft`) + `text-xs font-semibold` | |
+| Status Badge | `badge badge-soft` (fondo neutro) + punto `size-2 rounded-full bg-{tono}-text` | El texto dice el estado; el punto es decorativo (`aria-hidden`) |
+| Chip | `<button>` o `<a>` con `h-9 rounded-full border-base-border px-4 text-sm font-medium` | Si filtra, `aria-pressed`; seleccionado con `aria-pressed:bg-secondary aria-pressed:text-secondary-content` e ícono `check` |
 | Section Header | `<h2>` + texto `text-neutral-text` + enlace | Sin eyebrow |
 | Stat, Testimonial Card | `stat`, `card` | Contenido provisional |
 | FAQ Item | `collapse collapse-arrow` con `<details>`/`<summary>` | Teclado nativo, sin JS |

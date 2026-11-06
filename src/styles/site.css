@@ -31,17 +31,18 @@
   .doc-prose {
     @apply max-w-none text-base leading-7;
 
-    & h2 { @apply mt-14 mb-4 scroll-mt-28 text-2xl font-bold text-base-content first:mt-0; }
-    & h3 { @apply mt-10 mb-3 scroll-mt-28 text-xl font-semibold text-base-content; }
-    & h4 { @apply mt-6 mb-2 text-base font-semibold text-base-content; }
-    & p:not([class]) { @apply mb-4 max-w-prose; }
-    & ul:not([class]), & ol:not([class]) { @apply mb-4 max-w-prose ps-6; }
-    & ul:not([class]) { @apply list-disc; }
-    & ol:not([class]) { @apply list-decimal; }
-    & ul:not([class]) > li, & ol:not([class]) > li { @apply mb-1.5; }
-    & a:not(.btn) { @apply font-semibold text-primary-text underline underline-offset-2 hover:no-underline; }
-    & :not(pre) > code { @apply rounded-sm bg-surface-subtle px-1.5 py-0.5 font-mono text-[0.875em] whitespace-nowrap text-base-content; }
-    & strong { @apply font-semibold; }
+    /* Las vistas previas (inap-example) no heredan estos estilos: muestran el componente tal cual. */
+    & h2:not(inap-example *) { @apply mt-14 mb-4 scroll-mt-28 text-2xl font-bold text-base-content first:mt-0; }
+    & h3:not(inap-example *) { @apply mt-10 mb-3 scroll-mt-28 text-xl font-semibold text-base-content; }
+    & h4:not(inap-example *) { @apply mt-6 mb-2 text-base font-semibold text-base-content; }
+    & p:not([class], inap-example *) { @apply mb-4 max-w-prose; }
+    & ul:not([class], inap-example *), & ol:not([class], inap-example *) { @apply mb-4 max-w-prose ps-6; }
+    & ul:not([class], inap-example *) { @apply list-disc; }
+    & ol:not([class], inap-example *) { @apply list-decimal; }
+    & ul:not([class], inap-example *) > li, & ol:not([class], inap-example *) > li { @apply mb-1.5; }
+    & a:not(.btn, inap-example *) { @apply font-semibold text-primary-text underline underline-offset-2 hover:no-underline; }
+    & :not(pre) > code:not(inap-example *) { @apply rounded-sm bg-surface-subtle px-1.5 py-0.5 font-mono text-[0.875em] whitespace-nowrap text-base-content; }
+    & strong:not(inap-example *) { @apply font-semibold; }
   }
 
   /* Tablas de referencia (clases, tokens). */

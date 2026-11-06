@@ -9,6 +9,7 @@ import { menuDesplegable } from './menu-desplegable';
 import { breadcrumb } from './breadcrumb';
 import { paginacion } from './paginacion';
 import { seleccion } from './seleccion';
+import { chip, etiquetasYEstados, miniaturaDeCurso, tarjetaDeCurso } from './sitio-cursos';
 import { tabs } from './tabs';
 import { ComponentDoc } from './types';
 
@@ -26,4 +27,8 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   avatar,
   dialogo,
   'menu-desplegable': menuDesplegable,
+  'tarjeta-de-curso': tarjetaDeCurso,
+  'miniatura-de-curso': miniaturaDeCurso,
+  'etiquetas-y-estados': etiquetasYEstados,
+  chip,
 };

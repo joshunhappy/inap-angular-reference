@@ -148,10 +148,10 @@ export const SECTIONS: NavSection[] = [
       {
         label: 'Cursos',
         pages: [
-          { slug: 'tarjeta-de-curso', title: 'Tarjeta de curso', status: 'propuesta', description: 'Tarjeta clicable con miniatura, tipo y datos clave.', keywords: ['course card', 'card'] },
-          { slug: 'miniatura-de-curso', title: 'Miniatura de curso', status: 'propuesta', description: 'Imagen 16:9 con badge del tipo.', keywords: ['course thumbnail'] },
-          { slug: 'etiquetas-y-estados', title: 'Etiquetas y estados', status: 'propuesta', description: 'Tag y Status Badge.', keywords: ['tag', 'status badge', 'badge-soft'] },
-          { slug: 'chip', title: 'Chip', status: 'propuesta', description: 'Enlaces y filtros en forma de chip.', keywords: ['chip', 'aria-pressed'] },
+          { slug: 'tarjeta-de-curso', load: componentDoc, title: 'Tarjeta de curso', status: 'propuesta', description: 'Tarjeta clicable con miniatura, tipo y datos clave.', keywords: ['course card', 'card'] },
+          { slug: 'miniatura-de-curso', load: componentDoc, title: 'Miniatura de curso', status: 'propuesta', description: 'Imagen 16:9 con badge del tipo.', keywords: ['course thumbnail'] },
+          { slug: 'etiquetas-y-estados', load: componentDoc, title: 'Etiquetas y estados', status: 'propuesta', description: 'Tag y Status Badge.', keywords: ['tag', 'status badge', 'badge-soft'] },
+          { slug: 'chip', load: componentDoc, title: 'Chip', status: 'propuesta', description: 'Enlaces y filtros en forma de chip.', keywords: ['chip', 'aria-pressed'] },
           { slug: 'tarjeta-de-inscripcion', title: 'Tarjeta de inscripción', status: 'propuesta', description: 'Tarjeta y barra de inscripción por estado.', keywords: ['enrollment card', 'enrollment bar'] },
           { slug: 'datos-del-curso', title: 'Datos del curso', status: 'propuesta', description: 'Fact Row, Checklist Item y Module Row.', keywords: ['fact row', 'checklist item', 'module row', 'dl'] },
           { slug: 'docente', title: 'Docente', status: 'propuesta', description: 'Foto, nombre, cargo y reseña.', keywords: ['instructor'] },

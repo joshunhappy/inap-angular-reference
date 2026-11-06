@@ -118,7 +118,7 @@ Estado de cada punto:
 - **Fecha de nacimiento** en formato DD/MM/AAAA, con ejemplo debajo; no se usa el selector de fecha en formato mm/dd/yyyy.
 - **Sin ventanas de confirmación.** Se quitan «¿Completar perfil?» y «Gracias por actualizar tu perfil».
 - **Revisión cada 6 meses:** en lugar de repetir el formulario, una página con el resumen de los datos y dos botones: «Sí, siguen iguales» (actualiza la fecha de revisión) y «Actualizar mis datos». No bloquea el inicio.
-- **Pendiente:** confirmar con el equipo de desarrollo y con la Licda. Eluvia Morales si la inscripción puede guardar el perfil y continuar, si la delegación se puede cambiar, qué datos son obligatorios por ley o por reportes, si se puede agregar «Prefiero no decir» y si la revisión de 6 meses es necesaria (consulta «Rediseño: completar el perfil al inscribirse», por enviar).
+- **Pendiente:** confirmar con el equipo de desarrollo y con la Licda. Eluvia Morales si la inscripción puede guardar el perfil y continuar, si la delegación se puede cambiar, qué datos son obligatorios por ley o por reportes, si se puede agregar «Prefiero no decir» y si la revisión de 6 meses es necesaria (consulta enviada a Pablo y a la Licda. Eluvia: «Rediseño: completar el perfil al inscribirse», correo del 5 nov. 2026).
 
 ## 4. Búsqueda
 
