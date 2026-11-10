@@ -1,6 +1,13 @@
 import { dedent } from '../../core/dedent';
 import { ComponentDoc, icon } from './types';
 
+/**
+ * Status Badge. `dot` es la clase completa del punto (bg-success-text, bg-info-text…):
+ * Tailwind no genera clases armadas con variables.
+ */
+export const statusBadge = (dot: string, label: string, extra = '') =>
+  `<span class="badge badge-soft gap-1.5 pr-2.5 pl-2 text-xs font-semibold${extra ? ' ' + extra : ''}"><span class="size-2 rounded-full ${dot}" aria-hidden="true"></span>${label}</span>`;
+
 /** Miniatura con foto o ilustración, compartida por la miniatura y la tarjeta de curso. */
 const thumbPhoto = (badge: string) => dedent(`
   <div class="relative aspect-video overflow-hidden">
@@ -140,14 +147,13 @@ export const etiquetasYEstados: ComponentDoc = {
       title: 'Status Badge',
       description: 'Fondo neutro y texto base-content en todos los tonos; solo cambia el punto.',
       html: [
-        // Clases completas: Tailwind no genera clases armadas con variables.
         ['bg-success-text', 'Inscripción abierta'],
-        ['bg-info-text', 'En curso'],
+        ['bg-info-text', 'Próximamente'],
         ['bg-warning-text', 'Último día'],
         ['bg-error-text', 'Cupo lleno'],
-        ['bg-neutral-text', 'Cerrada'],
+        ['bg-neutral-text', 'En curso'],
       ]
-        .map(([dot, label]) => `<span class="badge badge-soft gap-1.5 pr-2.5 pl-2 text-xs font-semibold"><span class="size-2 rounded-full ${dot}" aria-hidden="true"></span>${label}</span>`)
+        .map(([dot, label]) => statusBadge(dot, label))
         .join('\n'),
     },
   ],
@@ -155,7 +161,7 @@ export const etiquetasYEstados: ComponentDoc = {
     html: `<ul>
       <li>Tag: una a tres palabras. Si al pulsarlo quita un filtro, es un botón (Filter Tag), no un Tag.</li>
       <li>Status Badge: el texto dice el estado («Cupo lleno»), el punto solo lo refuerza.</li>
-      <li>Tonos del punto: <code>success</code> abierta, <code>info</code> en curso o inscrito, <code>warning</code> último día o saldo pendiente, <code>error</code> cupo lleno, <code>neutral</code> cerrada.</li>
+      <li>Tonos del punto (los de la <a href="componentes/tarjeta-de-inscripcion">Tarjeta de inscripción</a>): <code>success</code> abierta o aprobado, <code>info</code> próximamente o inscrito, <code>warning</code> último día o saldo pendiente, <code>error</code> cerrada o cupo lleno, <code>neutral</code> en curso.</li>
     </ul>`,
   },
   a11y: `<ul>

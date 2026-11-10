@@ -10,6 +10,7 @@ import { breadcrumb } from './breadcrumb';
 import { paginacion } from './paginacion';
 import { seleccion } from './seleccion';
 import { chip, etiquetasYEstados, miniaturaDeCurso, tarjetaDeCurso } from './sitio-cursos';
+import { barraDeAdministracion, datosDelCurso, docente, ediciones, tarjetaDeInscripcion } from './sitio-detalle-curso';
 import { tabs } from './tabs';
 import { ComponentDoc } from './types';
 
@@ -31,4 +32,9 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   'miniatura-de-curso': miniaturaDeCurso,
   'etiquetas-y-estados': etiquetasYEstados,
   chip,
+  'tarjeta-de-inscripcion': tarjetaDeInscripcion,
+  'datos-del-curso': datosDelCurso,
+  docente,
+  ediciones,
+  'barra-de-administracion': barraDeAdministracion,
 };

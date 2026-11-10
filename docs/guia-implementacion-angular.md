@@ -378,11 +378,11 @@ Tamaño: ver 7.1. Estado deshabilitado: atributo `disabled` (daisyUI lo pinta); 
 | FAQ Item | `collapse collapse-arrow` con `<details>`/`<summary>` | Teclado nativo, sin JS |
 | Breadcrumb | `breadcrumbs` en `<nav aria-label="Breadcrumb">` | Último elemento con `aria-current="page"`. Solo escritorio |
 | Tabs del curso | `tabs tabs-border` como **enlaces** | No son pestañas ARIA. Ver 10.4. Tab inactiva en `neutral-text` (daisyUI usa `base-content/50`, 3.45), ya en `inap-components.css` |
-| Enrollment Card / Enrollment Bar | `card` / barra `fixed bottom-0` | Un componente por estado (Próximamente, Abierta, Último día, Cerrada, Cupo lleno, Inscrito, Saldo pendiente, Aprobado). La barra aparece cuando la tarjeta sale de vista (10.3) |
-| Fact Row, Checklist Item, Module Row | `<dl>` / `<ul>` | Ícono de 16 px, `aria-hidden` |
-| Instructor | `avatar` 88 px + texto | |
-| Edition Alert | `alert alert-soft alert-info` | `role="status"` |
-| Admin Bar | barra con `btn btn-sm` | Solo para usuarios con permisos; dentro del mismo módulo |
+| Enrollment Card / Enrollment Bar | `<section aria-label="Inscripción">` `rounded-2xl bg-base-2 p-6` / barra `sticky bottom-0 lg:hidden` | Un componente con entrada `state` (Próximamente, Abierta, Último día, Cerrada, Cupo lleno, En curso (provisional), Inscrito, Saldo pendiente, Aprobado). Acción principal `btn-primary` o `btn-outline btn-primary`, nunca deshabilitada. La barra aparece cuando la tarjeta sale de vista (10.3) y respeta `env(safe-area-inset-bottom)` |
+| Fact Row, Checklist Item, Module Row | `<dl>` (ícono dentro del `<dt>`) / `<ul>` / `<h3><button aria-expanded aria-controls>` | Íconos `aria-hidden`: 16 px en Fact Row y temas, 24 px `circle-check` en `success-text`. Número del módulo decorativo, «Módulo n:» en `sr-only` |
+| Instructor | foto `size-22 rounded-full` + texto | Sin foto: ícono `user-round` sobre `surface-subtle`. Nombre en `<h3>`, `alt=""`. Cargo y reseña son campos nuevos propuestos |
+| Edition Alert, Edition Row | `rounded-xl bg-surface-subtle p-4` + enlace / fila con Status Badge | El aviso es contenido con enlace, sin `role="alert"` ni `role="status"`. Reemplaza la lista de ediciones en el detalle público |
+| Admin Bar | `bg-brand-surface` + `<nav aria-label="Administración del curso">` con enlaces `text-xs font-semibold`; en celular `dropdown` | Solo para usuarios con permisos; cada acción según su permiso. Foco `outline-brand-surface-content`. Botón «Acciones» de 44 px en celular |
 | Filter Option, Filter Group Header | `checkbox` + `<label>`; grupo con `<fieldset>` + `<legend>` o `collapse` | Conteo dentro de la etiqueta |
 | Filter Tag | `<button class="badge …">` | `aria-label="Quitar filtro: {nombre}"` |
 | Pagination | `join` de botones en `<nav aria-label="Paginación">` | Página actual con `aria-current="page"` |
