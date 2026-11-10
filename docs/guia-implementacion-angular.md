@@ -364,17 +364,18 @@ Tamaño: ver 7.1. Estado deshabilitado: atributo `disabled` (daisyUI lo pinta); 
 | Menu Item `State=Current` | `menu` + `aria-current="page"` | |
 | Avatar (S/M/L) | `avatar avatar-placeholder` | Iniciales `bg-primary text-primary-content` |
 | Logo (`Variant=Auto`) | SVG en línea con `fill="var(--color-logo-primary)"` y `var(--color-logo-accent)` | 109 px de ancho mínimo (manual de marca). `<a href="/" aria-label="INAP, inicio">` |
-| Audience Toggle | `join` de dos botones o `<fieldset>` con radios | Es una selección única: `role="radiogroup"` o radios reales. Seleccionado: `bg-base-2`, borde 2 px y texto `primary-text` |
+| Audience Toggle | `<fieldset>` con dos radios nativos (`sr-only`) dentro de `<label>` | Selección única: Tab entra al grupo y las flechas cambian la opción. Seleccionado con `has-checked:`: `bg-base-2`, borde 2 px y texto `primary-text`; foco con `has-focus-visible:` |
 | Hero Search, Nav Search | `input` con ícono (`label.input`) | `<form role="search">`, `aria-label` en el campo |
 | Search Suggest | `menu` en panel | Patrón combobox: `role="combobox"`, `aria-expanded`, `aria-controls`, `aria-activedescendant` |
-| Carousel (Control, Indicator, Autoplay) | `p-carousel` de PrimeNG + botón de pausa propio | Ver el correo «Home — título oculto (H1), carrusel destacado y colores de marca fijos» (correo del 26 oct. 2026) |
-| Course Card, Course Type Card, Area Card | `card` (`bg-base-2 rounded-box`) | Toda la tarjeta es clicable con un solo enlace en el título y `after:absolute after:inset-0`; no anidar enlaces |
+| Carousel (Control, Indicator, Autoplay) | `p-carousel` de PrimeNG + botón de pausa propio | Pausa con `autoplayInterval` 0; empieza pausado con `prefers-reduced-motion`. Diapositivas `role="group"` «N de 5», `aria-live` off/polite. Sin flechas en celular; puntos de 44 px. Ver el correo «Home — título oculto (H1), carrusel destacado y colores de marca fijos» (correo del 26 oct. 2026) |
+| Course Card, Course Type Card | `card` (`bg-base-2 rounded-box`); Course Type Card Plain sin caja (hero) | Toda la tarjeta es clicable con un solo enlace en el título y `after:absolute after:inset-0`; no anidar enlaces |
+| Area Card | `<ul>` de enlaces con separador inferior, no una tarjeta | Un color neutro para las 9 áreas; hover `bg-base-content/10` |
 | Course Thumbnail | `<img>` con `aspect-video object-cover` | `alt=""` si el título del curso está al lado |
 | Tag | `badge badge-soft badge-{primary\|accent}` (Neutral: `badge badge-soft`) + `text-xs font-semibold` | |
 | Status Badge | `badge badge-soft` (fondo neutro) + punto `size-2 rounded-full bg-{tono}-text` | El texto dice el estado; el punto es decorativo (`aria-hidden`) |
 | Chip | `<button>` o `<a>` con `h-9 rounded-full border-base-border px-4 text-sm font-medium` | Si filtra, `aria-pressed`; seleccionado con `aria-pressed:bg-secondary aria-pressed:text-secondary-content` e ícono `check` |
-| Section Header | `<h2>` + texto `text-neutral-text` + enlace | Sin eyebrow |
-| Stat, Testimonial Card | `stat`, `card` | Contenido provisional |
+| Section Header | `<h2>` + texto `text-neutral-text` | Sin eyebrow. 24 px semibold en celular, 36 px bold desde `md`. El enlace «Ver todos» va aparte |
+| Stat, Testimonial Card | `<ul>` de cifras (cifra y etiqueta en el mismo `<li>`); `<figure>` + `<blockquote>` + `<figcaption>` | Contenido provisional hasta que Comunicación Social envíe los datos |
 | FAQ Item | `collapse collapse-arrow` con `<details>`/`<summary>` | Teclado nativo, sin JS |
 | Breadcrumb | `breadcrumbs` en `<nav aria-label="Breadcrumb">` | Último elemento con `aria-current="page"`. Solo escritorio |
 | Tabs del curso | `tabs tabs-border` como **enlaces** | No son pestañas ARIA. Ver 10.4. Tab inactiva en `neutral-text` (daisyUI usa `base-content/50`, 3.45), ya en `inap-components.css` |

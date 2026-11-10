@@ -136,13 +136,13 @@ export const SECTIONS: NavSection[] = [
       {
         label: 'Home',
         pages: [
-          { slug: 'carrusel', title: 'Carrusel', status: 'propuesta', description: 'Carrusel destacado con flechas, indicadores y pausa.', keywords: ['carousel', 'p-carousel', 'primeng'] },
-          { slug: 'selector-de-audiencia', title: 'Selector de audiencia', status: 'propuesta', description: '«Para ti» y «Para tu institución».', keywords: ['audience toggle', 'radiogroup'] },
-          { slug: 'encabezado-de-seccion', title: 'Encabezado de sección', status: 'propuesta', description: 'Título, texto y enlace de cada sección.', keywords: ['section header'] },
-          { slug: 'tarjeta-tipo-de-curso', title: 'Tarjeta de tipo de curso', status: 'propuesta', description: 'Tipos de formación del Home.', keywords: ['course type card'] },
-          { slug: 'tarjeta-de-area', title: 'Tarjeta de área', status: 'propuesta', description: 'Áreas de formación.', keywords: ['area card'] },
-          { slug: 'estadistica', title: 'Estadística', status: 'propuesta', description: 'Cifras destacadas.', keywords: ['stat'] },
-          { slug: 'testimonio', title: 'Testimonio', status: 'propuesta', description: 'Tarjeta de testimonio.', keywords: ['testimonial card'] },
+          { slug: 'carrusel', load: componentDoc, title: 'Carrusel', status: 'propuesta', description: 'Carrusel destacado con flechas, indicadores y pausa.', keywords: ['carousel', 'p-carousel', 'primeng'] },
+          { slug: 'selector-de-audiencia', load: componentDoc, title: 'Selector de audiencia', status: 'propuesta', description: '«Para ti» y «Para tu institución».', keywords: ['audience toggle', 'radiogroup'] },
+          { slug: 'encabezado-de-seccion', load: componentDoc, title: 'Encabezado de sección', status: 'propuesta', description: 'Título, texto y enlace de cada sección.', keywords: ['section header'] },
+          { slug: 'tarjeta-tipo-de-curso', load: componentDoc, title: 'Tarjeta de tipo de curso', status: 'propuesta', description: 'Tipos de formación del Home.', keywords: ['course type card'] },
+          { slug: 'tarjeta-de-area', load: componentDoc, title: 'Tarjeta de área', status: 'propuesta', description: 'Áreas de formación.', keywords: ['area card'] },
+          { slug: 'estadistica', load: componentDoc, title: 'Estadística', status: 'propuesta', description: 'Cifras destacadas.', keywords: ['stat'] },
+          { slug: 'testimonio', load: componentDoc, title: 'Testimonio', status: 'propuesta', description: 'Tarjeta de testimonio.', keywords: ['testimonial card'] },
         ],
       },
       {

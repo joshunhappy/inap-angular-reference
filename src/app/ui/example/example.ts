@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, linkedSignal } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, computed, DestroyRef, ElementRef, inject, input, linkedSignal, viewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { InapTheme, ThemeService } from '../../core/theme.service';
 import { CodeBlock } from '../code-block/code-block';
+import { initCarouselDemo } from './carousel-demo';
 
 /**
  * Ejemplo vivo: la vista previa y el código salen del mismo texto HTML.
@@ -32,7 +33,7 @@ import { CodeBlock } from '../code-block/code-block';
                     [class.btn-ghost]="theme() !== 'dark'" [attr.aria-pressed]="theme() === 'dark'" (click)="theme.set('dark')">Oscuro</button>
           </div>
         </div>
-        <div [attr.data-theme]="theme()" class="bg-base-100 text-base-content" [class]="previewClass()"
+        <div #preview [attr.data-theme]="theme()" class="bg-base-100 text-base-content" [class]="previewClass()"
              [innerHTML]="safeHtml()"></div>
       </div>
       <inap-code-block [code]="html()" language="HTML" [flatTop]="true" />
@@ -54,4 +55,15 @@ export class Example {
 
   // Contenido escrito en el código fuente del sitio, nunca del usuario.
   protected readonly safeHtml = computed(() => this.sanitizer.bypassSecurityTrustHtml(this.html()));
+
+  private readonly preview = viewChild.required<ElementRef<HTMLElement>>('preview');
+
+  constructor() {
+    // Ejemplos interactivos: solo en el navegador, sobre el HTML ya insertado.
+    const destroyRef = inject(DestroyRef);
+    afterNextRender(() => {
+      const stops = [...this.preview().nativeElement.querySelectorAll<HTMLElement>('[data-carousel]')].map(initCarouselDemo);
+      destroyRef.onDestroy(() => stops.forEach(stop => stop()));
+    });
+  }
 }
