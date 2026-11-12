@@ -88,8 +88,9 @@ Dancing Script (`font-script`) es solo para acentos puntuales. No se carga si un
 
 **Propuesta** (la regla general está en `consideraciones-desarrollo.md`, punto 5)
 
-- Sin elección guardada, se sigue `prefers-color-scheme`.
-- El botón «Modo oscuro» guarda la elección en `localStorage`.
+- Se sigue `prefers-color-scheme`, también si cambia con la página abierta.
+- El botón «Modo oscuro» guarda la elección en `localStorage` solo si es distinta de la del dispositivo.
+- Si la persona cambia el modo del dispositivo, se borra la elección guardada y la página lo sigue.
 - La variante `dark:` de Tailwind ya está ligada a `[data-theme=dark]`. No usar la clase `.dark`.
 
 Para evitar un parpadeo blanco al cargar, poner el tema antes de que arranque Angular, en `index.html`:
@@ -111,8 +112,8 @@ Para evitar un parpadeo blanco al cargar, poner el tema antes de que arranque An
 Servicio (Angular 17+; adaptar si usan una versión anterior):
 
 ```ts
-import { DOCUMENT } from '@angular/common';
-import { Injectable, effect, inject, signal } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DestroyRef, Injectable, PLATFORM_ID, effect, inject, signal } from '@angular/core';
 
 export type InapTheme = 'inap' | 'dark';
 
@@ -120,19 +121,37 @@ export type InapTheme = 'inap' | 'dark';
 export class ThemeService {
   private readonly doc = inject(DOCUMENT);
   private readonly key = 'inap-tema';
+  private readonly media = isPlatformBrowser(inject(PLATFORM_ID))
+    ? matchMedia('(prefers-color-scheme: dark)')
+    : null;
 
   readonly theme = signal<InapTheme>(
-    (this.doc.documentElement.getAttribute('data-theme') as InapTheme) ?? 'inap'
+    this.doc.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'inap'
   );
 
   constructor() {
     effect(() => this.doc.documentElement.setAttribute('data-theme', this.theme()));
+    if (!this.media) return;
+    // El dispositivo cambió de modo: se borra la elección guardada y se sigue al dispositivo.
+    const onChange = (e: MediaQueryListEvent) => {
+      this.store(null);
+      this.theme.set(e.matches ? 'dark' : 'inap');
+    };
+    this.media.addEventListener('change', onChange);
+    inject(DestroyRef).onDestroy(() => this.media?.removeEventListener('change', onChange));
   }
 
   toggle(): void {
     const next: InapTheme = this.theme() === 'dark' ? 'inap' : 'dark';
     this.theme.set(next);
-    try { localStorage.setItem(this.key, next); } catch { /* modo privado */ }
+    const system: InapTheme = this.media?.matches ? 'dark' : 'inap';
+    this.store(next === system ? null : next); // igual al dispositivo = sin elección guardada
+  }
+
+  private store(value: InapTheme | null): void {
+    try {
+      value ? localStorage.setItem(this.key, value) : localStorage.removeItem(this.key);
+    } catch { /* modo privado */ }
   }
 }
 ```
