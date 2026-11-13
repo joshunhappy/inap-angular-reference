@@ -90,7 +90,7 @@ Estado de cada punto:
 - **Etiquetas visibles arriba de cada campo** (componente Field). No se usan etiquetas flotantes ni solo placeholder: el placeholder desaparece al escribir y no pasa el contraste mínimo.
 - **Iniciar sesión:** correo y contraseña. «¿Olvidaste tu contraseña?» va junto a la etiqueta de la contraseña. Si los datos no coinciden, un solo mensaje arriba del formulario: «El correo o la contraseña no son correctos…». No se dice cuál de los dos falló. El correo se conserva y la contraseña se borra.
 - **Contraseña con botón para mostrarla** (ícono de ojo dentro del campo): `<button type="button" aria-label="Mostrar contraseña" aria-pressed="false">`. Cambia a «Ocultar contraseña» y al ícono `eye-off`.
-- **Registro:** DPI, correo y contraseña. Se quita «Confirmar contraseña»: el botón de mostrar cumple esa función y es un campo menos.
+- **Registro:** DPI, correo y contraseña. Se propone quitar «Confirmar contraseña»: el botón de mostrar cumple esa función y es un campo menos. El servicio no lo exige, pero Pablo recomienda mantenerlo para asegurar que la contraseña se escribió bien (13 nov. 2026); **Pendiente** de decidir.
   - DPI: solo números, se muestra agrupado «0000 00000 0000» mientras se escribe; se envía sin espacios. `inputmode="numeric"`, `autocomplete="off"`.
   - «¿No tienes DPI? Regístrate con tu pasaporte» cambia el DPI por «Número de pasaporte»: letras y números, hasta 9 caracteres, sin país (igual que el registro actual).
   - Requisitos de la contraseña visibles desde el inicio y marcados mientras se escribe (componente Password Rule). Son los que valida hoy la plataforma: al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo. Cada requisito anuncia su estado con texto `sr-only`, no solo con color.
@@ -99,8 +99,8 @@ Estado de cada punto:
 - **Cuenta deshabilitada:** si el servicio responde 403 «Usuario deshabilitado.», el aviso dice «Tu cuenta está deshabilitada. Para reactivarla, escríbenos desde la página de contacto.» con el botón «Contactar a INAP».
 - **Correo ya registrado:** el mensaje ofrece iniciar sesión o recuperar la contraseña.
 - **Recuperar contraseña:** se pide el correo y se envía un enlace. La confirmación no dice si el correo existe («Si hay una cuenta con…»), para no revelar quién está registrado. Desde el enlace se crea la nueva contraseña con los mismos requisitos; al guardarla, regresa a iniciar sesión con un aviso de éxito (`role="status"`).
-- **«Recuperar usuario»** se presenta como «¿No recuerdas con qué correo te registraste? Recupéralo con tu DPI o pasaporte». Hoy muestra el correo completo; se propone mostrarlo parcialmente oculto (por ejemplo «a•••@correo.com»), porque el DPI no es un dato secreto.
-- **Pendiente:** confirmar con el equipo de desarrollo si el servicio de registro necesita el campo `confirm`, cuánto tiempo es válido el enlace de recuperación, si se puede ocultar parte del correo en «Recuperar usuario» y si la validación del correo puede aceptar mayúsculas y dominios de más de 4 letras (consulta enviada a Pablo: «Rediseño: inicio de sesión y registro», correo del 4 nov. 2026).
+- **«Recuperar usuario»** se presenta como «¿No recuerdas con qué correo te registraste? Recupéralo con tu DPI o pasaporte». Hoy muestra el correo completo; se mostrará parcialmente oculto (por ejemplo «a•••@correo.com»), porque el DPI no es un dato secreto. El sistema lo permite (Pablo, 13 nov. 2026).
+- **Pendiente:** cuánto tiempo es válido el enlace de recuperación y si la validación del correo puede aceptar mayúsculas y dominios de más de 4 letras (consulta enviada a Pablo: «Rediseño: inicio de sesión y registro», correo del 4 nov. 2026).
 
 ### Completar perfil
 
@@ -117,8 +117,9 @@ Estado de cada punto:
 - **Errores:** los mismos criterios de Acceso: resumen arriba con `role="alert"`, mensaje en cada campo con `aria-invalid` y `aria-describedby`, foco al primer error. El botón «Continuar» nunca está deshabilitado.
 - **Fecha de nacimiento** en formato DD/MM/AAAA, con ejemplo debajo; no se usa el selector de fecha en formato mm/dd/yyyy.
 - **Sin ventanas de confirmación.** Se quitan «¿Completar perfil?» y «Gracias por actualizar tu perfil».
-- **Revisión cada 6 meses:** en lugar de repetir el formulario, una página con el resumen de los datos y dos botones: «Sí, siguen iguales» (actualiza la fecha de revisión) y «Actualizar mis datos». No bloquea el inicio.
-- **Pendiente:** confirmar con el equipo de desarrollo y con la Licda. Eluvia Morales si la inscripción puede guardar el perfil y continuar, si la delegación se puede cambiar, qué datos son obligatorios por ley o por reportes, si se puede agregar «Prefiero no decir» y si la revisión de 6 meses es necesaria (consulta enviada a Pablo y a la Licda. Eluvia: «Rediseño: completar el perfil al inscribirse», correo del 5 nov. 2026).
+- **Revisión cada 6 meses:** en lugar de repetir el formulario, una página «Revisa tus datos» que explica para qué se usan (diplomas y reportes de capacitación) y muestra los datos en dos secciones, «Tus datos» y «Estudios y trabajo», cada una con su enlace «Editar» (`aria-label` «Editar tus datos» / «Editar estudios y trabajo»), que abre el paso correspondiente del formulario. Para confirmar, la casilla «Revisé cada dato y está correcto» y el botón «Confirmar mis datos» (actualiza la fecha de revisión). El botón no se deshabilita: si la casilla no está marcada, muestra el error en la casilla (`aria-invalid`, mensaje con `aria-describedby`) y le pasa el foco. No bloquea el inicio. Se pidió así para que no se pueda descartar con un solo clic, porque DIFOGI usa estos datos en sus reportes (comentario de Pablo, 13 nov. 2026).
+- La inscripción puede guardar el perfil y regresar al curso (Pablo, 13 nov. 2026).
+- **Pendiente:** confirmar con el equipo de desarrollo y con la Licda. Eluvia Morales si la delegación se puede cambiar, qué datos son obligatorios por ley o por reportes, si se puede agregar «Prefiero no decir» y si la revisión de 6 meses es necesaria (consulta enviada a Pablo y a la Licda. Eluvia: «Rediseño: completar el perfil al inscribirse», correo del 5 nov. 2026).
 
 ## 4. Búsqueda
 
@@ -227,6 +228,7 @@ Estado de cada punto:
   - **Placeholder del buscador del Home (celular y escritorio):** cambia con el selector. «Para ti»: «¿Qué quieres aprender hoy?». «Para tu institución»: «¿Qué necesita aprender tu equipo?».
   - **Tipos de curso, áreas de formación y pasos:** se apilan en una columna. Los tipos de curso quedan apilados por decisión de diseño.
 - Detalle de curso: correo «Detalle de curso: tabs fijas con scroll spy, tarjeta de inscripción y barra inferior» (correo del 27 oct. 2026)
+  - **Imagen del curso:** es el fondo del encabezado del curso (etiquetas, título, resumen y edición), como en las diapositivas del carrusel del Home: imagen con `object-fit: cover`, capa de degradado con los mismos tokens del carrusel y texto en `primary-content`. En escritorio el degradado va de izquierda (más oscuro, detrás del texto) a derecha, con el texto limitado a ~560 px; en celular va de arriba hacia abajo y el texto queda abajo. Todo el texto queda sobre la parte del degradado con opacidad de 0.65 o más (contraste mínimo 4.5:1). Altura mínima 380 px en escritorio y 360 px en celular. La imagen es decorativa (`alt=""` o fondo CSS): el título ya nombra el curso. Reemplaza la imagen de ancho completo entre el encabezado y las tabs, para que la información quede en la primera vista junto a la tarjeta de inscripción (comentario de Pablo: «la página parece demasiado enfocada en la imagen», 13 nov. 2026).
 - Catálogo de cursos (Figma: `Catalog / Desktop`, `Catalog / Mobile`, `Catalog Filters / Mobile`; pantallas «Catálogo • …» en Desktop Light y Mobile Light). **Decidido** (aprobado 2026-11-03):
   - **Una sola página de catálogo con filtros.** Hoy hay una página por tipo (`/categoria/...`) y otra por área (`/area-formacion/...`). Esos enlaces abren el catálogo con el filtro ya aplicado; el título y la descripción cambian al del tipo o área, y el breadcrumb muestra «Catálogo de cursos › {tipo o área}».
   - **Filtros en la URL** (por ejemplo `?tipo=certificacion&inscripcion=abierta`), para que se puedan compartir y el botón Atrás funcione.
@@ -236,7 +238,11 @@ Estado de cada punto:
   - **Orden:** «Próximos a iniciar» por defecto. En celular la etiqueta «Ordenar por» queda oculta visualmente (`sr-only`), pero el control la conserva.
   - **Paginación:** `<nav aria-label="Paginación">`, página actual con `aria-current="page"`, áreas táctiles de 44 px. 9 cursos por página en escritorio.
   - **Sin resultados:** mensaje con «Limpiar filtros».
-  - **Pendiente:** confirmar con el equipo de desarrollo qué datos existen para filtrar (nivel de certificación, modalidad, estado de inscripción) y si la plataforma ya da los conteos por opción. Consulta enviada a Pablo: «Rediseño: datos para los filtros del catálogo y la búsqueda de cursos» (correo del 4 nov. 2026).
+  - **Datos de los filtros** (respuesta de Pablo a «Seguimiento: consultas del rediseño de la plataforma de cursos», 13 nov. 2026):
+    - **Nivel:** es dato del curso, no de la edición. Los niveles los define DIFOGI, varían según el tipo de formación y pueden cambiar: las opciones del filtro se leen de los datos.
+    - **Inscripción (Abierta / Próximamente):** se calcula con las fechas de la edición; no es un estado guardado.
+    - **Conteos por opción:** el servicio puede devolverlos. Se quedan los números.
+  - **Pendiente:** si la modalidad es dato del curso o de la edición (no se respondió en ese correo).
 - Resultados de búsqueda (Figma: pantallas «Búsqueda • …» en Desktop y Mobile, Light y Dark; usan `Catalog / Desktop` y `Catalog / Mobile`). **Propuesta**:
   - **Misma página y mismos componentes que el catálogo.** Cambian el título («Resultados para «{búsqueda}»»), la descripción, el breadcrumb («Inicio › Resultados de búsqueda») y el orden por defecto: **«Más relevantes»**.
   - **La búsqueda va en la URL** junto con los filtros (por ejemplo `?q=gestion&tipo=certificacion`). En escritorio, el buscador de la barra muestra el texto buscado para que se pueda corregir.
