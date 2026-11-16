@@ -119,11 +119,11 @@ export const SECTIONS: NavSection[] = [
       {
         label: 'Navegación',
         pages: [
-          { slug: 'barra-de-navegacion', title: 'Barra de navegación', status: 'propuesta', description: 'Encabezado de Angular, con y sin sesión iniciada.', keywords: ['navbar', 'header'] },
+          { slug: 'barra-de-navegacion', load: componentDoc, title: 'Barra de navegación', status: 'propuesta', description: 'Encabezado de Angular y WordPress, con y sin sesión iniciada.', keywords: ['navbar', 'header'] },
           { slug: 'mega-menu', title: 'Mega menú', status: 'propuesta', description: 'Panel del menú «Cursos».', keywords: ['mega menu', 'dropdown'] },
           { slug: 'menu-movil', title: 'Menú en celular', status: 'propuesta', description: 'Menú a pantalla completa en celular.', keywords: ['mobile menu', 'drawer'] },
           { slug: 'menu-de-usuario', title: 'Menú de usuario', status: 'propuesta', description: 'Botón de usuario y menú por rol.', keywords: ['user menu', 'cuenta'] },
-          { slug: 'pie-de-pagina', title: 'Pie de página', status: 'propuesta', description: 'Pie de la plataforma de cursos.', keywords: ['footer'] },
+          { slug: 'pie-de-pagina', load: componentDoc, title: 'Pie de página', status: 'propuesta', description: 'Pie de las dos plataformas, con contacto, enlaces y redes.', keywords: ['footer'] },
         ],
       },
       {

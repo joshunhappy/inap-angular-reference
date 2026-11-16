@@ -376,7 +376,8 @@ Tamaño: ver 7.1. Estado deshabilitado: atributo `disabled` (daisyUI lo pinta); 
 
 | Componente en Figma | Base sugerida | Notas de comportamiento |
 |---|---|---|
-| Navbar (Platform=Angular, Session) | `navbar` en `<header>` | Escritorio 92 px, celular 84 px. Barra superior `bg-brand-surface`. Buscador del Home oculto hasta que el del hero sale de vista (10.3) |
+| Navbar (Platform, Device, Session) | `<header>` con `<nav aria-label="Principal">`; escritorio desde `xl` | Escritorio 116 px: barra superior `h-9 bg-brand-surface` (se oculta al bajar) + barra principal `h-20`, contenido `max-w-360 px-20`. Celular `h-21 pr-2 pl-4` con botones de 44 px. Ítems con mega menú: `<button aria-expanded>`; abierto `bg-surface-subtle text-primary-text`. Modo oscuro: `<button aria-pressed>`. Foco blanco (`outline-brand-surface-content`) sobre azul oscuro. Buscador del Home oculto hasta que el del hero sale de vista (10.3) |
+| Footer | `<footer>` `bg-brand-surface` con `brand/waves.svg` al 5 % | `<nav aria-label="Pie de página">`, columnas con `<h2>`; contacto en `<address>` con `tel:` y `mailto:`. Escritorio `lg:px-30`, columnas de 180 px; celular `px-4`, enlaces en dos columnas. Enlaces `text-brand-surface-muted`, foco blanco |
 | Mega Menu `Menu=Cursos` | `dropdown` + panel | Botón con `aria-expanded`; Esc cierra y devuelve el foco al botón |
 | Mobile Menu, «Mi cuenta», búsqueda en celular | `<dialog class="modal">` a pantalla completa | Encabezado y pie fijos, solo el centro se desplaza. Ver `consideraciones-desarrollo.md` §2 |
 | User Button + User Menu | `dropdown dropdown-end` + `menu` | Botón con `aria-haspopup="menu"` y `aria-expanded` |

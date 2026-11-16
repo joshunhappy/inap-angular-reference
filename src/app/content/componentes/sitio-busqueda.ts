@@ -42,16 +42,17 @@ const NAV_LIVE = `${NAV_BASE} ${NAV_IDLE} has-[input:focus]:border-primary has-[
 const clearButton = (target: string) =>
   `<button type="button" class="btn btn-ghost btn-circle btn-sm shrink-0" aria-label="Borrar búsqueda" data-clear="${target}">${icon('x', 16)}</button>`;
 
-const navSearch = (id: string, state: NavState | 'live', value = '') => {
+/** `wp` = buscador de WordPress (noticias y páginas, `?s=`). */
+export const navSearch = (id: string, state: NavState | 'live', value = '', wp = false) => {
   const box = state === 'live' ? NAV_LIVE
     : state === 'default' ? `${NAV_BASE} ${NAV_IDLE}`
     : `${NAV_BASE} ${NAV_ACTIVE}${state === 'focus' ? ' outline-2 outline-offset-2 outline-primary-text' : ''}`;
   return dedent(`
-    <form role="search" action="/busqueda" class="${box}">
+    <form role="search" action="${wp ? '/' : '/busqueda'}" class="${box}">
       ${icon('search', 20, 'shrink-0 text-base-content')}
-      <label for="${id}" class="sr-only">Buscar cursos</label>
-      <input id="${id}" name="q" type="search" enterkeyhint="search" autocomplete="off"${value ? ` value="${value}"` : ''}
-             placeholder="Busca cursos, diplomados o temas"
+      <label for="${id}" class="sr-only">${wp ? 'Buscar en el sitio' : 'Buscar cursos'}</label>
+      <input id="${id}" name="${wp ? 's' : 'q'}" type="search" enterkeyhint="search" autocomplete="off"${value ? ` value="${value}"` : ''}
+             placeholder="${wp ? 'Busca noticias, eventos o páginas' : 'Busca cursos, diplomados o temas'}"
              class="min-w-0 flex-1 truncate bg-transparent text-sm text-base-content outline-none placeholder:text-neutral-text [&::-webkit-search-cancel-button]:hidden" />${value ? '\n      ' + clearButton(id) : ''}
     </form>
   `);
@@ -180,7 +181,7 @@ export const suggestPanel = (p: string) => typingPanel(p, 'angular', false);
 
 /* ── Mobile Search ─────────────────────────────────────────────────────────── */
 
-const LOGO = `<img src="brand/logo-color.svg" alt="" width="109" height="67" class="w-[109px] dark:hidden" /><img src="brand/logo-white.svg" alt="" width="109" height="67" class="hidden w-[109px] dark:block" />`;
+export const LOGO = `<img src="brand/logo-color.svg" alt="" width="109" height="67" class="w-[109px] dark:hidden" /><img src="brand/logo-white.svg" alt="" width="109" height="67" class="hidden w-[109px] dark:block" />`;
 
 const mobileSearch = (p: string) => dedent(`
   <div role="dialog" aria-label="Buscar cursos" class="flex min-h-[38rem] flex-col bg-base-100">
