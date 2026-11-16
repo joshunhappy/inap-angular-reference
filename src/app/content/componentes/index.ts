@@ -9,7 +9,7 @@ import { menuDesplegable } from './menu-desplegable';
 import { breadcrumb } from './breadcrumb';
 import { paginacion } from './paginacion';
 import { seleccion } from './seleccion';
-import { buscador } from './sitio-busqueda';
+import { buscador, sugerencias } from './sitio-busqueda';
 import { chip, etiquetasYEstados, miniaturaDeCurso, tarjetaDeCurso } from './sitio-cursos';
 import { barraDeAdministracion, datosDelCurso, docente, ediciones, tarjetaDeInscripcion } from './sitio-detalle-curso';
 import { carrusel, encabezadoDeSeccion, estadistica, selectorDeAudiencia, tarjetaDeArea, tarjetaTipoDeCurso, testimonio } from './sitio-home';
@@ -47,4 +47,5 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   estadistica,
   testimonio,
   buscador,
+  sugerencias,
 };

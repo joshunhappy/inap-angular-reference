@@ -130,7 +130,7 @@ export const SECTIONS: NavSection[] = [
         label: 'Búsqueda',
         pages: [
           { slug: 'buscador', load: componentDoc, title: 'Buscador', status: 'propuesta', description: 'Buscador del hero, de la barra y a pantalla completa en celular.', keywords: ['hero search', 'nav search', 'search'] },
-          { slug: 'sugerencias', title: 'Sugerencias de búsqueda', status: 'propuesta', description: 'Panel de sugerencias con patrón combobox.', keywords: ['search suggest', 'combobox'] },
+          { slug: 'sugerencias', load: componentDoc, title: 'Sugerencias de búsqueda', status: 'propuesta', description: 'Recientes, populares y resultados al escribir, con patrón combobox.', keywords: ['search suggest', 'combobox'] },
         ],
       },
       {
