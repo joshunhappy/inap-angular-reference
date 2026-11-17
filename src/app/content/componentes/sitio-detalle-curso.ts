@@ -363,14 +363,14 @@ export const barraDeAdministracion: ComponentDoc = {
       title: 'Escritorio',
       previewClass: 'p-6',
       html: dedent(`
-        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 bg-brand-surface px-6 py-2.5 text-brand-surface-content">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 bg-brand-surface px-6 py-1 text-brand-surface-content">
           <div class="flex min-w-max flex-1 items-center gap-2.5">
             ${icon('settings', 20, 'shrink-0')}
             <p class="flex items-baseline gap-x-3 text-sm whitespace-nowrap"><span class="font-semibold">Vista de administración</span><span class="text-brand-surface-muted">Edición 2, 2026 · Visible</span></p>
           </div>
           <nav aria-label="Administración del curso">
             <ul class="flex flex-wrap items-center gap-1">
-${adminActions.map(([i, l]) => `              <li><a href="#" class="flex items-center gap-1.5 rounded-md px-2.5 py-2 text-xs font-semibold hover:bg-brand-surface-line focus-visible:outline-brand-surface-content">${icon(i, 16)}${l}</a></li>`).join('\n')}
+${adminActions.map(([i, l]) => `              <li><a href="#" class="flex min-h-11 items-center gap-1.5 rounded-md px-2.5 text-xs font-semibold hover:bg-brand-surface-line focus-visible:outline-brand-surface-content">${icon(i, 16)}${l}</a></li>`).join('\n')}
             </ul>
           </nav>
         </div>
@@ -407,7 +407,7 @@ ${adminActions.map(([i, l]) => `              <li><a href="#">${icon(i, 16)} ${l
   a11y: `<ul>
     <li><strong>Navegación:</strong> las acciones son enlaces en <code>&lt;nav aria-label="Administración del curso"&gt;</code>.</li>
     <li><strong>Foco:</strong> anillo en <code>brand-surface-content</code> (blanco), porque <code>primary-text</code> no llega a 3:1 sobre navy.</li>
-    <li><strong>Celular:</strong> el botón «Acciones» mide 44 px de alto (<code>min-h-11</code>) aunque en Figma mide 32, para cumplir el área táctil.</li>
+    <li><strong>Área táctil:</strong> cada acción en escritorio y el botón «Acciones» en celular miden 44 px de alto (<code>min-h-11</code>).</li>
     <li><strong>Contraste:</strong> texto blanco y <code>brand-surface-muted</code> pasan 9:1 sobre navy en los dos temas.</li>
   </ul>`,
   classes: [

@@ -1011,3 +1011,19 @@ export const pieDePagina: ComponentDoc = {
   codeNotes: `<p><strong>Angular:</strong> componente <code>inap-footer</code> sin entradas. <strong>WordPress:</strong> <code>footer.php</code> del tema con las mismas clases; las columnas pueden salir de menús de WordPress. Copiar <code>brand/waves.svg</code> y <code>brand/logo-white.svg</code> al tema.</p>`,
   snippets: [{ title: 'Pie de página', language: 'HTML', code: footer('pie') }],
 };
+
+/* ── Piezas para el tema de WordPress ──────────────────────────────────────── */
+
+/**
+ * Barra, mega menús, menú de celular y pie de WordPress, con el mismo HTML de los ejemplos.
+ * El tema los genera con su script de sincronización; no se copian a mano.
+ */
+export function wordpressPartials() {
+  return {
+    headerDesktop: navbarDesktop('nav', 'wordpress'),
+    headerMobile: navbarMobile('nav', 'wordpress'),
+    mega: MENU.wordpress.map((m, i) => megaPanel(`nav-mega-${i}`, m.label)),
+    menuMobile: mobileMenu('nav', 'wordpress', false, -1).replace('<dialog open ', '<dialog ').replace('static m-0 ', 'm-0 '),
+    footer: footer('pie'),
+  };
+}

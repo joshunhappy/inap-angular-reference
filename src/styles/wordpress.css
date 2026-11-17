@@ -4,8 +4,8 @@
 
   Mismos tokens y ajustes que el sitio Angular. Tailwind solo genera las clases
   que encuentra en los archivos escaneados: hoy, los ejemplos del sitio de
-  referencia (src/app). Cuando exista el tema de WordPress, agregar su ruta con
-  @source para incluir también sus plantillas.
+  referencia (src/app) y las plantillas del tema de WordPress (carpeta wordpress/
+  junto a angular/, en la misma estructura de carpetas del proyecto).
 
   La fuente Montserrat no va en este archivo: WordPress la carga por su cuenta.
 */
@@ -15,3 +15,4 @@
 @import './theme/inap-navigation.css';
 
 @source '../app';
+@source '../../../../wordpress/wp-content/themes/inap';
