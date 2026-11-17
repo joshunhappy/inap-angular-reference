@@ -125,9 +125,9 @@ export const SECTIONS: NavSection[] = [
         label: 'Navegación',
         pages: [
           { slug: 'barra-de-navegacion', load: componentDoc, title: 'Barra de navegación', status: 'propuesta', description: 'Encabezado de Angular y WordPress, con y sin sesión iniciada.', keywords: ['navbar', 'header'] },
-          { slug: 'mega-menu', title: 'Mega menú', status: 'propuesta', description: 'Panel del menú «Cursos».', keywords: ['mega menu', 'dropdown'] },
-          { slug: 'menu-movil', title: 'Menú en celular', status: 'propuesta', description: 'Menú a pantalla completa en celular.', keywords: ['mobile menu', 'drawer'] },
-          { slug: 'menu-de-usuario', title: 'Menú de usuario', status: 'propuesta', description: 'Botón de usuario y menú por rol.', keywords: ['user menu', 'cuenta'] },
+          { slug: 'mega-menu', load: componentDoc, title: 'Mega menú', status: 'propuesta', description: 'Panel de los menús de escritorio: «Cursos» en Angular y cuatro en WordPress.', keywords: ['mega menu', 'dropdown'] },
+          { slug: 'menu-movil', load: componentDoc, title: 'Menú en celular', status: 'propuesta', description: 'Menú a pantalla completa con secciones en acordeón, para Angular y WordPress.', keywords: ['mobile menu', 'drawer'] },
+          { slug: 'menu-de-usuario', load: componentDoc, title: 'Menú de usuario', status: 'propuesta', description: 'Menú de la cuenta en escritorio y hoja «Mi cuenta» en celular, según los permisos.', keywords: ['user menu', 'cuenta'] },
           { slug: 'pie-de-pagina', load: componentDoc, title: 'Pie de página', status: 'propuesta', description: 'Pie de las dos plataformas, con contacto, enlaces y redes.', keywords: ['footer'] },
         ],
       },

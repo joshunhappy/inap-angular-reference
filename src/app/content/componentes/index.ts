@@ -10,7 +10,7 @@ import { breadcrumb } from './breadcrumb';
 import { paginacion } from './paginacion';
 import { seleccion } from './seleccion';
 import { buscador, sugerencias } from './sitio-busqueda';
-import { barraDeNavegacion, pieDePagina } from './sitio-navegacion';
+import { barraDeNavegacion, megaMenu, menuDeUsuario, menuMovil, pieDePagina } from './sitio-navegacion';
 import { chip, etiquetasYEstados, miniaturaDeCurso, tarjetaDeCurso } from './sitio-cursos';
 import { barraDeAdministracion, datosDelCurso, docente, ediciones, tarjetaDeInscripcion } from './sitio-detalle-curso';
 import { carrusel, encabezadoDeSeccion, estadistica, selectorDeAudiencia, tarjetaDeArea, tarjetaTipoDeCurso, testimonio } from './sitio-home';
@@ -50,5 +50,8 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   buscador,
   sugerencias,
   'barra-de-navegacion': barraDeNavegacion,
+  'mega-menu': megaMenu,
+  'menu-movil': menuMovil,
+  'menu-de-usuario': menuDeUsuario,
   'pie-de-pagina': pieDePagina,
 };
