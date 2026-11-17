@@ -10,6 +10,8 @@ export interface NavPage {
   status: Status;
   /** Palabras extra para la búsqueda (nombres en Figma, clases de daisyUI). */
   keywords?: string[];
+  /** Plataforma de una pantalla: Angular, WordPress o las dos. */
+  platform?: 'Angular' | 'WordPress' | 'Angular y WordPress';
   /** Página real. Sin `load`, se muestra la página «en preparación». */
   load?: () => Promise<Type<unknown>>;
 }
@@ -35,6 +37,9 @@ export interface PageRef extends NavPage {
 /** Página genérica de componente (contenido en content/componentes). */
 const componentDoc = () =>
   import('../pages/componentes/component-doc').then((m) => m.ComponentDocPage);
+
+/** Página genérica de pantalla (contenido en content/pantallas). */
+const screenDoc = () => import('../pages/pantallas/screen-doc').then((m) => m.ScreenDocPage);
 
 export const FIGMA_URL = 'https://www.figma.com/design/IntROaQkiRlnkFUci5PbDu';
 export const REPO_URL = 'https://github.com/joshunhappy/inap-angular-reference';
@@ -184,6 +189,38 @@ export const SECTIONS: NavSection[] = [
           { slug: 'formularios', title: 'Formularios y errores', status: 'propuesta', description: 'Etiquetas, ayuda, validación y mensajes de error.', keywords: ['form', 'validación', 'error'] },
           { slug: 'estados-de-inscripcion', title: 'Estados de inscripción', status: 'propuesta', description: 'Qué muestra la tarjeta en cada estado de la edición.', keywords: ['enrollment', 'cupo'] },
           { slug: 'filtros-del-catalogo', title: 'Filtros del catálogo', status: 'decidido', description: 'Filtros en la URL, escritorio y celular.', keywords: ['catálogo', 'query params'] },
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'pantallas',
+    title: 'Pantallas',
+    description: 'Las pantallas diseñadas en Figma, para ver cómo se combinan los componentes en una página.',
+    icon: 'monitor-smartphone',
+    groups: [
+      {
+        label: 'Cursos',
+        pages: [
+          { slug: 'home', load: screenDoc, platform: 'Angular', title: 'Home', status: 'propuesta', description: 'Inicio con «Para ti» y «Para tu institución».', keywords: ['inicio', 'landing'] },
+          { slug: 'catalogo', load: screenDoc, platform: 'Angular', title: 'Catálogo', status: 'decidido', description: 'Todos los cursos con filtros.', keywords: ['catalog', 'filtros'] },
+          { slug: 'busqueda', load: screenDoc, platform: 'Angular', title: 'Búsqueda', status: 'propuesta', description: 'Resultados, sin resultados y sugerencias.', keywords: ['search', 'resultados'] },
+          { slug: 'detalle-de-curso', load: screenDoc, platform: 'Angular', title: 'Detalle de curso', status: 'propuesta', description: 'Información del curso y tarjeta de inscripción en cada estado.', keywords: ['course detail', 'inscripción'] },
+        ],
+      },
+      {
+        label: 'Cuenta',
+        pages: [
+          { slug: 'acceso', load: screenDoc, platform: 'Angular', title: 'Acceso', status: 'propuesta', description: 'Iniciar sesión, registro y recuperar contraseña.', keywords: ['login', 'registro', 'contraseña'] },
+          { slug: 'completar-perfil', load: screenDoc, platform: 'Angular', title: 'Completar perfil', status: 'propuesta', description: 'Datos que se piden al inscribirse, en dos pasos.', keywords: ['perfil', 'formulario'] },
+          { slug: 'mi-cuenta', load: screenDoc, platform: 'Angular', title: 'Mi cuenta', status: 'propuesta', description: 'Menú de la cuenta según el rol.', keywords: ['cuenta', 'roles', 'difogi', 'administrador'] },
+        ],
+      },
+      {
+        label: 'Sitio',
+        pages: [
+          { slug: 'navegacion', load: screenDoc, platform: 'Angular y WordPress', title: 'Navegación', status: 'propuesta', description: 'Mega menús abiertos y menú en celular.', keywords: ['mega menu', 'menú'] },
+          { slug: 'transparencia', load: screenDoc, platform: 'WordPress', title: 'Transparencia', status: 'propuesta', description: 'Información pública de oficio y solicitud de información.', keywords: ['laip', 'numerales', 'información pública'] },
         ],
       },
     ],

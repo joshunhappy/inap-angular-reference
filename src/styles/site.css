@@ -19,7 +19,7 @@
 @layer components {
   /* Enlaces de sección del encabezado. */
   .top-link {
-    @apply flex h-full items-center border-b-2 border-transparent px-3 text-sm font-semibold text-neutral-text transition-colors hover:text-base-content;
+    @apply flex h-full items-center border-b-2 border-transparent px-2.5 text-sm whitespace-nowrap font-semibold text-neutral-text transition-colors hover:text-base-content;
   }
   .top-link.top-link-active {
     @apply border-primary-text text-primary-text;

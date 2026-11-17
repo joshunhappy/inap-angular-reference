@@ -27,6 +27,9 @@ import { StatusBadge } from '../../ui/status-badge/status-badge';
                   <inap-status-badge [status]="p.status" />
                 </div>
                 <p class="text-sm text-neutral-text">{{ p.description }}</p>
+                @if (p.platform) {
+                  <p class="mt-auto text-xs font-semibold text-neutral-text"><span class="sr-only">Plataforma: </span>{{ p.platform }}</p>
+                }
               </li>
             }
           </ul>
