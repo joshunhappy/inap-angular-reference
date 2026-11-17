@@ -38,22 +38,53 @@ const UTILITY: Record<Platform, string[]> = {
   wordpress: ['Noticias', 'Eventos', 'Transparencia', 'Contacto'],
 };
 
+/** Datos de contacto del pie y del mega menú «Institución». */
+interface Contact { phone: string; tel: string; email: string; address: string }
+
+const CONTACT: Contact = {
+  phone: '(+502) 2419-8181',
+  tel: '+50224198181',
+  email: 'informacion@inap.gob.gt',
+  address: 'Boulevard Los Próceres 16-40, zona 10<br />Ciudad de Guatemala',
+};
+
+/**
+ * Huecos que llena el tema de WordPress con sus menús y ajustes (ver wordpressTemplates()).
+ * Sin huecos, cada plantilla usa los datos de ejemplo de este archivo.
+ */
+interface Slots {
+  utility?: string;
+  main?: string;
+  mobileSections?: string;
+  mobileUtility?: string;
+  footerColumns?: string;
+  social?: string;
+  year?: string;
+  aula?: string;
+  login?: string;
+  register?: string;
+  contact?: Contact;
+}
+
 const ITEM = `flex items-center gap-1 rounded-lg py-2.5 pr-2.5 pl-3 text-sm font-medium text-base-content transition-colors hover:bg-surface-subtle ${FOCUS}`;
 
 /** Ítem del menú: botón que abre un mega menú (chevron) o enlace directo. */
-const navItem = (p: string, i: number, label: string, mega: boolean, open = false) =>
+const navItem = (p: string, i: number | string, label: string, mega: boolean, open = false, href = '#') =>
   mega
     ? `<li><button type="button" class="group ${ITEM} aria-expanded:bg-surface-subtle aria-expanded:text-primary-text" aria-expanded="${open}" aria-controls="${p}-mega-${i}">${label}${icon('chevron-down', 16, 'transition-transform group-aria-expanded:rotate-180')}</button></li>`
-    : `<li><a href="#" class="${ITEM}">${label}</a></li>`;
+    : `<li><a href="${href}" class="${ITEM}">${label}</a></li>`;
 
-const utilityBar = (platform: Platform) => dedent(`
+const utilityLink = (label: string, href = '#') =>
+  `<li><a href="${href}" class="rounded-sm text-brand-surface-muted hover:text-brand-surface-content hover:underline ${FOCUS_INV}">${label}</a></li>`;
+
+const utilityBar = (platform: Platform, s: Slots = {}) => dedent(`
   <div class="bg-brand-surface">
     <div class="mx-auto flex h-9 max-w-360 items-center justify-between px-20 text-xs">
       <ul class="flex items-center gap-6">
-        ${ind(UTILITY[platform].map((l) => `<li><a href="#" class="rounded-sm text-brand-surface-muted hover:text-brand-surface-content hover:underline ${FOCUS_INV}">${l}</a></li>`).join('\n'), 8)}
+        ${ind(s.utility ?? UTILITY[platform].map((l) => utilityLink(l)).join('\n'), 8)}
       </ul>
       <div class="flex items-center gap-4">
-        <a href="#" target="_blank" rel="noopener" class="flex items-center gap-1 rounded-sm text-brand-surface-content hover:underline ${FOCUS_INV}">
+        <a href="${s.aula ?? '#'}" target="_blank" rel="noopener" class="flex items-center gap-1 rounded-sm text-brand-surface-content hover:underline ${FOCUS_INV}">
           Aula virtual ${icon('arrow-up-right', 12)}<span class="sr-only">(se abre en una pestaña nueva)</span>
         </a>
         <span class="h-4 w-px bg-brand-surface-muted" aria-hidden="true"></span>
@@ -72,25 +103,25 @@ const AVATAR = `<span class="flex size-8 shrink-0 items-center justify-center ro
 const userButton = (p: string) =>
   `<button type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="${p}-cuenta" class="flex h-11 items-center gap-2 rounded-full py-1.5 pr-3 pl-1 text-sm font-semibold text-base-content hover:bg-surface-subtle aria-expanded:bg-surface-subtle ${FOCUS}">${AVATAR}Josué${icon('chevron-down', 16)}</button>`;
 
-const authButtons = dedent(`
-  <a href="#" class="btn btn-ghost">Iniciar sesión</a>
-  <a href="#" class="btn btn-primary">Regístrate</a>
+const authButtons = (s: Slots = {}) => dedent(`
+  <a href="${s.login ?? '#'}" class="btn btn-ghost">Iniciar sesión</a>
+  <a href="${s.register ?? '#'}" class="btn btn-primary">Regístrate</a>
 `);
 
 /** Escritorio: barra superior (36 px) + barra principal (80 px). */
-const navbarDesktop = (p: string, platform: Platform, signedIn = false, open = -1) => dedent(`
+const navbarDesktop = (p: string, platform: Platform, signedIn = false, open = -1, s: Slots = {}) => dedent(`
   <header class="border-b border-base-content/10 bg-base-100">
-    ${ind(utilityBar(platform), 4)}
+    ${ind(utilityBar(platform, s), 4)}
     <nav aria-label="Principal" class="mx-auto flex h-20 max-w-360 items-center gap-6 px-20">
       ${LOGO_LINK}
       <ul class="flex shrink-0 items-center gap-0.5">
-        ${ind(MENU[platform].map((m, i) => navItem(p, i, m.label, m.mega, i === open)).join('\n'), 8)}
+        ${ind(s.main ?? MENU[platform].map((m, i) => navItem(p, i, m.label, m.mega, i === open)).join('\n'), 8)}
       </ul>
       <div class="min-w-0 flex-1">
         ${ind(navSearch(`${p}-q`, 'live', '', platform === 'wordpress'), 8)}
       </div>
       <div class="flex shrink-0 items-center gap-2">
-        ${ind(signedIn ? userButton(p) : authButtons, 8)}
+        ${ind(signedIn ? userButton(p) : authButtons(s), 8)}
       </div>
     </nav>
   </header>
@@ -100,11 +131,11 @@ const iconButton = (ico: string, label: string, extra = '') =>
   `<button type="button" class="btn btn-ghost btn-circle size-11 ${FOCUS}" aria-label="${label}"${extra}>${icon(ico, 22)}</button>`;
 
 /** Celular (84 px): logo y acciones. Angular sin sesión usa «Regístrate» lg, como en Figma. */
-const navbarMobile = (p: string, platform: Platform, signedIn = false) => {
+const navbarMobile = (p: string, platform: Platform, signedIn = false, s: Slots = {}) => {
   const search = iconButton('search', 'Buscar', ` aria-haspopup="dialog" aria-controls="${p}-buscar"`);
   const menu = iconButton('menu', 'Menú', ` aria-haspopup="dialog" aria-controls="${p}-menu"`);
   const account = `<button type="button" class="btn btn-ghost btn-circle size-11 ${FOCUS}" aria-label="Mi cuenta" aria-haspopup="dialog" aria-controls="${p}-cuenta">${AVATAR}</button>`;
-  const register = `<a href="#" class="btn btn-primary${platform === 'angular' ? ' btn-lg' : ''}">Regístrate</a>`;
+  const register = `<a href="${s.register ?? '#'}" class="btn btn-primary${platform === 'angular' ? ' btn-lg' : ''}">Regístrate</a>`;
   const actions = signedIn ? [search, account, menu] : [search, menu, register];
   return dedent(`
     <header class="flex h-21 items-center justify-between border-b border-base-content/10 bg-base-100 pr-2 pl-4">
@@ -324,33 +355,36 @@ const MEGA: Record<string, MegaMenu> = {
 
 const NEW_TAB = '<span class="sr-only">(se abre en una pestaña nueva)</span>';
 
-const megaLink = ([title, desc, external]: MegaLink) =>
-  `<li><a href="#"${external ? ' target="_blank" rel="noopener"' : ''} class="flex flex-col gap-0.5 rounded-lg px-3 py-2 text-sm hover:bg-surface-subtle ${FOCUS}">` +
+const megaLink = ([title, desc, external]: MegaLink, href = '#') =>
+  `<li><a href="${href}"${external ? ' target="_blank" rel="noopener"' : ''} class="flex flex-col gap-0.5 rounded-lg px-3 py-2 text-sm hover:bg-surface-subtle ${FOCUS}">` +
   `<span class="flex items-center gap-1 font-medium text-primary-text"><span class="flex-1">${title}</span>${external ? icon('arrow-up-right', 14, 'shrink-0') + NEW_TAB : ''}</span>` +
   (desc ? `<span class="text-neutral-text">${desc}</span>` : '') +
   `</a></li>`;
 
-const megaColumn = (id: string, [heading, links]: MegaMenu['columns'][number]) => dedent(`
+const megaColumnHtml = (id: string, heading: string, links: string) => dedent(`
   <div class="flex min-w-0 flex-1 flex-col gap-1">
     <div class="px-3 pb-2">
       <p id="${id}" class="border-b border-base-content/10 pb-3 text-sm font-medium text-base-content">${heading}</p>
     </div>
     <ul aria-labelledby="${id}" class="flex flex-col gap-1">
-      ${ind(links.map(megaLink).join('\n'), 6)}
+      ${ind(links, 6)}
     </ul>
   </div>
 `);
 
+const megaColumn = (id: string, [heading, links]: MegaMenu['columns'][number]) =>
+  megaColumnHtml(id, heading, links.map((l) => megaLink(l)).join('\n'));
+
 const ARROW = icon('arrow-right', 16, 'shrink-0');
 
-const megaAside = (aside: MegaMenu['aside']) =>
+const megaAside = (aside: MegaMenu['aside'], href = '#', c: Contact = CONTACT) =>
   aside.kind === 'feature'
     ? dedent(`
       <div class="relative flex flex-col gap-3 rounded-xl border border-base-content/10 bg-base-100 p-5">
         <span class="flex size-10 items-center justify-center rounded-lg bg-primary-400/20 text-primary-text" aria-hidden="true">${icon(aside.icon, 20)}</span>
         <p class="text-base font-semibold text-base-content">${aside.title}</p>
         <p class="text-sm text-neutral-text">${aside.text}</p>
-        <a href="#" class="flex items-center gap-1.5 self-start rounded-sm text-sm font-medium text-primary-text after:absolute after:inset-0 after:rounded-xl hover:underline ${FOCUS}">${aside.cta}${ARROW}</a>
+        <a href="${href}" class="flex items-center gap-1.5 self-start rounded-sm text-sm font-medium text-primary-text after:absolute after:inset-0 after:rounded-xl hover:underline ${FOCUS}">${aside.cta}${ARROW}</a>
       </div>
     `)
     : dedent(`
@@ -358,32 +392,34 @@ const megaAside = (aside: MegaMenu['aside']) =>
         <p class="font-medium text-base-content">Contacto</p>
         <address class="not-italic">
           <ul class="flex flex-col gap-4 text-base-content">
-            <li class="flex items-start gap-2.5">${icon('phone', 18, 'mt-px shrink-0 text-neutral-text')}<a href="tel:+50224198181" class="rounded-sm hover:underline ${FOCUS}">(+502) 2419-8181</a></li>
-            <li class="flex items-start gap-2.5">${icon('mail', 18, 'mt-px shrink-0 text-neutral-text')}<a href="mailto:informacion@inap.gob.gt" class="rounded-sm hover:underline ${FOCUS}">informacion@inap.gob.gt</a></li>
-            <li class="flex items-start gap-2.5">${icon('map-pin', 18, 'mt-px shrink-0 text-neutral-text')}<span>Boulevard Los Próceres 16-40, zona 10, Ciudad de Guatemala</span></li>
+            <li class="flex items-start gap-2.5">${icon('phone', 18, 'mt-px shrink-0 text-neutral-text')}<a href="tel:${c.tel}" class="rounded-sm hover:underline ${FOCUS}">${c.phone}</a></li>
+            <li class="flex items-start gap-2.5">${icon('mail', 18, 'mt-px shrink-0 text-neutral-text')}<a href="mailto:${c.email}" class="rounded-sm hover:underline ${FOCUS}">${c.email}</a></li>
+            <li class="flex items-start gap-2.5">${icon('map-pin', 18, 'mt-px shrink-0 text-neutral-text')}<span>${c.address.replace('<br />', ', ')}</span></li>
           </ul>
         </address>
       </div>
     `);
 
 /** Panel de 1280 px: columnas, pie con enlace a la página principal de la sección y columna lateral de 280 px. */
-const megaPanel = (id: string, menu: string) => {
-  const m = MEGA[menu];
-  return dedent(`
-    <div id="${id}" class="flex w-full overflow-hidden rounded-2xl border border-base-content/10 bg-base-100 shadow-xl">
-      <div class="flex min-w-0 flex-1 flex-col">
-        <div class="flex gap-6 p-8">
-          ${ind(m.columns.map((c, i) => megaColumn(`${id}-h${i}`, c)).join('\n'), 10)}
-        </div>
-        <div class="border-t border-base-content/10 px-11 py-5">
-          <a href="#" class="inline-flex items-center gap-1.5 rounded-sm text-sm font-medium text-primary-text hover:underline ${FOCUS}">${m.hub}${ARROW}</a>
-        </div>
+const megaShell = (id: string, columns: string, hub: string, hubHref: string, aside: string) => dedent(`
+  <div id="${id}" class="flex w-full overflow-hidden rounded-2xl border border-base-content/10 bg-base-100 shadow-xl">
+    <div class="flex min-w-0 flex-1 flex-col">
+      <div class="flex gap-6 p-8">
+        ${ind(columns, 8)}
       </div>
-      <div class="w-70 shrink-0 border-l border-base-content/10 bg-surface-subtle p-8">
-        ${ind(megaAside(m.aside), 8)}
+      <div class="border-t border-base-content/10 px-11 py-5">
+        <a href="${hubHref}" class="inline-flex items-center gap-1.5 rounded-sm text-sm font-medium text-primary-text hover:underline ${FOCUS}">${hub}${ARROW}</a>
       </div>
     </div>
-  `);
+    <div class="w-70 shrink-0 border-l border-base-content/10 bg-surface-subtle p-8">
+      ${ind(aside, 6)}
+    </div>
+  </div>
+`);
+
+const megaPanel = (id: string, menu: string) => {
+  const m = MEGA[menu];
+  return megaShell(id, m.columns.map((c, i) => megaColumn(`${id}-h${i}`, c)).join('\n'), m.hub, '#', megaAside(m.aside));
 };
 
 /** Barra con el mega menú abierto debajo: 8 px de separación, alineado al contenedor de 1280 px. */
@@ -545,34 +581,43 @@ const MOBILE_UTILITY: Record<Platform, string[]> = {
 
 const ROW = `flex w-full items-center justify-between gap-3 rounded-lg px-1 py-3.5 text-start text-base font-medium text-base-content ${FOCUS}`;
 
+const mobileLink = (label: string, href: string) =>
+  `<li class="border-b border-base-content/10"><a href="${href}" class="${ROW}">${label}${icon('chevron-right', 20, 'shrink-0')}</a></li>`;
+
+const mobileGroup = (id: string, label: string, links: string) => dedent(`
+  <p id="${id}" class="px-3 pt-2 pb-1 text-xs font-semibold text-neutral-text">${label}</p>
+  <ul aria-labelledby="${id}" class="flex flex-col gap-0.5">
+    ${ind(links, 4)}
+  </ul>
+`);
+
+const mobileSectionShell = (id: string, label: string, groups: string, open: boolean) => dedent(`
+  <li class="${open ? '' : 'border-b border-base-content/10'}">
+    <button type="button" class="group ${ROW} aria-expanded:text-primary-text" aria-expanded="${open}" aria-controls="${id}">${label}${icon('chevron-down', 20, 'shrink-0 transition-transform group-aria-expanded:rotate-180')}</button>
+    <div id="${id}" class="flex flex-col gap-0.5 border-b border-base-content/10 pb-3"${open ? '' : ' hidden'}>
+      ${ind(groups, 6)}
+    </div>
+  </li>
+`);
+
 const mobileSection = (p: string, i: number, s: MobileSection, open: boolean) => {
-  if ('href' in s) {
-    return `<li class="border-b border-base-content/10"><a href="${s.href}" class="${ROW}">${s.label}${icon('chevron-right', 20, 'shrink-0')}</a></li>`;
-  }
+  if ('href' in s) return mobileLink(s.label, s.href);
   const id = `${p}-sec-${i}`;
-  const groups = s.groups.map(([label, links], g) => dedent(`
-    <p id="${id}-g${g}" class="px-3 pt-2 pb-1 text-xs font-semibold text-neutral-text">${label}</p>
-    <ul aria-labelledby="${id}-g${g}" class="flex flex-col gap-0.5">
-      ${ind(links.map(megaLink).join('\n'), 6)}
-    </ul>
-  `)).join('\n');
-  return dedent(`
-    <li class="${open ? '' : 'border-b border-base-content/10'}">
-      <button type="button" class="group ${ROW} aria-expanded:text-primary-text" aria-expanded="${open}" aria-controls="${id}">${s.label}${icon('chevron-down', 20, 'shrink-0 transition-transform group-aria-expanded:rotate-180')}</button>
-      <div id="${id}" class="flex flex-col gap-0.5 border-b border-base-content/10 pb-3"${open ? '' : ' hidden'}>
-        ${ind(groups, 8)}
-      </div>
-    </li>
-  `);
+  const groups = s.groups.map(([label, links], g) => mobileGroup(`${id}-g${g}`, label, links.map((l) => megaLink(l)).join('\n'))).join('\n');
+  return mobileSectionShell(id, s.label, groups, open);
 };
 
+const MOBILE_LINK = `flex items-center justify-between rounded-sm py-3 text-sm ${FOCUS_INV}`;
+
+/** Fila de la tarjeta azul oscuro; la última no lleva línea inferior. */
+const mobileUtilityRow = (label: string, href = '#', last = false) =>
+  `<li${last ? '' : ' class="border-b border-brand-surface-muted"'}><a href="${href}" class="${MOBILE_LINK} text-brand-surface-muted hover:text-brand-surface-content">${label}${icon('chevron-right', 16, 'shrink-0')}</a></li>`;
+
 /** Tarjeta azul oscuro con Aula virtual (externo) y los enlaces de la barra superior. */
-const mobileUtility = (platform: Platform) => {
-  const LINK = `flex items-center justify-between rounded-sm py-3 text-sm ${FOCUS_INV}`;
+const mobileUtility = (platform: Platform, s: Slots = {}) => {
   const rows = [
-    `<li class="border-b border-brand-surface-muted"><a href="#" target="_blank" rel="noopener" class="${LINK} text-brand-surface-content">Aula virtual${NEW_TAB}${icon('arrow-up-right', 16, 'shrink-0')}</a></li>`,
-    ...MOBILE_UTILITY[platform].map((l, i, a) =>
-      `<li${i < a.length - 1 ? ' class="border-b border-brand-surface-muted"' : ''}><a href="#" class="${LINK} text-brand-surface-muted hover:text-brand-surface-content">${l}${icon('chevron-right', 16, 'shrink-0')}</a></li>`),
+    `<li class="border-b border-brand-surface-muted"><a href="${s.aula ?? '#'}" target="_blank" rel="noopener" class="${MOBILE_LINK} text-brand-surface-content">Aula virtual${NEW_TAB}${icon('arrow-up-right', 16, 'shrink-0')}</a></li>`,
+    s.mobileUtility ?? MOBILE_UTILITY[platform].map((l, i, a) => mobileUtilityRow(l, '#', i === a.length - 1)).join('\n'),
   ];
   return dedent(`
     <ul aria-label="Más enlaces" class="mt-4 rounded-lg bg-brand-surface px-4 py-1">
@@ -587,7 +632,7 @@ const ACCOUNT_ROW = `<button type="button" aria-haspopup="dialog" class="flex w-
  * Menú a pantalla completa: encabezado, cuerpo con scroll (buscador, secciones, enlaces de utilidad)
  * y pie fijo con modo oscuro y la sesión. En la plataforma es un <dialog> abierto con showModal().
  */
-const mobileMenu = (p: string, platform: Platform, signedIn = false, open = 0) => dedent(`
+const mobileMenu = (p: string, platform: Platform, signedIn = false, open = 0, s: Slots = {}) => dedent(`
   <dialog open id="${p}-menu" aria-label="Menú" class="static m-0 flex h-dvh max-h-none w-full max-w-none flex-col border-0 bg-base-100 p-0 text-base-content">
     <div class="flex h-21 shrink-0 items-center justify-between pr-2 pl-4">
       ${ind(LOGO_LINK, 6)}
@@ -599,16 +644,16 @@ const mobileMenu = (p: string, platform: Platform, signedIn = false, open = 0) =
       </div>
       <nav aria-label="Principal" class="px-4 pt-2 pb-4">
         <ul>
-          ${ind(MOBILE_MENU[platform].map((s, i) => mobileSection(p, i, s, i === open)).join('\n'), 10)}
+          ${ind(s.mobileSections ?? MOBILE_MENU[platform].map((m, i) => mobileSection(p, i, m, i === open)).join('\n'), 10)}
         </ul>
-        ${ind(mobileUtility(platform), 8)}
+        ${ind(mobileUtility(platform, s), 8)}
       </nav>
     </div>
     <div class="flex shrink-0 flex-col gap-3 border-t border-base-content/10 px-4 pt-3 pb-6">
       <button type="button" aria-pressed="false" class="flex items-center gap-2 self-start rounded-sm py-1 text-sm font-medium ${FOCUS}">${icon('moon', 18)}Modo oscuro</button>
       ${signedIn ? ACCOUNT_ROW : `<div class="flex gap-2">
-        <a href="#" class="btn btn-outline btn-primary h-11 flex-1">Iniciar sesión</a>
-        <a href="#" class="btn btn-primary h-11 flex-1">Regístrate</a>
+        <a href="${s.login ?? '#'}" class="btn btn-outline btn-primary h-11 flex-1">Iniciar sesión</a>
+        <a href="${s.register ?? '#'}" class="btn btn-primary h-11 flex-1">Regístrate</a>
       </div>`}
     </div>
   </dialog>
@@ -924,16 +969,24 @@ const FLINK = `rounded-sm text-brand-surface-muted hover:text-brand-surface-cont
 const contactRow = (ico: string, html: string) =>
   `<li class="flex items-start gap-2.5">${icon(ico, 18, 'mt-px shrink-0 text-brand-surface-muted')}<span>${html}</span></li>`;
 
-const footerCol = (p: string, i: number, title: string, links: string[]) => dedent(`
+const footerLink = (label: string, href = '#') => `<li><a href="${href}" class="${FLINK}">${label}</a></li>`;
+
+const socialLink = (label: string, href = '#') =>
+  `<li><a href="${href}" class="rounded-sm text-brand-surface-content hover:underline ${FOCUS_INV}">${label}</a></li>`;
+
+const footerColHtml = (id: string, title: string, links: string) => dedent(`
   <div class="flex flex-col gap-3">
-    <h2 id="${p}-col${i}" class="text-sm font-semibold text-brand-surface-content">${title}</h2>
-    <ul aria-labelledby="${p}-col${i}" class="flex flex-col gap-3">
-      ${ind(links.map((l) => `<li><a href="#" class="${FLINK}">${l}</a></li>`).join('\n'), 6)}
+    <h2 id="${id}" class="text-sm font-semibold text-brand-surface-content">${title}</h2>
+    <ul aria-labelledby="${id}" class="flex flex-col gap-3">
+      ${ind(links, 6)}
     </ul>
   </div>
 `);
 
-const footer = (p: string) => dedent(`
+const footerCol = (p: string, i: number, title: string, links: string[]) =>
+  footerColHtml(`${p}-col${i}`, title, links.map((l) => footerLink(l)).join('\n'));
+
+const footer = (p: string, s: Slots = {}, c: Contact = s.contact ?? CONTACT) => dedent(`
   <footer class="relative overflow-hidden bg-brand-surface text-sm">
     <img src="brand/waves.svg" alt="" width="1440" height="411" class="pointer-events-none absolute top-0 left-1/2 w-[1440px] max-w-none -translate-x-1/2 opacity-5" />
     <div class="relative mx-auto flex max-w-360 flex-col gap-8 px-4 pt-10 pb-6 lg:gap-12 lg:px-30 lg:pt-16 lg:pb-8">
@@ -942,20 +995,20 @@ const footer = (p: string) => dedent(`
           <a href="/" aria-label="INAP, ir al inicio" class="self-start rounded-sm ${FOCUS_INV}"><img src="brand/logo-white.svg" alt="" width="109" height="67" class="w-[109px]" /></a>
           <address class="not-italic">
             <ul class="flex flex-col gap-2.5 text-brand-surface-muted">
-              ${contactRow('map-pin', 'Boulevard Los Próceres 16-40, zona 10<br />Ciudad de Guatemala')}
-              ${contactRow('phone', `<a href="tel:+50224198181" class="${FLINK}">(+502) 2419-8181</a>`)}
-              ${contactRow('mail', `<a href="mailto:informacion@inap.gob.gt" class="${FLINK}">informacion@inap.gob.gt</a>`)}
+              ${contactRow('map-pin', c.address)}
+              ${contactRow('phone', `<a href="tel:${c.tel}" class="${FLINK}">${c.phone}</a>`)}
+              ${contactRow('mail', `<a href="mailto:${c.email}" class="${FLINK}">${c.email}</a>`)}
             </ul>
           </address>
         </div>
         <nav aria-label="Pie de página" class="grid grid-cols-2 gap-x-6 gap-y-8 lg:flex lg:gap-16 lg:[&>*]:w-45">
-          ${ind(FOOTER_COLS.map(([t, l], i) => footerCol(p, i + 1, t, l)).join('\n'), 10)}
+          ${ind(s.footerColumns ?? FOOTER_COLS.map(([t, l], i) => footerCol(p, i + 1, t, l)).join('\n'), 10)}
         </nav>
       </div>
       <div class="flex flex-col gap-4 border-t border-brand-surface-line pt-6 text-xs lg:flex-row lg:items-center lg:justify-between lg:pt-8">
-        <p class="text-brand-surface-muted">© 2026 INAP — Instituto Nacional de Administración Pública. Guatemala, C. A.</p>
+        <p class="text-brand-surface-muted">© ${s.year ?? 2026} INAP — Instituto Nacional de Administración Pública. Guatemala, C. A.</p>
         <ul aria-label="Redes sociales" class="flex gap-5 font-semibold">
-          ${ind(SOCIAL.map((s) => `<li><a href="#" class="rounded-sm text-brand-surface-content hover:underline ${FOCUS_INV}">${s}</a></li>`).join('\n'), 10)}
+          ${ind(s.social ?? SOCIAL.map((l) => socialLink(l)).join('\n'), 10)}
         </ul>
       </div>
     </div>
@@ -1012,18 +1065,81 @@ export const pieDePagina: ComponentDoc = {
   snippets: [{ title: 'Pie de página', language: 'HTML', code: footer('pie') }],
 };
 
-/* ── Piezas para el tema de WordPress ──────────────────────────────────────── */
+/* ── Plantillas para el tema de WordPress ─────────────────────────────────── */
+
+const slot = (name: string) => `{{${name}}}`;
 
 /**
- * Barra, mega menús, menú de celular y pie de WordPress, con el mismo HTML de los ejemplos.
- * El tema los genera con su script de sincronización; no se copian a mano.
+ * Plantillas de la barra, los mega menús, el menú de celular y el pie de WordPress, con el mismo HTML
+ * de los ejemplos. Los {{huecos}} los llena el tema con sus menús y ajustes; el script de sincronización
+ * del tema las copia, no se escriben a mano.
  */
-export function wordpressPartials() {
+export function wordpressTemplates(): Record<string, string> {
+  const s: Slots = {
+    utility: slot('utilidad'),
+    main: slot('principal'),
+    mobileSections: slot('secciones'),
+    mobileUtility: slot('movil_utilidad'),
+    footerColumns: slot('columnas'),
+    social: slot('redes'),
+    year: slot('anio'),
+    aula: slot('aula_url'),
+    login: slot('login_url'),
+    register: slot('registro_url'),
+    contact: { phone: slot('telefono'), tel: slot('tel'), email: slot('correo'), address: slot('direccion') },
+  };
+  const t = slot('titulo');
+  const u = slot('url');
   return {
-    headerDesktop: navbarDesktop('nav', 'wordpress'),
-    headerMobile: navbarMobile('nav', 'wordpress'),
-    mega: MENU.wordpress.map((m, i) => megaPanel(`nav-mega-${i}`, m.label)),
-    menuMobile: mobileMenu('nav', 'wordpress', false, -1).replace('<dialog open ', '<dialog ').replace('static m-0 ', 'm-0 '),
-    footer: footer('pie'),
+    'header-desktop': navbarDesktop('nav', 'wordpress', false, -1, s),
+    'header-mobile': navbarMobile('nav', 'wordpress', false, s),
+    'menu-mobile': mobileMenu('nav', 'wordpress', false, -1, s).replace('<dialog open ', '<dialog ').replace('static m-0 ', 'm-0 '),
+    footer: footer('pie', s),
+    'utilidad': utilityLink(t, u),
+    'nav-mega': navItem('nav', slot('i'), t, true),
+    'nav-enlace': navItem('nav', slot('i'), t, false, false, u),
+    'mega-panel': megaShell(`nav-mega-${slot('i')}`, slot('columnas'), slot('hub'), slot('hub_url'), slot('lateral')),
+    'mega-columna': megaColumnHtml(slot('id'), t, slot('enlaces')),
+    'mega-enlace': megaLink([t], u),
+    'mega-enlace-desc': megaLink([t, slot('descripcion')], u),
+    'mega-enlace-ext': megaLink([t, undefined, true], u),
+    'mega-enlace-ext-desc': megaLink([t, slot('descripcion'), true], u),
+    'mega-destacado': megaAside({ kind: 'feature', icon: slot('icono'), title: t, text: slot('texto'), cta: slot('boton') }, u),
+    'mega-contacto': megaAside({ kind: 'contact' }, '#', s.contact),
+    'movil-enlace': mobileLink(t, u),
+    'movil-seccion': mobileSectionShell(slot('id'), t, slot('grupos'), false),
+    'movil-grupo': mobileGroup(slot('id'), t, slot('enlaces')),
+    'movil-utilidad': mobileUtilityRow(t, u),
+    'movil-utilidad-ultimo': mobileUtilityRow(t, u, true),
+    'pie-columna': footerColHtml(slot('id'), t, slot('enlaces')),
+    'pie-enlace': footerLink(t, u),
+    'red': socialLink(t, u),
+  };
+}
+
+/**
+ * Contenido inicial de los menús de WordPress (los mismos datos de los ejemplos). El tema lo carga una
+ * sola vez; después Comunicación Social los edita en Apariencia › Menús.
+ */
+export function wordpressMenus() {
+  return {
+    utilidad: UTILITY.wordpress,
+    principal: MENU.wordpress.map(({ label }, i) => {
+      const m = MEGA[label];
+      const mobile = MOBILE_MENU.wordpress[i].label;
+      return {
+        titulo: label,
+        movil: mobile === label ? '' : mobile,
+        hub: m.hub,
+        lateral: m.aside.kind === 'feature' ? { icono: m.aside.icon, titulo: m.aside.title, texto: m.aside.text, boton: m.aside.cta } : 'contacto',
+        columnas: m.columns.map(([titulo, links]) => ({
+          titulo,
+          enlaces: links.map(([t, descripcion, externo]) => ({ titulo: t, descripcion: descripcion ?? '', externo: !!externo })),
+        })),
+      };
+    }),
+    pie: FOOTER_COLS.map(([titulo, enlaces]) => ({ titulo, enlaces })),
+    redes: SOCIAL,
+    contacto: CONTACT,
   };
 }
