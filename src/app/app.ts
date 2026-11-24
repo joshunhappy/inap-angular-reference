@@ -20,7 +20,7 @@ import { SiteNav } from './layout/site-nav';
 export class App {
   private readonly router = inject(Router);
   private readonly doc = inject(DOCUMENT);
-  private readonly search = viewChild.required(SearchDialog);
+  private readonly search = viewChild(SearchDialog);
 
   private readonly url = toSignal(
     this.router.events.pipe(
@@ -35,6 +35,9 @@ export class App {
     const slug = this.url().split(/[/?#]/)[1];
     return findSection(slug);
   });
+
+  /** Vistas a pantalla completa (/vista/…): sin encabezado, barra lateral ni pie del sitio. */
+  protected readonly bare = computed(() => this.url().startsWith('/vista/'));
 
   protected readonly shortcut = signal('Ctrl K');
 
@@ -56,7 +59,7 @@ export class App {
     const typing = !!target?.closest('input, textarea, select, [contenteditable="true"]');
     if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || (e.key === '/' && !typing)) {
       e.preventDefault();
-      this.search().open();
+      this.search()?.open();
     }
   }
 }

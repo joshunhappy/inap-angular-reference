@@ -17,5 +17,7 @@ export const routes: Routes = [
       data: { section: s.slug, page: p.slug },
     })),
   ]),
+  // Plantillas a pantalla completa, sin la navegación del sitio (se muestran en un iframe).
+  { path: 'vista/home', loadComponent: () => import('./pages/plantillas/home-vista').then((m) => m.HomeVistaPage), title: 'Home · vista completa' },
   { path: '**', component: NotFound, title: 'Página no encontrada' },
 ];

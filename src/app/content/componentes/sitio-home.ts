@@ -6,8 +6,9 @@ const placeholderNote = `<div role="note" class="alert alert-warning alert-soft 
 
 /* ── Section Header ────────────────────────────────────────────────────────── */
 
-const sectionHeader = (title: string, text: string, center = false) => dedent(`
-  <div class="flex max-w-180 flex-col gap-2 md:gap-3${center ? ' mx-auto items-center text-center' : ''}">
+/** `center`: centrado siempre; `'md'`: a la izquierda en celular y centrado desde 768 px (Home). */
+export const sectionHeader = (title: string, text: string, center: boolean | 'md' = false) => dedent(`
+  <div class="flex max-w-180 flex-col gap-2 md:gap-3${center === 'md' ? ' md:mx-auto md:items-center md:text-center' : center ? ' mx-auto items-center text-center' : ''}">
     <h2 class="text-2xl font-semibold text-base-content md:text-4xl md:font-bold">${title}</h2>
     <p class="text-base text-neutral-text md:text-lg">${text}</p>
   </div>
@@ -50,16 +51,16 @@ export const encabezadoDeSeccion: ComponentDoc = {
 
 /* ── Course Type Card ──────────────────────────────────────────────────────── */
 
-interface CourseType { icon: string; title: string; text: string; count: string }
+export interface CourseType { icon: string; title: string; text: string; count: string }
 
-const TYPES: CourseType[] = [
+export const TYPES: CourseType[] = [
   { icon: 'award', title: 'Cursos con certificación', text: 'Valida tus competencias con un certificado oficial del INAP.', count: '48 cursos' },
   { icon: 'book-open', title: 'Cursos y diplomados', text: 'Actualízate con programas cortos y diplomados a tu ritmo.', count: '62 programas' },
   { icon: 'graduation-cap', title: 'Estudios de posgrado', text: 'Maestrías y especializaciones en administración pública.', count: '6 programas' },
   { icon: 'clipboard-check', title: 'Asesoría técnica', text: 'Investigación y acompañamiento para fortalecer tu institución.', count: 'Para instituciones' },
 ];
 
-const courseTypeCard = (t: CourseType, plain = false) => dedent(`
+export const courseTypeCard = (t: CourseType, plain = false) => dedent(`
   <article class="group relative flex h-full flex-col gap-4 rounded-box p-6 transition ${plain
     ? 'hover:bg-surface-subtle'
     : 'border border-base-content/10 bg-base-2 shadow-sm hover:border-primary-text hover:shadow-lg'}
@@ -125,7 +126,7 @@ const AREAS: [string, string, string][] = [
   ['users', 'Liderazgo y comunicación', '15 cursos'],
 ];
 
-const areaCard = ([iconName, title, count]: [string, string, string]) => dedent(`
+export const areaCard = ([iconName, title, count]: [string, string, string]) => dedent(`
   <li>
     <a href="#" class="group flex items-center gap-4 border-b border-base-content/20 px-3 py-4.5 transition
                        hover:rounded-md hover:border-transparent hover:bg-base-content/10
@@ -181,7 +182,7 @@ const STATS: [string, string][] = [
   ['45 años', 'formando al Estado'],
 ];
 
-const stat = ([value, label]: [string, string], brand = false) => dedent(`
+export const stat = ([value, label]: [string, string], brand = false) => dedent(`
   <li class="flex flex-col gap-1${brand ? ' bg-brand-surface p-4' : ''}">
     <span class="text-4xl font-bold ${brand ? 'text-brand-surface-content' : 'text-primary-text'}">${value}</span>
     <span class="text-sm ${brand ? 'text-brand-surface-muted' : 'text-neutral-text'}">${label}</span>
@@ -226,7 +227,7 @@ export const estadistica: ComponentDoc = {
 
 /* ── Testimonial ───────────────────────────────────────────────────────────── */
 
-const testimonial = (initials: string, name: string, role: string, quote: string) => dedent(`
+export const testimonial = (initials: string, name: string, role: string, quote: string) => dedent(`
   <figure class="flex h-full flex-col gap-5 rounded-box border border-base-content/10 bg-base-2 p-7">
     <span class="text-5xl leading-8 font-bold text-accent-text" aria-hidden="true">“</span>
     <blockquote class="flex-1 text-base text-base-content">
@@ -276,17 +277,25 @@ export const testimonio: ComponentDoc = {
 
 /* ── Audience Toggle ───────────────────────────────────────────────────────── */
 
-const audienceToggle = (name: string, large = false, institution = false) => {
+/** Tamaños de opción: Default, Large y responsive (Default a todo el ancho en celular, Large desde 768 px). */
+const TOGGLE_SIZE = {
+  default: { box: 'inline-flex p-1', opt: 'gap-2 px-5 py-2.5 text-sm', icon: 18 },
+  large: { box: 'inline-flex p-1.5', opt: 'gap-2.5 px-6 py-3 text-lg', icon: 20 },
+  responsive: { box: 'flex w-full p-1 md:inline-flex md:w-auto md:p-1.5', opt: 'flex-auto justify-center gap-2 whitespace-nowrap px-4 py-2.5 text-sm md:flex-none md:gap-2.5 md:px-6 md:py-3 md:text-lg', icon: 20 },
+};
+
+export const audienceToggle = (name: string, size: keyof typeof TOGGLE_SIZE = 'default', institution = false) => {
+  const sz = TOGGLE_SIZE[size];
   const opt = (value: string, iconName: string, label: string, checked: boolean) => `
       <label class="flex cursor-pointer items-center rounded-full border-2 border-transparent font-semibold text-base-content transition
-                    ${large ? 'gap-2.5 px-6 py-3 text-lg' : 'gap-2 px-5 py-2.5 text-sm'}
+                    ${sz.opt}
                     has-checked:border-primary-text has-checked:bg-base-2 has-checked:text-primary-text has-checked:shadow-sm
                     has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-primary-text">
         <input type="radio" name="${name}" value="${value}" class="sr-only"${checked ? ' checked' : ''} />
-        ${icon(iconName, large ? 20 : 18)}${label}
+        ${icon(iconName, sz.icon)}${label}
       </label>`;
   return dedent(`
-    <fieldset class="inline-flex gap-1 rounded-full bg-base-content/10 ${large ? 'p-1.5' : 'p-1'}">
+    <fieldset class="${sz.box} gap-1 rounded-full bg-base-content/10">
       <legend class="sr-only">¿Para quién buscas formación?</legend>${opt('persona', 'user', 'Para ti', !institution)}${opt('institucion', 'landmark', 'Para tu institución', institution)}
     </fieldset>
   `);
@@ -299,12 +308,12 @@ export const selectorDeAudiencia: ComponentDoc = {
     {
       title: 'Default',
       description: 'Funciona: hagan clic o usen las flechas del teclado.',
-      html: [audienceToggle('audiencia-a'), audienceToggle('audiencia-b', false, true)].join('\n\n'),
+      html: [audienceToggle('audiencia-a'), audienceToggle('audiencia-b', 'default', true)].join('\n\n'),
     },
     {
       title: 'Large',
       description: 'En el hero de escritorio.',
-      html: audienceToggle('audiencia-c', true),
+      html: audienceToggle('audiencia-c', 'large'),
     },
   ],
   usage: {
@@ -385,8 +394,9 @@ const arrow = (dir: 'prev' | 'next') => `<button type="button" data-carousel-${d
 /** Orden inicial en el DOM: la última (vecina izquierda), la activa, la siguiente, la vecina derecha y el resto. */
 const INITIAL: [number, SlidePos][] = [[4, 'prev'], [0, 'current'], [1, 'second'], [2, 'next'], [3, 'rest']];
 
-const carousel = () => dedent(`
-  <section data-carousel aria-roledescription="carrusel" aria-label="Cursos destacados" class="flex flex-col items-center gap-1 pt-4 md:gap-4 md:pt-6 md:pb-2">
+/** `label`: nombre de la región; en el Home no puede repetir el título «Cursos destacados» de la sección de abajo. */
+export const carousel = (label = 'Cursos destacados') => dedent(`
+  <section data-carousel aria-roledescription="carrusel" aria-label="${label}" class="flex flex-col items-center gap-1 pt-4 md:gap-4 md:pt-6 md:pb-2">
     <div class="relative w-full overflow-hidden">
       <div data-carousel-track class="flex touch-pan-y gap-3 px-4 md:justify-center md:gap-4 md:px-0" aria-live="off">
         ${INITIAL.map(([i, pos]) => slide(i, pos).replace(/\n/g, '\n        ')).join('\n        ')}

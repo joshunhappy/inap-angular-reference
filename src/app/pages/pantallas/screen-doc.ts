@@ -26,7 +26,9 @@ import { Icon } from '../../ui/icon/icon';
           }
           <dt class="font-semibold">En código</dt>
           <dd class="text-neutral-text">
-            @if (d.template) {
+            @if (d.template && templateReady(d.template)) {
+              Plantilla <a [routerLink]="d.template">{{ templateTitle(d.template) }}</a>.
+            } @else if (d.template) {
               Pendiente: será la plantilla <a [routerLink]="d.template">{{ templateTitle(d.template) }}</a>.
             } @else {
               Pendiente.
@@ -154,6 +156,11 @@ export class ScreenDocPage {
 
   protected figma(node: string): string {
     return `${FIGMA_URL}?node-id=${node.replace(':', '-')}`;
+  }
+
+  /** La plantilla ya tiene página propia (no la de «en preparación»). */
+  protected templateReady(path: string): boolean {
+    return !!findPage('plantillas', path.split('/').pop() ?? '')?.load;
   }
 
   protected templateTitle(path: string): string {

@@ -14,7 +14,7 @@ const HERO: Record<HeroSize, { box: string; icon: number; input: string; button:
   responsive: { box: 'h-13 gap-3 pl-4.5 pr-1.5 shadow-md md:h-16 md:max-w-160 md:pl-6 md:pr-2 md:shadow-lg', icon: 22, input: 'text-base md:text-lg', button: true },
 };
 
-const heroSearch = (id: string, size: HeroSize, placeholder = '¿Qué quieres aprender hoy?') => {
+export const heroSearch = (id: string, size: HeroSize, placeholder = '¿Qué quieres aprender hoy?') => {
   const s = HERO[size];
   const button = s.button
     ? `\n    <button type="submit" class="btn btn-primary btn-lg rounded-full${size === 'responsive' ? ' hidden md:inline-flex' : ''}">Buscar</button>`

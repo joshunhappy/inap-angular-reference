@@ -9,9 +9,9 @@ export const statusBadge = (dot: string, label: string, extra = '') =>
   `<span class="badge badge-soft gap-1.5 pr-2.5 pl-2 text-xs font-semibold${extra ? ' ' + extra : ''}"><span class="size-2 rounded-full ${dot}" aria-hidden="true"></span>${label}</span>`;
 
 /** Miniatura con foto o ilustración, compartida por la miniatura y la tarjeta de curso. */
-const thumbPhoto = (badge: string) => dedent(`
+export const thumbPhoto = (badge: string, img = 'images/cursos/gestion-financiera.png') => dedent(`
   <div class="relative aspect-video overflow-hidden">
-    <img src="images/cursos/gestion-financiera.png" alt="" class="size-full object-cover" />
+    <img src="${img}" alt="" class="size-full object-cover" />
     <span class="absolute top-4 left-4 rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-inap-brand-navy">${badge}</span>
   </div>
 `);
@@ -25,7 +25,7 @@ const thumbIllustration = (badge: string, area: string) => dedent(`
   </div>
 `);
 
-const courseCard = (thumb: string, title: string, area: string) => dedent(`
+export const courseCard = (thumb: string, title: string, area: string, duration = '6 semanas') => dedent(`
   <article class="group relative flex h-full flex-col overflow-hidden rounded-box border border-base-content/10 bg-base-2 shadow-sm transition
                   hover:border-primary-text hover:shadow-lg has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-primary-text">
     ${thumb.replace(/\n/g, '\n    ')}
@@ -35,7 +35,7 @@ const courseCard = (thumb: string, title: string, area: string) => dedent(`
       </h3>
       <p class="flex-1 text-sm text-neutral-text">${area}</p>
       <ul class="flex gap-4 border-t border-base-content/10 pt-2.5 text-xs text-neutral-text">
-        <li class="flex items-center gap-1.5">${icon('clock', 16)}<span class="sr-only">Duración:</span> 6 semanas</li>
+        <li class="flex items-center gap-1.5">${icon('clock', 16)}<span class="sr-only">Duración:</span> ${duration}</li>
         <li class="flex items-center gap-1.5">${icon('monitor', 16)}<span class="sr-only">Modalidad:</span> Virtual</li>
       </ul>
     </div>

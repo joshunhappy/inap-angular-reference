@@ -10,7 +10,8 @@
   <script>
     // Tema antes de que arranque Angular, para evitar un parpadeo al cargar.
     try {
-      var t = localStorage.getItem('inap-tema');
+      // ?tema= lo usan las vistas de plantillas dentro de un iframe.
+      var t = new URLSearchParams(location.search).get('tema') || localStorage.getItem('inap-tema');
       if (t !== 'inap' && t !== 'dark') {
         t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'inap';
       }

@@ -109,7 +109,7 @@ const authButtons = (s: Slots = {}) => dedent(`
 `);
 
 /** Escritorio: barra superior (36 px) + barra principal (80 px). */
-const navbarDesktop = (p: string, platform: Platform, signedIn = false, open = -1, s: Slots = {}) => dedent(`
+export const navbarDesktop = (p: string, platform: Platform, signedIn = false, open = -1, s: Slots = {}) => dedent(`
   <header class="border-b border-base-content/10 bg-base-100">
     ${ind(utilityBar(platform, s), 4)}
     <nav aria-label="Principal" class="mx-auto flex h-20 max-w-360 items-center gap-6 px-20">
@@ -131,7 +131,7 @@ const iconButton = (ico: string, label: string, extra = '') =>
   `<button type="button" class="btn btn-ghost btn-circle size-11 ${FOCUS}" aria-label="${label}"${extra}>${icon(ico, 22)}</button>`;
 
 /** Celular (84 px): logo y acciones. Angular sin sesión usa «Regístrate» lg, como en Figma. */
-const navbarMobile = (p: string, platform: Platform, signedIn = false, s: Slots = {}) => {
+export const navbarMobile = (p: string, platform: Platform, signedIn = false, s: Slots = {}) => {
   const search = iconButton('search', 'Buscar', ` aria-haspopup="dialog" aria-controls="${p}-buscar"`);
   const menu = iconButton('menu', 'Menú', ` aria-haspopup="dialog" aria-controls="${p}-menu"`);
   const account = `<button type="button" class="btn btn-ghost btn-circle size-11 ${FOCUS}" aria-label="Mi cuenta" aria-haspopup="dialog" aria-controls="${p}-cuenta">${AVATAR}</button>`;
@@ -986,9 +986,9 @@ const footerColHtml = (id: string, title: string, links: string) => dedent(`
 const footerCol = (p: string, i: number, title: string, links: string[]) =>
   footerColHtml(`${p}-col${i}`, title, links.map((l) => footerLink(l)).join('\n'));
 
-const footer = (p: string, s: Slots = {}, c: Contact = s.contact ?? CONTACT) => dedent(`
+export const footer = (p: string, s: Slots = {}, c: Contact = s.contact ?? CONTACT) => dedent(`
   <footer class="relative overflow-hidden bg-brand-surface text-sm">
-    <img src="brand/waves.svg" alt="" width="1440" height="411" class="pointer-events-none absolute top-0 left-1/2 w-[1440px] max-w-none -translate-x-1/2 opacity-5" />
+    <img src="brand/waves.svg" alt="" width="1440" height="411" class="pointer-events-none absolute top-0 left-1/2 w-[1440px] max-w-none -translate-x-1/2 opacity-5 lg:w-full" />
     <div class="relative mx-auto flex max-w-360 flex-col gap-8 px-4 pt-10 pb-6 lg:gap-12 lg:px-30 lg:pt-16 lg:pb-8">
       <div class="flex flex-col gap-8 lg:flex-row lg:gap-16">
         <div class="flex flex-col gap-6 lg:flex-1">
@@ -1054,7 +1054,7 @@ export const pieDePagina: ComponentDoc = {
   </ul>`,
   classes: [
     ['relative overflow-hidden bg-brand-surface', 'Contenedor.'],
-    ['absolute top-0 left-1/2 w-[1440px] -translate-x-1/2 opacity-5', 'Ondas de marca (brand/waves.svg).'],
+    ['absolute top-0 left-1/2 w-[1440px] -translate-x-1/2 opacity-5 lg:w-full', 'Ondas de marca (brand/waves.svg): 1440 px en celular, todo el ancho desde lg.'],
     ['px-4 pt-10 pb-6 lg:px-30 lg:pt-16 lg:pb-8', 'Márgenes: 16 px en celular, 120 px en escritorio.'],
     ['text-brand-surface-muted hover:text-brand-surface-content', 'Enlaces y datos de contacto.'],
     ['text-sm font-semibold text-brand-surface-content', 'Título de columna.'],
