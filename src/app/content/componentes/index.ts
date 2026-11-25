@@ -11,6 +11,7 @@ import { paginacion } from './paginacion';
 import { seleccion } from './seleccion';
 import { buscador, sugerencias } from './sitio-busqueda';
 import { barraDeNavegacion, megaMenu, menuDeUsuario, menuMovil, pieDePagina } from './sitio-navegacion';
+import { estadoVacio, filtros } from './sitio-catalogo';
 import { chip, etiquetasYEstados, miniaturaDeCurso, tarjetaDeCurso } from './sitio-cursos';
 import { barraDeAdministracion, datosDelCurso, docente, ediciones, tarjetaDeInscripcion } from './sitio-detalle-curso';
 import { carrusel, encabezadoDeSeccion, estadistica, selectorDeAudiencia, tarjetaDeArea, tarjetaTipoDeCurso, testimonio } from './sitio-home';
@@ -35,6 +36,8 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   'miniatura-de-curso': miniaturaDeCurso,
   'etiquetas-y-estados': etiquetasYEstados,
   chip,
+  filtros,
+  'estado-vacio': estadoVacio,
   'tarjeta-de-inscripcion': tarjetaDeInscripcion,
   'datos-del-curso': datosDelCurso,
   docente,

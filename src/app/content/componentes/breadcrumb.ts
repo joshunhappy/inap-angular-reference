@@ -7,9 +7,9 @@ export const breadcrumb: ComponentDoc = {
     { title: 'Breadcrumb', previewClass: 'bg-surface-muted px-6 py-3', html: dedent(`
       <nav aria-label="Breadcrumb" class="breadcrumbs text-sm">
         <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Cursos</a></li>
-          <li><span aria-current="page">Gestión pública por resultados</span></li>
+          <li><a href="#" class="font-medium text-primary-text underline hover:no-underline">Inicio</a></li>
+          <li><a href="#" class="font-medium text-primary-text underline hover:no-underline">Cursos</a></li>
+          <li><span aria-current="page" class="text-neutral-text">Gestión pública por resultados</span></li>
         </ul>
       </nav>
     `) },
@@ -26,5 +26,9 @@ export const breadcrumb: ComponentDoc = {
     <li>La página actual lleva <code>aria-current="page"</code>.</li>
     <li>Los separadores son decorativos (daisyUI los dibuja con CSS, así que no se leen).</li>
   </ul>`,
-  classes: [['breadcrumbs', 'Lista con separadores.']],
+  classes: [
+    ['breadcrumbs', 'Lista con separadores.'],
+    ['font-medium text-primary-text underline', 'Niveles anteriores (enlaces).'],
+    ['text-neutral-text', 'Página actual.'],
+  ],
 };

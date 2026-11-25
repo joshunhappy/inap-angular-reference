@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { homeTemplate, SEARCH_PLACEHOLDER } from '../../content/plantillas/home';
 import { ThemeService } from '../../core/theme.service';
 import { initCarouselDemo } from '../../ui/example/carousel-demo';
+import { wireVista } from './vista';
 
 /**
  * Home a pantalla completa, sin la navegación del sitio de referencia (ruta /vista/home).
@@ -29,10 +30,8 @@ export class HomeVistaPage {
     const destroyRef = inject(DestroyRef);
 
     afterNextRender(() => {
-      const tema = route.snapshot.queryParamMap.get('tema');
-      if (tema === 'dark' || tema === 'inap') theme.theme.set(tema);
-
       const root = this.page().nativeElement;
+      const unwire = wireVista(root, doc, theme, route);
       const stops = [...root.querySelectorAll<HTMLElement>('[data-carousel]')].map(initCarouselDemo);
 
       // Selector de audiencia: cambia el marcador de posición del buscador.
@@ -49,37 +48,13 @@ export class HomeVistaPage {
         chip.parentElement!.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b === chip)));
       };
 
-      // Enlaces de ejemplo: no salen de la vista. Con <base href="/">, «#id» iría al inicio del sitio.
-      const onClick = (e: Event) => {
-        onChip(e);
-        const a = (e.target as Element).closest<HTMLAnchorElement>('a[href^="#"], a[href="/"]');
-        if (!a) return;
-        e.preventDefault();
-        const id = a.getAttribute('href')!.slice(1);
-        if (id && id !== '/') doc.getElementById(id)?.focus();
-      };
-      const onSubmit = (e: Event) => e.preventDefault();
-
-      // «Modo oscuro» de la barra superior.
-      const darkButton = [...root.querySelectorAll<HTMLButtonElement>('button[aria-pressed]')]
-        .find((b) => b.textContent?.includes('Modo oscuro'));
-      const syncDark = () => darkButton?.setAttribute('aria-pressed', String(doc.documentElement.getAttribute('data-theme') === 'dark'));
-      const onDark = () => {
-        theme.toggle();
-        setTimeout(syncDark);
-      };
-      syncDark();
-
       root.addEventListener('change', onAudience);
-      root.addEventListener('click', onClick);
-      root.addEventListener('submit', onSubmit);
-      darkButton?.addEventListener('click', onDark);
+      root.addEventListener('click', onChip);
       destroyRef.onDestroy(() => {
+        unwire();
         stops.forEach((stop) => stop());
         root.removeEventListener('change', onAudience);
-        root.removeEventListener('click', onClick);
-        root.removeEventListener('submit', onSubmit);
-        darkButton?.removeEventListener('click', onDark);
+        root.removeEventListener('click', onChip);
       });
     });
   }

@@ -167,8 +167,8 @@ export const SECTIONS: NavSection[] = [
       {
         label: 'Catálogo',
         pages: [
-          { slug: 'filtros', title: 'Filtros', status: 'decidido', description: 'Opciones, grupos y etiquetas de filtros activos.', keywords: ['filter option', 'filter group', 'filter tag', 'fieldset'] },
-          { slug: 'estado-vacio', title: 'Estado vacío', status: 'decidido', description: 'Mensaje cuando no hay resultados.', keywords: ['empty state', 'sin resultados'] },
+          { slug: 'filtros', load: componentDoc, title: 'Filtros', status: 'decidido', description: 'Opciones, grupos y etiquetas de filtros activos.', keywords: ['filter option', 'filter group', 'filter tag', 'fieldset'] },
+          { slug: 'estado-vacio', load: componentDoc, title: 'Estado vacío', status: 'decidido', description: 'Mensaje cuando no hay resultados.', keywords: ['empty state', 'sin resultados'] },
         ],
       },
     ],
@@ -234,7 +234,7 @@ export const SECTIONS: NavSection[] = [
       {
         pages: [
           { slug: 'home', load: () => import('../pages/plantillas/home').then((m) => m.HomeTemplatePage), title: 'Home', status: 'propuesta', description: 'Versiones «Para ti» y «Para tu institución».', keywords: ['inicio', 'landing'] },
-          { slug: 'catalogo', title: 'Catálogo', status: 'decidido', description: 'Catálogo con filtros y paginación.', keywords: ['catalog', 'cursos'] },
+          { slug: 'catalogo', load: () => import('../pages/plantillas/catalogo').then((m) => m.CatalogoTemplatePage), title: 'Catálogo', status: 'decidido', description: 'Catálogo con filtros y paginación.', keywords: ['catalog', 'cursos'] },
           { slug: 'detalle-de-curso', title: 'Detalle de curso', status: 'propuesta', description: 'Información, programa, docente y preguntas.', keywords: ['course detail', 'curso'] },
         ],
       },

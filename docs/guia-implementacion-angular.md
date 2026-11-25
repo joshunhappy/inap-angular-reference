@@ -407,7 +407,7 @@ Tamaño: ver 7.1. Estado deshabilitado: atributo `disabled` (daisyUI lo pinta); 
 | Admin Bar | `bg-brand-surface` + `<nav aria-label="Administración del curso">` con enlaces `text-xs font-semibold`; en celular `dropdown` | Solo para usuarios con permisos; cada acción según su permiso. Foco `outline-brand-surface-content`. Botón «Acciones» de 44 px en celular |
 | Filter Option, Filter Group Header | `checkbox` + `<label>`; grupo con `<fieldset>` + `<legend>` o `collapse` | Conteo dentro de la etiqueta |
 | Filter Tag | `<button class="badge …">` | `aria-label="Quitar filtro: {nombre}"` |
-| Pagination | `join` de botones en `<nav aria-label="Paginación">` | Página actual con `aria-current="page"` |
+| Pagination | Enlaces de 44 px en `<nav aria-label="Paginación">`; en celular, «Página X de Y» entre «Anterior» y «Siguiente» | Página actual con `aria-current="page"`; flecha que no aplica con `aria-disabled="true"` |
 | Catalog Empty State | texto + `btn` «Limpiar filtros» | |
 | Password Rule (Pending / Met / Unmet) | `<ul>` enlazada al campo con `aria-describedby` | Ícono 16 px `aria-hidden`; el estado se dice con texto `sr-only` («cumple», «no cumple»). Met en `success-text`, Unmet en `error-text` |
 | Auth / Desktop, Auth / Mobile | plantilla de `/login`, `/registro`, `/recuperar-contrasena` | Ver `consideraciones-desarrollo.md` §3. En celular, campos y botones en tamaño `lg` |

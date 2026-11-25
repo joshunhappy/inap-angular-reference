@@ -16,7 +16,7 @@ export const thumbPhoto = (badge: string, img = 'images/cursos/gestion-financier
   </div>
 `);
 
-const thumbIllustration = (badge: string, area: string) => dedent(`
+export const thumbIllustration = (badge: string, area: string) => dedent(`
   <div class="relative aspect-video overflow-hidden bg-brand-surface">
     <div class="absolute -top-22 -right-22 size-55 rounded-full bg-inap-brand-cyan/55 blur-2xl" aria-hidden="true"></div>
     <div class="absolute -bottom-30 -left-20 size-60 rounded-full bg-inap-brand-blue/90 blur-2xl" aria-hidden="true"></div>
@@ -25,7 +25,7 @@ const thumbIllustration = (badge: string, area: string) => dedent(`
   </div>
 `);
 
-export const courseCard = (thumb: string, title: string, area: string, duration = '6 semanas') => dedent(`
+export const courseCard = (thumb: string, title: string, area: string, duration = '6 semanas', modality = 'Virtual') => dedent(`
   <article class="group relative flex h-full flex-col overflow-hidden rounded-box border border-base-content/10 bg-base-2 shadow-sm transition
                   hover:border-primary-text hover:shadow-lg has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-primary-text">
     ${thumb.replace(/\n/g, '\n    ')}
@@ -36,7 +36,7 @@ export const courseCard = (thumb: string, title: string, area: string, duration 
       <p class="flex-1 text-sm text-neutral-text">${area}</p>
       <ul class="flex gap-4 border-t border-base-content/10 pt-2.5 text-xs text-neutral-text">
         <li class="flex items-center gap-1.5">${icon('clock', 16)}<span class="sr-only">Duración:</span> ${duration}</li>
-        <li class="flex items-center gap-1.5">${icon('monitor', 16)}<span class="sr-only">Modalidad:</span> Virtual</li>
+        <li class="flex items-center gap-1.5">${icon('monitor', 16)}<span class="sr-only">Modalidad:</span> ${modality}</li>
       </ul>
     </div>
   </article>
