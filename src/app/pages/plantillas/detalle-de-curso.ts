@@ -11,7 +11,7 @@ interface Row { section: string; mobile: string; desktop: string; components: [s
 const ROWS: Row[] = [
   { section: 'Barra de navegación', mobile: 'Logo, buscar, menú y «Regístrate».', desktop: 'Barra superior y barra principal; desde 1280 px.', components: [['Barra de navegación', 'barra-de-navegacion']] },
   { section: 'Barra de administración', mobile: 'Solo con permisos; acciones en un menú.', desktop: 'Solo con permisos; acciones en fila.', components: [['Barra de administración', 'barra-de-administracion']] },
-  { section: 'Breadcrumb', mobile: 'Enlace «‹ Finanzas públicas y calidad del gasto» al área del curso.', desktop: 'Inicio › Catálogo › área del curso.', components: [['Breadcrumb', 'breadcrumb']] },
+  { section: 'Breadcrumb', mobile: 'Enlace «‹ Finanzas públicas y calidad del gasto» al área del curso.', desktop: 'Inicio › Catálogo › área del curso; los tres son enlaces porque ninguno es la página actual.', components: [['Breadcrumb', 'breadcrumb']] },
   { section: 'Encabezado del curso', mobile: 'Imagen con degradado de arriba hacia abajo; texto abajo; 400 px de alto.', desktop: 'Imagen con degradado de izquierda a derecha; texto a la izquierda hasta 560 px; 380 px de alto.', components: [['Etiquetas y estados', 'etiquetas-y-estados']] },
   { section: 'Tarjeta de inscripción', mobile: 'Debajo del encabezado; la barra inferior repite la acción cuando la tarjeta queda arriba.', desktop: 'Columna derecha de 384 px, fija al desplazar.', components: [['Tarjeta de inscripción', 'tarjeta-de-inscripcion'], ['Ediciones', 'ediciones']] },
   { section: 'Tabs de sección', mobile: 'Se desplazan en horizontal; fijas arriba al desplazar.', desktop: 'Fijas arriba al desplazar; marcan la sección visible.', components: [['Tabs', 'tabs']] },
@@ -47,6 +47,16 @@ const ROWS: Row[] = [
         <p class="m-0">
           El curso, el docente, los temas de los módulos 2 a 5 y las preguntas son de ejemplo. El programa por módulos es
           contenido provisional hasta confirmar que existe como datos en la plataforma.
+        </p>
+      </div>
+
+      <div role="note" class="alert alert-warning mb-8 max-w-prose items-start alert-soft">
+        <inap-icon name="image" class="mt-0.5" />
+        <p class="m-0">
+          <strong>Foto del encabezado:</strong> la de Figma mide 400 px de ancho y se ve borrosa en el encabezado de escritorio
+          (792 × 380 px). Cada curso necesita una foto horizontal de al menos 1600 × 760 px (el doble del encabezado, para
+          pantallas de alta densidad), con el motivo principal a la derecha, porque el texto y el degradado ocupan la izquierda.
+          Pendiente de Comunicación Social.
         </p>
       </div>
 
@@ -91,7 +101,7 @@ const ROWS: Row[] = [
         <li><strong>Tabs:</strong> son enlaces de ancla, no pestañas: todo el contenido está en la página. Quedan fijas arriba al desplazar y marcan la sección que cruza la franja de abajo de las tabs. Ver <a routerLink="/patrones/anclas">Anclas y scroll spy</a>.</li>
         <li><strong>Tarjeta en escritorio:</strong> fija en la columna derecha (<code>sticky top-6</code>) mientras se lee el contenido.</li>
         <li><strong>Barra en celular:</strong> fija abajo; aparece solo cuando la tarjeta ya pasó hacia arriba. El pie deja 96 px libres para que la barra no tape el final. Ver <a routerLink="/patrones/visibilidad-al-desplazar">Mostrar u ocultar al desplazar</a>.</li>
-        <li><strong>Imagen del curso:</strong> es el fondo del encabezado, decorativa (<code>alt=""</code>), con <code>object-fit: cover</code>, degradado navy y ondas de marca al 10 %.</li>
+        <li><strong>Imagen del curso:</strong> es el fondo del encabezado, decorativa (<code>alt=""</code>), con <code>object-fit: cover</code>, degradado navy y ondas de marca al 10 %. Tamaño mínimo 1600 × 760 px.</li>
         <li><strong>Vista de administración:</strong> la barra navy va entre la navegación y el breadcrumb, solo para usuarios con permisos.</li>
       </ul>
 

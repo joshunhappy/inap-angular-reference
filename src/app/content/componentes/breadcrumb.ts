@@ -17,7 +17,7 @@ export const breadcrumb: ComponentDoc = {
   usage: {
     html: `<ul>
       <li>El primer elemento es «Inicio» de la plataforma de cursos.</li>
-      <li>El último es la página actual, sin enlace.</li>
+      <li>El último es la página actual, sin enlace y en <code>neutral-text</code>. Solo ese va en gris: un nivel que lleva a otra página es enlace aunque sea el último visible (en el detalle de curso, el área).</li>
       <li>Títulos largos se recortan con <code>truncate</code> y un ancho máximo; el texto completo sigue en el <code>&lt;h1&gt;</code>.</li>
     </ul>`,
   },
