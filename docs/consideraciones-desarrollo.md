@@ -160,6 +160,7 @@ Estado de cada punto:
 
 - **Escritorio:** Aula Virtual va en la barra superior, en todas las páginas, con o sin sesión. En Angular también va en el menú de usuario.
 - **Celular:** en el menú principal va en el bloque azul oscuro con la apariencia de la barra superior de escritorio. En Angular también va en «Mi cuenta».
+- **Inscripción a eventos:** el botón «Inscribirme» de la página de un evento (WordPress) lleva a la plataforma Angular, donde se hace la inscripción. WordPress no tiene formulario de inscripción. Como todo enlace entre sitios, abre en la misma pestaña y sin ícono de enlace externo.
 
 ## 7. Breadcrumb
 
