@@ -235,7 +235,7 @@ export const SECTIONS: NavSection[] = [
         pages: [
           { slug: 'home', load: () => import('../pages/plantillas/home').then((m) => m.HomeTemplatePage), title: 'Home', status: 'propuesta', description: 'Versiones «Para ti» y «Para tu institución».', keywords: ['inicio', 'landing'] },
           { slug: 'catalogo', load: () => import('../pages/plantillas/catalogo').then((m) => m.CatalogoTemplatePage), title: 'Catálogo', status: 'decidido', description: 'Catálogo con filtros y paginación.', keywords: ['catalog', 'cursos'] },
-          { slug: 'detalle-de-curso', title: 'Detalle de curso', status: 'propuesta', description: 'Información, programa, docente y preguntas.', keywords: ['course detail', 'curso'] },
+          { slug: 'detalle-de-curso', load: () => import('../pages/plantillas/detalle-de-curso').then((m) => m.DetalleTemplatePage), title: 'Detalle de curso', status: 'propuesta', description: 'Información, programa, docente y preguntas.', keywords: ['course detail', 'curso'] },
         ],
       },
     ],

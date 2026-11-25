@@ -16,7 +16,11 @@ export function wireVista(root: HTMLElement, doc: Document, theme: ThemeService,
     if (!a) return;
     e.preventDefault();
     const id = a.getAttribute('href')!.slice(1);
-    if (id && id !== '/') doc.getElementById(id)?.focus();
+    const target = id && id !== '/' ? doc.getElementById(id) : null;
+    if (!target) return;
+    // Respeta scroll-margin-top del destino (p. ej. bajo tabs fijas).
+    target.scrollIntoView({ block: 'start' });
+    target.focus({ preventScroll: true });
   };
   const onSubmit = (e: Event) => e.preventDefault();
 

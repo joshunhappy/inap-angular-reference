@@ -244,8 +244,9 @@ const FAQ: [string, string][] = [
   ['¿Mi institución puede inscribir a un grupo?', 'Sí. Desde «Para instituciones» puedes solicitar inscripción grupal o un programa a la medida.'],
 ];
 
-const faqItem = ([q, a]: [string, string], open: boolean) => dedent(`
-  <details class="group border-b border-base-content/10" name="home-faq"${open ? ' open' : ''}>
+/** Pregunta frecuente (FAQ Item): <details> con el mismo `name` en todo el grupo, así abrir una cierra las demás. */
+export const faqItem = ([q, a]: [string, string], open: boolean, name = 'home-faq') => dedent(`
+  <details class="group border-b border-base-content/10" name="${name}"${open ? ' open' : ''}>
     <summary class="flex cursor-pointer list-none items-center gap-4 rounded-sm py-5 font-semibold text-base-content [&::-webkit-details-marker]:hidden">
       <span class="flex-1">${q}</span>
       ${icon('plus', 20, 'shrink-0 text-primary-text group-open:hidden')}${icon('minus', 20, 'hidden shrink-0 text-primary-text group-open:block')}

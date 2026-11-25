@@ -33,6 +33,16 @@ const WIDTH: Record<Device, number> = { escritorio: 1440, celular: 390 };
           <button type="button" class="btn btn-xs join-item" [class.btn-primary]="theme() === 'dark'" [class.btn-ghost]="theme() !== 'dark'"
                   [attr.aria-pressed]="theme() === 'dark'" (click)="theme.set('dark')">Oscuro</button>
         </div>
+        @if (variants().length) {
+          <label class="flex items-center gap-2 text-sm">
+            {{ variantLabel() }}
+            <select class="select select-xs w-auto" [value]="variant()" (change)="variant.set($any($event.target).value)">
+              @for (v of variants(); track v[0]) {
+                <option [value]="v[0]">{{ v[1] }}</option>
+              }
+            </select>
+          </label>
+        }
         <a [href]="src()" target="_blank" rel="noopener" class="ms-auto inline-flex items-center gap-1.5 text-sm">
           Abrir a pantalla completa<span class="sr-only"> (se abre en una pestaña nueva)</span>
           <inap-icon name="external-link" [size]="16" />
@@ -52,6 +62,11 @@ export class TemplatePreview {
   readonly path = input.required<string>();
   /** Nombre del iframe, p. ej. «Plantilla del Home». */
   readonly label = input.required<string>();
+  /** Variantes opcionales de la vista: [valor, etiqueta]. Se pasan como ?{param}=valor. */
+  readonly variants = input<[string, string][]>([]);
+  readonly param = input('estado');
+  readonly variantLabel = input('Estado');
+  protected readonly variant = linkedSignal(() => this.variants()[0]?.[0] ?? '');
 
   private readonly sanitizer = inject(DomSanitizer);
   private readonly site = inject(ThemeService);
@@ -61,7 +76,7 @@ export class TemplatePreview {
   /** Empieza con el tema del sitio. */
   protected readonly theme = linkedSignal<InapTheme>(() => this.site.theme());
 
-  protected readonly src = computed(() => `vista/${this.path()}?tema=${this.theme()}`);
+  protected readonly src = computed(() => `vista/${this.path()}?tema=${this.theme()}${this.variant() ? `&${this.param()}=${this.variant()}` : ''}`);
   protected readonly safeSrc = computed(() => this.sanitizer.bypassSecurityTrustResourceUrl(this.src()));
 
   /** Ancho disponible para la vista previa (se mide en el navegador). */

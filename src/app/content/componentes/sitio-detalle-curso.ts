@@ -5,7 +5,7 @@ import { ComponentDoc, icon } from './types';
 /* ── Fact Row ──────────────────────────────────────────────────────────────── */
 
 /** Dato del curso dentro de un <dl>. El ícono va dentro del <dt> para respetar la estructura de la lista. */
-const factRow = (iconName: string, label: string, value: string, helper = '') => dedent(`
+export const factRow = (iconName: string, label: string, value: string, helper = '') => dedent(`
   <div class="relative pl-7">
     <dt class="text-xs text-neutral-text"><span class="absolute top-0 left-0 text-neutral-text">${icon(iconName, 16)}</span>${label}</dt>
     <dd class="mt-0.5 text-sm font-medium text-base-content">${value}</dd>${helper ? `\n    <dd class="text-sm text-neutral-text">${helper}</dd>` : ''}
@@ -14,7 +14,7 @@ const factRow = (iconName: string, label: string, value: string, helper = '') =>
 
 /* ── Enrollment Card y Enrollment Bar ──────────────────────────────────────── */
 
-interface EnrollmentState {
+export interface EnrollmentState {
   dot: string;
   badge: string;
   note: string;
@@ -28,7 +28,7 @@ interface EnrollmentState {
   barAction: string;
 }
 
-const STATES: Record<string, EnrollmentState> = {
+export const STATES: Record<string, EnrollmentState> = {
   proximamente: { dot: 'bg-info-text', badge: 'Próximamente', note: 'Inscripciones desde el 24/08/2026', price: ['Q200.00', 'en 2 cuotas'], action: 'Avisarme cuando abra', kind: 'solid', link: false, bar: ['Q200.00', 'Abre el 24/08 · 2 cuotas'], barAction: 'Avisarme' },
   abierta: { dot: 'bg-success-text', badge: 'Inscripción abierta', note: 'Cierra el 27/10/2026', price: ['Q200.00', 'en 2 cuotas'], action: 'Inscribirme', kind: 'solid', link: true, bar: ['Q200.00', 'Cierra el 27/10 · 2 cuotas'], barAction: 'Inscribirme' },
   ultimoDia: { dot: 'bg-warning-text', badge: '¡Último día para inscribirte!', note: 'Cierra hoy a las 23:59', price: ['Q200.00', 'en 2 cuotas'], action: 'Inscribirme', kind: 'solid', link: true, bar: ['Q200.00', '¡Cierra hoy! · 2 cuotas'], barAction: 'Inscribirme' },
@@ -45,7 +45,7 @@ const actionButton = (s: EnrollmentState, label: string, extra = '') => {
   return s.link ? `<a href="#" class="${cls}">${label}</a>` : `<button type="button" class="${cls}">${label}</button>`;
 };
 
-const enrollmentCard = (s: EnrollmentState) => dedent(`
+export const enrollmentCard = (s: EnrollmentState) => dedent(`
   <section aria-label="Inscripción" class="flex flex-col gap-5 rounded-2xl border border-base-content/10 bg-base-2 p-6 shadow-lg">
     <div class="flex flex-col items-start gap-2">
       ${statusBadge(s.dot, s.badge)}
@@ -73,7 +73,7 @@ const enrollmentCard = (s: EnrollmentState) => dedent(`
   </section>
 `);
 
-const enrollmentBar = (s: EnrollmentState) => dedent(`
+export const enrollmentBar = (s: EnrollmentState) => dedent(`
   <div class="flex items-center gap-3 border-t border-base-content/10 bg-base-2 px-4 pt-3 pb-[max(1.75rem,env(safe-area-inset-bottom))] shadow-[0_-4px_16px_rgb(0_0_0/0.08)]">
     <p class="flex min-w-0 flex-1 flex-col">
       <span class="text-lg font-semibold text-base-content">${s.bar[0]}</span>
@@ -156,7 +156,7 @@ export const tarjetaDeInscripcion: ComponentDoc = {
 
 /* ── Datos del curso ───────────────────────────────────────────────────────── */
 
-const moduleRow = (n: number, title: string, meta: string, expanded: boolean, topics: string[]) => dedent(`
+export const moduleRow = (n: number, title: string, meta: string, expanded: boolean, topics: string[]) => dedent(`
   <li class="border-b border-base-content/10">
     <h3>
       <button type="button" aria-expanded="${expanded}" aria-controls="modulo-${n}" class="group flex w-full items-center gap-4 py-5 text-left">
@@ -287,6 +287,18 @@ export const docente: ComponentDoc = {
 
 /* ── Ediciones ─────────────────────────────────────────────────────────────── */
 
+/** Aviso de otra edición abierta o próxima (Edition Alert). */
+export const editionAlert = () => dedent(`
+  <div class="flex gap-3 rounded-xl bg-surface-subtle p-4">
+    <span class="shrink-0 text-primary-text">${icon('calendar', 24)}</span>
+    <div class="flex min-w-0 flex-col items-start gap-1">
+      <p class="text-sm font-medium text-base-content">Hay otra edición con inscripción abierta</p>
+      <p class="text-sm text-neutral-text">Edición 3-2026 · inscripciones del 02/11/2026 al 20/11/2026.</p>
+      <a href="#" class="inline-flex items-center gap-1 text-sm font-medium text-primary-text hover:underline">Ver edición 3-2026 ${icon('arrow-right', 16)}</a>
+    </div>
+  </div>
+`);
+
 export const ediciones: ComponentDoc = {
   figmaNode: '301-32510',
   intro: `<p><strong>Edition Alert</strong> avisa que hay otra edición del mismo curso con inscripción abierta o próxima. <strong>Edition Row</strong> es una fila de una lista de ediciones con su estado.</p>`,
@@ -295,16 +307,7 @@ export const ediciones: ComponentDoc = {
       title: 'Aviso de edición',
       description: 'Se muestra solo si existe otra edición abierta o próxima; sobre todo en Cerrada, Cupo lleno y En curso.',
       previewClass: 'p-6 [&>*]:max-w-sm',
-      html: dedent(`
-        <div class="flex gap-3 rounded-xl bg-surface-subtle p-4">
-          <span class="shrink-0 text-primary-text">${icon('calendar', 24)}</span>
-          <div class="flex min-w-0 flex-col items-start gap-1">
-            <p class="text-sm font-medium text-base-content">Hay otra edición con inscripción abierta</p>
-            <p class="text-sm text-neutral-text">Edición 3-2026 · inscripciones del 02/11/2026 al 20/11/2026.</p>
-            <a href="#" class="inline-flex items-center gap-1 text-sm font-medium text-primary-text hover:underline">Ver edición 3-2026 ${icon('arrow-right', 16)}</a>
-          </div>
-        </div>
-      `),
+      html: editionAlert(),
     },
     {
       title: 'Fila de edición',
@@ -345,7 +348,7 @@ export const ediciones: ComponentDoc = {
 
 /* ── Barra de administración ───────────────────────────────────────────────── */
 
-const adminActions: [string, string][] = [
+export const adminActions: [string, string][] = [
   ['pencil', 'Editar edición'],
   ['globe', 'Publicar'],
   ['users', 'Estudiantes'],
@@ -355,6 +358,36 @@ const adminActions: [string, string][] = [
   ['history', 'Ediciones'],
 ];
 
+/** Barra de administración (Admin Bar): escritorio y celular. */
+export const adminBarDesktop = () => dedent(`
+  <div class="flex flex-wrap items-center gap-x-4 gap-y-2 bg-brand-surface px-6 py-1 text-brand-surface-content">
+    <div class="flex min-w-max flex-1 items-center gap-2.5">
+      ${icon('settings', 20, 'shrink-0')}
+      <p class="flex items-baseline gap-x-3 text-sm whitespace-nowrap"><span class="font-semibold">Vista de administración</span><span class="text-brand-surface-muted">Edición 2, 2026 · Visible</span></p>
+    </div>
+    <nav aria-label="Administración del curso">
+      <ul class="flex flex-wrap items-center gap-1">
+${adminActions.map(([i, l]) => `              <li><a href="#" class="flex min-h-11 items-center gap-1.5 rounded-md px-2.5 text-xs font-semibold hover:bg-brand-surface-line focus-visible:outline-brand-surface-content">${icon(i, 16)}${l}</a></li>`).join('\n')}
+      </ul>
+    </nav>
+  </div>
+`);
+
+export const adminBarMobile = () => dedent(`
+  <div class="flex items-center gap-4 bg-brand-surface px-4 py-2.5 text-brand-surface-content">
+    <div class="flex min-w-0 flex-1 items-center gap-2.5">
+      ${icon('settings', 20, 'shrink-0')}
+      <p class="flex flex-col text-sm"><span class="font-semibold">Administración</span><span class="text-brand-surface-muted">Edición 2, 2026 · Visible</span></p>
+    </div>
+    <details class="dropdown dropdown-end">
+      <summary class="flex min-h-11 cursor-pointer list-none items-center gap-1.5 rounded-md border border-brand-surface-line px-3 text-xs font-semibold focus-visible:outline-brand-surface-content">Acciones ${icon('chevron-down', 16)}</summary>
+      <ul class="menu dropdown-content z-10 mt-2 w-56 rounded-box border border-base-300 bg-base-2 p-2 text-base-content shadow-md">
+${adminActions.map(([i, l]) => `              <li><a href="#">${icon(i, 16)} ${l}</a></li>`).join('\n')}
+      </ul>
+    </details>
+  </div>
+`);
+
 export const barraDeAdministracion: ComponentDoc = {
   figmaNode: '288-1456',
   intro: `<p>Barra navy sobre el detalle de curso, solo para usuarios con permisos de administración. Dice qué edición se ve y su visibilidad, y lleva a las acciones de administración. Reemplaza las pestañas Curso / Edición / Ediciones dentro del contenido público.</p>`,
@@ -362,38 +395,13 @@ export const barraDeAdministracion: ComponentDoc = {
     {
       title: 'Escritorio',
       previewClass: 'p-6',
-      html: dedent(`
-        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 bg-brand-surface px-6 py-1 text-brand-surface-content">
-          <div class="flex min-w-max flex-1 items-center gap-2.5">
-            ${icon('settings', 20, 'shrink-0')}
-            <p class="flex items-baseline gap-x-3 text-sm whitespace-nowrap"><span class="font-semibold">Vista de administración</span><span class="text-brand-surface-muted">Edición 2, 2026 · Visible</span></p>
-          </div>
-          <nav aria-label="Administración del curso">
-            <ul class="flex flex-wrap items-center gap-1">
-${adminActions.map(([i, l]) => `              <li><a href="#" class="flex min-h-11 items-center gap-1.5 rounded-md px-2.5 text-xs font-semibold hover:bg-brand-surface-line focus-visible:outline-brand-surface-content">${icon(i, 16)}${l}</a></li>`).join('\n')}
-            </ul>
-          </nav>
-        </div>
-      `),
+      html: adminBarDesktop(),
     },
     {
       title: 'Celular',
       description: 'Las acciones van en un menú desplegable.',
       previewClass: 'min-h-96 p-6 [&>*]:max-w-sm',
-      html: dedent(`
-        <div class="flex items-center gap-4 bg-brand-surface px-4 py-2.5 text-brand-surface-content">
-          <div class="flex min-w-0 flex-1 items-center gap-2.5">
-            ${icon('settings', 20, 'shrink-0')}
-            <p class="flex flex-col text-sm"><span class="font-semibold">Administración</span><span class="text-brand-surface-muted">Edición 2, 2026 · Visible</span></p>
-          </div>
-          <details class="dropdown dropdown-end">
-            <summary class="flex min-h-11 cursor-pointer list-none items-center gap-1.5 rounded-md border border-brand-surface-line px-3 text-xs font-semibold focus-visible:outline-brand-surface-content">Acciones ${icon('chevron-down', 16)}</summary>
-            <ul class="menu dropdown-content z-10 mt-2 w-56 rounded-box border border-base-300 bg-base-2 p-2 text-base-content shadow-md">
-${adminActions.map(([i, l]) => `              <li><a href="#">${icon(i, 16)} ${l}</a></li>`).join('\n')}
-            </ul>
-          </details>
-        </div>
-      `),
+      html: adminBarMobile(),
     },
   ],
   usage: {

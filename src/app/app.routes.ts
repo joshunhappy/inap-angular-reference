@@ -20,5 +20,6 @@ export const routes: Routes = [
   // Plantillas a pantalla completa, sin la navegación del sitio (se muestran en un iframe).
   { path: 'vista/home', loadComponent: () => import('./pages/plantillas/home-vista').then((m) => m.HomeVistaPage), title: 'Home · vista completa' },
   { path: 'vista/catalogo', loadComponent: () => import('./pages/plantillas/catalogo-vista').then((m) => m.CatalogoVistaPage), title: 'Catálogo · vista completa' },
+  { path: 'vista/detalle-de-curso', loadComponent: () => import('./pages/plantillas/detalle-vista').then((m) => m.DetalleVistaPage), title: 'Detalle de curso · vista completa' },
   { path: '**', component: NotFound, title: 'Página no encontrada' },
 ];
