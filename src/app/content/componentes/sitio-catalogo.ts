@@ -219,7 +219,7 @@ export const filtros: ComponentDoc = {
     {
       title: 'Hoja de filtros en celular',
       description: 'Abierta, a 390 px. Solo los grupos con algo marcado empiezan abiertos.',
-      previewClass: 'mx-auto my-6 h-[44rem] w-[390px] overflow-hidden rounded-box border border-base-content/10 [&_dialog]:h-full',
+      previewClass: 'mx-auto my-6 h-[44rem] w-full max-w-[390px] overflow-hidden rounded-box border border-base-content/10 [&_dialog]:h-full',
       html: filterSheet('ej-hoja', [EJ_TIPO, { key: 'nivel', title: 'Nivel de certificación', options: [['basica', 'Básica', 6], ['intermedia', 'Intermedia', 5], ['avanzada', 'Avanzada', 3]] }, EJ_INSCRIPCION], { tipo: ['certificacion'], inscripcion: ['abierta'] }, 3, true),
     },
   ],

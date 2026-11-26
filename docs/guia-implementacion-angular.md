@@ -442,7 +442,7 @@ Para cualquier componente que no esté aquí, usen la base de daisyUI más cerca
 
 ### 10.2 Título y foco al cambiar de ruta
 
-Angular no anuncia el cambio de página. Cada ruta lleva `title` (por ejemplo, `'Catálogo de cursos | INAP'`). Al terminar la navegación, el foco pasa a `<main>`:
+Angular no anuncia el cambio de página. Cada ruta lleva `title` (por ejemplo, `'Catálogo de cursos | INAP'`). Al terminar la navegación, el foco pasa a `<main>`, salvo en la primera carga y cuando solo cambian los parámetros o el ancla (filtros y paginación del catálogo, tabs del curso):
 
 ```ts
 // app.component.ts
@@ -450,13 +450,19 @@ private readonly router = inject(Router);
 private readonly doc = inject(DOCUMENT);
 
 constructor() {
+  let lastPath = '';
   this.router.events
-    .pipe(filter((e) => e instanceof NavigationEnd), skip(1), takeUntilDestroyed())
-    .subscribe(() => setTimeout(() => this.doc.getElementById('contenido')?.focus({ preventScroll: true })));
+    .pipe(filter((e) => e instanceof NavigationEnd), takeUntilDestroyed())
+    .subscribe((e) => {
+      const path = e.urlAfterRedirects.split(/[?#]/)[0]; // sin ?parámetros ni #ancla
+      const first = lastPath === '';
+      const samePage = path === lastPath;
+      lastPath = path;
+      if (first || samePage) return;
+      setTimeout(() => this.doc.getElementById('contenido')?.focus({ preventScroll: true }));
+    });
 }
 ```
-
-`skip(1)` evita mover el foco en la primera carga.
 
 ### 10.3 Mostrar u ocultar según lo que está en pantalla
 
@@ -467,14 +473,14 @@ import { Directive, ElementRef, afterNextRender, inject, input, output, DestroyR
 
 @Directive({ selector: '[inapInView]', standalone: true })
 export class InViewDirective {
-  readonly inapInView = output<boolean>();
+  readonly inapInView = output<IntersectionObserverEntry>();
   readonly rootMargin = input('0px');
 
   constructor() {
     const el = inject(ElementRef<HTMLElement>).nativeElement;
     const destroyRef = inject(DestroyRef);
     afterNextRender(() => {
-      const io = new IntersectionObserver(([entry]) => this.inapInView.emit(entry.isIntersecting), {
+      const io = new IntersectionObserver(([entry]) => this.inapInView.emit(entry), {
         rootMargin: this.rootMargin(),
       });
       io.observe(el);
@@ -486,7 +492,10 @@ export class InViewDirective {
 
 ```html
 <!-- Home: el buscador de la barra aparece cuando el del hero sale de vista -->
-<form role="search" (inapInView)="heroSearchVisible.set($event)">…</form>
+<form role="search" (inapInView)="heroSearchVisible.set($event.isIntersecting)">…</form>
+
+<!-- Detalle de curso: la Enrollment Bar aparece cuando la tarjeta ya quedó arriba -->
+<section aria-label="Inscripción" (inapInView)="showBar.set(!$event.isIntersecting && $event.boundingClientRect.top < 0)">…</section>
 ```
 
 Lo que se oculta se quita del orden de tabulación: `@if`, o `inert` + `invisible`. Ocultarlo solo con `opacity-0` no basta.
@@ -501,15 +510,21 @@ provideRouter(routes, withInMemoryScrolling({ anchorScrolling: 'enabled', scroll
 ```
 
 ```html
-<nav aria-label="Secciones del curso" class="tabs tabs-border sticky top-0 z-10 bg-base-100">
-  @for (s of secciones; track s.id) {
-    <a class="tab" [routerLink]="[]" [fragment]="s.id"
-       [class.tab-active]="activa() === s.id"
-       [attr.aria-current]="activa() === s.id ? 'true' : null">{{ s.label }}</a>
-  }
+<nav aria-label="Secciones del curso" class="sticky top-0 z-20 bg-base-100">
+  <ul class="flex gap-6 overflow-x-auto border-b border-base-content/10">
+    @for (s of secciones; track s.id) {
+      <li>
+        <a [routerLink]="[]" [fragment]="s.id"
+           [attr.aria-current]="activa() === s.id ? 'location' : null"
+           class="… aria-[current=location]:border-primary-text aria-[current=location]:text-primary-text">{{ s.label }}</a>
+      </li>
+    }
+  </ul>
 </nav>
-<section id="programa" class="scroll-mt-16" (inapInView)="$event && activa.set('programa')">…</section>
+<section id="programa" tabindex="-1" class="scroll-mt-16 outline-none">…</section>
 ```
+
+Scroll spy: la sección activa es la última cuyo inicio ya pasó bajo las tabs (≈72 px desde arriba), medida al desplazar una vez por cuadro (`requestAnimationFrame`). Un `IntersectionObserver` por sección marca mal las secciones cortas (Docente comparte la franja con Preguntas). Código completo en el sitio de referencia, Patrones › Anclas y scroll spy.
 
 Detalle completo: correo «Detalle de curso: tabs fijas con scroll spy, tarjeta de inscripción y barra inferior» (correo del 27 oct. 2026).
 

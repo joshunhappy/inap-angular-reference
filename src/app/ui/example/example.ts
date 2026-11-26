@@ -62,8 +62,22 @@ export class Example {
     // Ejemplos interactivos: solo en el navegador, sobre el HTML ya insertado.
     const destroyRef = inject(DestroyRef);
     afterNextRender(() => {
-      const stops = [...this.preview().nativeElement.querySelectorAll<HTMLElement>('[data-carousel]')].map(initCarouselDemo);
-      destroyRef.onDestroy(() => stops.forEach(stop => stop()));
+      const root = this.preview().nativeElement;
+      const stops = [...root.querySelectorAll<HTMLElement>('[data-carousel]')].map(initCarouselDemo);
+      // Con <base href="/">, «#id» iría al inicio del sitio: se enfoca el destino dentro del ejemplo.
+      const onClick = (e: Event) => {
+        const a = (e.target as Element).closest<HTMLAnchorElement>('a[href^="#"]');
+        if (!a) return;
+        e.preventDefault();
+        const id = a.getAttribute('href')!.slice(1);
+        const target = id ? root.querySelector<HTMLElement>(`[id="${CSS.escape(id)}"]`) : null;
+        target?.focus({ preventScroll: true });
+      };
+      root.addEventListener('click', onClick);
+      destroyRef.onDestroy(() => {
+        stops.forEach(stop => stop());
+        root.removeEventListener('click', onClick);
+      });
     });
   }
 }

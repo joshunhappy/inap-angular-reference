@@ -41,6 +41,9 @@ const componentDoc = () =>
 /** Página genérica de pantalla (contenido en content/pantallas). */
 const screenDoc = () => import('../pages/pantallas/screen-doc').then((m) => m.ScreenDocPage);
 
+/** Página genérica de patrón (contenido en content/patrones). */
+const patternDoc = () => import('../pages/patrones/pattern-doc').then((m) => m.PatternDocPage);
+
 export const FIGMA_URL = 'https://www.figma.com/design/IntROaQkiRlnkFUci5PbDu';
 export const REPO_URL = 'https://github.com/joshunhappy/inap-angular-reference';
 
@@ -181,14 +184,14 @@ export const SECTIONS: NavSection[] = [
     groups: [
       {
         pages: [
-          { slug: 'estructura-de-pagina', title: 'Estructura de página', status: 'propuesta', description: 'Enlace para saltar al contenido, encabezado, main y pie.', keywords: ['skip link', 'landmarks'] },
-          { slug: 'cambio-de-ruta', title: 'Título y foco al cambiar de ruta', status: 'propuesta', description: 'Anunciar la página nueva a los lectores de pantalla.', keywords: ['router', 'focus', 'title'] },
-          { slug: 'visibilidad-al-desplazar', title: 'Mostrar u ocultar al desplazar', status: 'propuesta', description: 'Una directiva para buscador, barra de inscripción y scroll spy.', keywords: ['intersection observer', 'scroll'] },
-          { slug: 'anclas', title: 'Anclas y scroll spy', status: 'propuesta', description: 'Tabs del detalle de curso como enlaces de ancla.', keywords: ['scroll spy', 'fragment'] },
-          { slug: 'dialogos', title: 'Diálogos', status: 'propuesta', description: 'Abrir, cerrar y devolver el foco.', keywords: ['modal', 'dialog', 'foco'] },
-          { slug: 'formularios', title: 'Formularios y errores', status: 'propuesta', description: 'Etiquetas, ayuda, validación y mensajes de error.', keywords: ['form', 'validación', 'error'] },
-          { slug: 'estados-de-inscripcion', title: 'Estados de inscripción', status: 'propuesta', description: 'Qué muestra la tarjeta en cada estado de la edición.', keywords: ['enrollment', 'cupo'] },
-          { slug: 'filtros-del-catalogo', title: 'Filtros del catálogo', status: 'decidido', description: 'Filtros en la URL, escritorio y celular.', keywords: ['catálogo', 'query params'] },
+          { slug: 'estructura-de-pagina', load: patternDoc, title: 'Estructura de página', status: 'propuesta', description: 'Enlace para saltar al contenido, encabezado, main y pie.', keywords: ['skip link', 'landmarks'] },
+          { slug: 'cambio-de-ruta', load: patternDoc, title: 'Título y foco al cambiar de ruta', status: 'propuesta', description: 'Anunciar la página nueva a los lectores de pantalla.', keywords: ['router', 'focus', 'title'] },
+          { slug: 'visibilidad-al-desplazar', load: patternDoc, title: 'Mostrar u ocultar al desplazar', status: 'propuesta', description: 'Una directiva para buscador, barra de inscripción y scroll spy.', keywords: ['intersection observer', 'scroll'] },
+          { slug: 'anclas', load: patternDoc, title: 'Anclas y scroll spy', status: 'propuesta', description: 'Tabs del detalle de curso como enlaces de ancla.', keywords: ['scroll spy', 'fragment'] },
+          { slug: 'dialogos', load: patternDoc, title: 'Diálogos', status: 'propuesta', description: 'Abrir, cerrar y devolver el foco.', keywords: ['modal', 'dialog', 'foco'] },
+          { slug: 'formularios', load: patternDoc, title: 'Formularios y errores', status: 'propuesta', description: 'Etiquetas, ayuda, validación y mensajes de error.', keywords: ['form', 'validación', 'error'] },
+          { slug: 'estados-de-inscripcion', load: patternDoc, title: 'Estados de inscripción', status: 'propuesta', description: 'Qué muestra la tarjeta en cada estado de la edición.', keywords: ['enrollment', 'cupo'] },
+          { slug: 'filtros-del-catalogo', load: patternDoc, title: 'Filtros del catálogo', status: 'decidido', description: 'Filtros en la URL, escritorio y celular.', keywords: ['catálogo', 'query params'] },
         ],
       },
     ],

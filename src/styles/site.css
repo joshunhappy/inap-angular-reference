@@ -41,7 +41,7 @@
     & ol:not([class], inap-example *) { @apply list-decimal; }
     & ul:not([class], inap-example *) > li, & ol:not([class], inap-example *) > li { @apply mb-1.5; }
     & a:not(.btn, inap-example *) { @apply font-semibold text-primary-text underline underline-offset-2 hover:no-underline; }
-    & :not(pre) > code:not(inap-example *) { @apply rounded-sm bg-surface-subtle px-1.5 py-0.5 font-mono text-[0.875em] whitespace-nowrap text-base-content; }
+    & :not(pre) > code:not(inap-example *) { @apply rounded-sm bg-surface-subtle px-1.5 py-0.5 font-mono text-[0.875em] [overflow-wrap:anywhere] text-base-content; }
     & strong:not(inap-example *) { @apply font-semibold; }
   }
 
