@@ -28,6 +28,11 @@
                 "glob": "sprite.svg",
                 "input": "node_modules/lucide-static",
                 "output": "assets/lucide"
+              },
+              {
+                "glob": "inap-{theme,components,safelist,navigation}.css",
+                "input": "src/styles/theme",
+                "output": "archivos/tema"
               }
             ],
             "styles": [

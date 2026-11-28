@@ -41,7 +41,7 @@ const componentDoc = () =>
 /** Página genérica de pantalla (contenido en content/pantallas). */
 const screenDoc = () => import('../pages/pantallas/screen-doc').then((m) => m.ScreenDocPage);
 
-/** Página genérica de patrón o de contenido (content/patrones, content/contenido). */
+/** Página genérica de patrón, contenido o recurso (content/patrones, contenido, recursos). */
 const patternDoc = () => import('../pages/patrones/pattern-doc').then((m) => m.PatternDocPage);
 
 export const FIGMA_URL = 'https://www.figma.com/design/IntROaQkiRlnkFUci5PbDu';
@@ -266,8 +266,8 @@ export const SECTIONS: NavSection[] = [
     groups: [
       {
         pages: [
-          { slug: 'descargas', title: 'Descargas', status: 'decidido', description: 'CSS del tema, CSS para WordPress y logos.', keywords: ['css', 'svg', 'wordpress'] },
-          { slug: 'registro-de-cambios', title: 'Registro de cambios', status: 'decidido', description: 'Qué cambió y cuándo.', keywords: ['changelog'] },
+          { slug: 'descargas', load: patternDoc, title: 'Descargas', status: 'decidido', description: 'CSS del tema, logos y enlaces.', keywords: ['css', 'svg', 'wordpress', 'figma', 'repositorio'] },
+          { slug: 'registro-de-cambios', load: patternDoc, title: 'Registro de cambios', status: 'decidido', description: 'Qué cambió y cuándo.', keywords: ['changelog'] },
         ],
       },
     ],

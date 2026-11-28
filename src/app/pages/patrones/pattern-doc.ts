@@ -3,14 +3,15 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { CONTENT_DOCS } from '../../content/contenido';
 import { PATTERN_DOCS } from '../../content/patrones';
+import { RESOURCE_DOCS } from '../../content/recursos';
 import { PatternDoc } from '../../content/patrones/types';
 import { CodeBlock } from '../../ui/code-block/code-block';
 import { DocPage } from '../../ui/doc-page/doc-page';
 import { Example } from '../../ui/example/example';
 
-const DOCS: Record<string, Record<string, PatternDoc>> = { patrones: PATTERN_DOCS, contenido: CONTENT_DOCS };
+const DOCS: Record<string, Record<string, PatternDoc>> = { patrones: PATTERN_DOCS, contenido: CONTENT_DOCS, recursos: RESOURCE_DOCS };
 
-/** Página de patrón o de contenido: introducción y secciones con texto, ejemplo y código, a partir de un archivo de contenido. */
+/** Página de patrón, contenido o recurso: introducción y secciones con texto, ejemplo y código, a partir de un archivo de contenido. */
 @Component({
   selector: 'inap-pattern-doc',
   changeDetection: ChangeDetectionStrategy.OnPush,
