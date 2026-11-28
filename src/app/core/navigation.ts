@@ -41,7 +41,7 @@ const componentDoc = () =>
 /** Página genérica de pantalla (contenido en content/pantallas). */
 const screenDoc = () => import('../pages/pantallas/screen-doc').then((m) => m.ScreenDocPage);
 
-/** Página genérica de patrón (contenido en content/patrones). */
+/** Página genérica de patrón o de contenido (content/patrones, content/contenido). */
 const patternDoc = () => import('../pages/patrones/pattern-doc').then((m) => m.PatternDocPage);
 
 export const FIGMA_URL = 'https://www.figma.com/design/IntROaQkiRlnkFUci5PbDu';
@@ -251,9 +251,9 @@ export const SECTIONS: NavSection[] = [
     groups: [
       {
         pages: [
-          { slug: 'voz-y-tono', title: 'Voz y tono', status: 'propuesta', description: 'Claro, cercano y respetuoso, en español de Guatemala.', keywords: ['redacción', 'tuteo'] },
-          { slug: 'textos-de-interfaz', title: 'Textos de la interfaz', status: 'propuesta', description: 'Botones, mensajes y etiquetas de uso frecuente.', keywords: ['microcopy', 'ux writing'] },
-          { slug: 'contenido-provisional', title: 'Contenido provisional', status: 'decidido', description: 'Qué datos del diseño son de ejemplo.', keywords: ['placeholder'] },
+          { slug: 'voz-y-tono', load: patternDoc, title: 'Voz y tono', status: 'propuesta', description: 'Claro, cercano y respetuoso, en español de Guatemala.', keywords: ['redacción', 'tuteo'] },
+          { slug: 'textos-de-interfaz', load: patternDoc, title: 'Textos de la interfaz', status: 'propuesta', description: 'Botones, mensajes y etiquetas de uso frecuente.', keywords: ['microcopy', 'ux writing'] },
+          { slug: 'contenido-provisional', load: patternDoc, title: 'Contenido provisional', status: 'decidido', description: 'Qué datos del diseño son de ejemplo.', keywords: ['placeholder'] },
         ],
       },
     ],
